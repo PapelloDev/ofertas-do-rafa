@@ -657,6 +657,94 @@ def delete_category():
         print(f"Erro ao excluir categoria: {e}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/delete-product', methods=['POST'])
+def delete_product():
+    """Excluir um produto"""
+    try:
+        data = request.json
+        asin = data.get('asin')
+        
+        if not asin:
+            return jsonify({'error': 'ASIN não fornecido'}), 400
+        
+        # Ler produtos
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            produtos_data = json.load(f)
+        
+        # Encontrar e remover produto
+        produtos_data['produtos'] = [p for p in produtos_data['produtos'] if p['asin'] != asin]
+        
+        # Atualizar última atualização
+        produtos_data['config']['ultima_atualizacao'] = datetime.now().isoformat()
+        
+        # Salvar
+        with open(DATA_FILE, 'w', encoding='utf-8') as f:
+            json.dump(produtos_data, f, ensure_ascii=False, indent=2)
+        
+        # Remover página HTML do produto
+        product_file = os.path.join(PRODUCTS_DIR, f'{asin}.html')
+        if os.path.exists(product_file):
+            os.remove(product_file)
+            print(f"   ✅ Página HTML removida: {asin}.html")
+        
+        print(f"✅ Produto excluído: {asin}")
+        
+        return jsonify({'success': True, 'message': 'Produto excluído com sucesso'})
+        
+    except Exception as e:
+        print(f"Erro ao excluir produto: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/remove-expired', methods=['POST'])
+def remove_expired():
+    """Remover todos os produtos expirados"""
+    try:
+        # Ler produtos
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            produtos_data = json.load(f)
+        
+        # Filtrar produtos expirados
+        now = datetime.now()
+        produtos_ativos = []
+        produtos_removidos = []
+        
+        for produto in produtos_data['produtos']:
+            if produto.get('expiry_date'):
+                expiry_date = datetime.fromisoformat(produto['expiry_date'].replace('Z', '+00:00'))
+                if now > expiry_date:
+                    produtos_removidos.append(produto)
+                    # Remover página HTML
+                    product_file = os.path.join(PRODUCTS_DIR, f"{produto['asin']}.html")
+                    if os.path.exists(product_file):
+                        os.remove(product_file)
+                else:
+                    produtos_ativos.append(produto)
+            else:
+                # Produtos sem prazo de validade permanecem
+                produtos_ativos.append(produto)
+        
+        # Atualizar produtos
+        produtos_data['produtos'] = produtos_ativos
+        produtos_data['config']['ultima_atualizacao'] = datetime.now().isoformat()
+        
+        # Salvar
+        with open(DATA_FILE, 'w', encoding='utf-8') as f:
+            json.dump(produtos_data, f, ensure_ascii=False, indent=2)
+        
+        print(f"✅ {len(produtos_removidos)} produto(s) expirado(s) removido(s)")
+        
+        return jsonify({
+            'success': True,
+            'removed_count': len(produtos_removidos),
+            'message': f'{len(produtos_removidos)} produto(s) removido(s)'
+        })
+        
+    except Exception as e:
+        print(f"Erro ao remover produtos expirados: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/api/deploy', methods=['POST'])
 def deploy_to_github():
     """Commit e push automático para GitHub"""
@@ -761,6 +849,8 @@ if __name__ == '__main__':
     print("  POST /api/generate-product-page - Gerar página HTML")
     print("  POST /api/send-to-whatsapp      - Enviar produto para WhatsApp")
     print("  POST /api/deploy                - Deploy automático para GitHub")
+    print("  POST /api/delete-product        - Excluir produto")
+    print("  POST /api/remove-expired        - Remover produtos expirados")
     print("  POST /api/save-category         - Salvar categoria")
     print("  POST /api/delete-category       - Excluir categoria")
     print()

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Produtos - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-[#1A5F5F] text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-2xl font-bold">📦 Ofertas do Rafa</a>
+                    <span class="text-sm opacity-75">Admin</span>
+                </div>
+                <button id="logout-btn" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-colors">
+                    Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md mb-6">
+        <div class="container mx-auto px-4">
+            <div class="flex space-x-4 py-3">
+                <a href="index.html" class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                    🏠 Dashboard
+                </a>
+                <a href="adicionar-produto.html" class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                    ➕ Adicionar Produto
+                </a>
+                <a href="listar-produtos.html" class="px-4 py-2 bg-[#1A5F5F] text-white rounded-lg">
+                    📋 Gerenciar Produtos
+                </a>
+                <a href="categorias.html" class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                    🏷️ Categorias
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pb-12">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">📋 Gerenciar Produtos</h1>
+
+            <!-- Filtros -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Categoria</label>
+                        <select id="filter-category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A5F5F] focus:border-transparent">
+                            <option value="">Todas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                        <select id="filter-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A5F5F] focus:border-transparent">
+                            <option value="all">Todos</option>
+                            <option value="active">Ativos</option>
+                            <option value="expired">Expirados</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Buscar</label>
+                        <input type="text" id="search-input" placeholder="Buscar por título..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A5F5F] focus:border-transparent">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Produtos -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-900">Produtos</h2>
+                    <button id="remove-expired-btn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        🗑️ Remover Expirados
+                    </button>
+                </div>
+
+                <div id="products-list" class="space-y-4">
+                    <!-- Produtos serão carregados aqui -->
+                </div>
+
+                <div id="empty-state" class="hidden text-center py-12">
+                    <p class="text-gray-500 text-lg">Nenhum produto encontrado</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/listar-produtos.js"></script>
+</body>
+</html>
