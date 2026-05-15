@@ -439,6 +439,143 @@ def generate_product_page():
         print(f"Erro ao gerar página: {e}")
         return jsonify({'error': str(e)}), 500
 
+def generate_category_html(category):
+    """Gera HTML da página de categoria"""
+    html = f'''<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{category['nome']} - {category.get('descricao', '')}">
+    
+    <title>{category['nome']} - Ofertas do Rafa</title>
+    
+    <link rel="icon" type="image/png" href="../assets/images/logo/favicon.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="flex items-center justify-between py-4">
+                <a href="../index.html" class="flex items-center">
+                    <img src="../assets/images/logo/logo-original.jpg" alt="Ofertas do Rafa" class="logo-img">
+                </a>
+                
+                <div class="hidden md:flex items-center gap-2">
+                    <a href="../index.html" class="nav-link">Início</a>
+                    <a href="eletronicos.html" class="nav-link">📱 Eletrônicos</a>
+                    <a href="corrida.html" class="nav-link">🏃 Corrida</a>
+                    <a href="outros.html" class="nav-link">✌️ Outros</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Category Hero -->
+    <section class="category-hero" style="background: linear-gradient(135deg, {category['cor']} 0%, {category['cor']}dd 100%);">
+        <div class="container text-center">
+            <div class="category-icon">{category['icone']}</div>
+            <h1 class="category-title">{category['nome']}</h1>
+            <p class="category-description">{category.get('descricao', '')}</p>
+        </div>
+    </section>
+    
+    <!-- Products Grid -->
+    <section class="py-12">
+        <div class="container">
+            <div id="products-grid" class="products-grid">
+                <!-- Products will be loaded here -->
+            </div>
+            
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state hidden">
+                <div class="empty-state-icon">🔍</div>
+                <h3 class="empty-state-title">Nenhuma oferta encontrada</h3>
+                <p>Ainda não temos produtos nesta categoria. Volte em breve!</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center mb-6">
+                <img src="../assets/images/logo/logo-original.jpg" alt="Ofertas do Rafa" class="logo-img mx-auto mb-4" style="border-radius: 12px;">
+                <h3 class="text-xl font-bold mb-2">Ofertas do Rafa</h3>
+                <p class="opacity-90">Ofertas Cuidadosamente Curadas</p>
+            </div>
+            
+            <div class="disclaimer">
+                <h4 class="font-bold mb-2">⚠️ Aviso de Programa de Afiliados</h4>
+                <p>
+                    Este site participa do <strong>Programa de Associados da Amazon</strong>, um programa de publicidade 
+                    de afiliados projetado para fornecer um meio para sites ganharem taxas de publicidade através de 
+                    publicidade e links para Amazon.com.br.
+                </p>
+            </div>
+            
+            <div class="text-center mt-6 text-sm opacity-75">
+                <p>&copy; 2026 Ofertas do Rafa. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Load products for this category
+        async function loadProducts() {{
+            try {{
+                const response = await fetch('../data/produtos.json');
+                const data = await response.json();
+                
+                const produtos = data.produtos.filter(p => p.categoria === '{category['id']}');
+                
+                if (produtos.length === 0) {{
+                    document.getElementById('empty-state').classList.remove('hidden');
+                    return;
+                }}
+                
+                const grid = document.getElementById('products-grid');
+                grid.innerHTML = produtos.map(product => `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="${{product.imagem_url}}" alt="${{product.titulo}}">
+                            <span class="badge badge-discount">${{Math.round(product.desconto_percent)}}% OFF</span>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">${{product.titulo}}</h3>
+                            ${{product.brand ? `<p class="product-brand">${{product.brand}}</p>` : ''}}
+                            <div class="product-prices">
+                                ${{product.preco_original > product.preco_atual ? 
+                                    `<span class="price-old">R$ ${{product.preco_original.toFixed(2)}}</span>` : ''}}
+                                <span class="price-current">R$ ${{product.preco_atual.toFixed(2)}}</span>
+                            </div>
+                            <a href="../produto/${{product.asin}}.html" class="btn btn-primary">
+                                Ver Oferta
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+                
+            }} catch (error) {{
+                console.error('Erro ao carregar produtos:', error);
+                document.getElementById('empty-state').classList.remove('hidden');
+            }}
+        }}
+        
+        loadProducts();
+    </script>
+</body>
+</html>'''
+    
+    return html
+
+
 def generate_product_html(product, categories):
     """Gera HTML da página do produto"""
     category = next((c for c in categories if c['id'] == product['categoria']), {})
@@ -583,6 +720,19 @@ def save_category():
         # Salvar
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        # Gerar página HTML da categoria
+        try:
+            category_html = generate_category_html(category)
+            category_file = os.path.join(SITE_DIR, 'categoria', f"{category['id']}.html")
+            os.makedirs(os.path.dirname(category_file), exist_ok=True)
+            
+            with open(category_file, 'w', encoding='utf-8') as f:
+                f.write(category_html)
+            
+            print(f"   ✅ Página da categoria gerada: {category['id']}.html")
+        except Exception as page_error:
+            print(f"⚠️ Erro ao gerar página da categoria: {page_error}")
         
         # Deploy automático
         try:
