@@ -584,6 +584,14 @@ def save_category():
         with open(DATA_FILE, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         
+        # Deploy automático
+        try:
+            print("🚀 Iniciando deploy automático...")
+            deploy_result = deploy_changes(f"Nova categoria adicionada: {category['nome']}")
+            print(f"✅ Deploy concluído: {deploy_result}")
+        except Exception as deploy_error:
+            print(f"⚠️ Erro no deploy: {deploy_error}")
+        
         return jsonify({'success': True, 'message': 'Categoria salva com sucesso'})
         
     except Exception as e:
