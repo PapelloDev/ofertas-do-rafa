@@ -1,22 +1,10 @@
 // Admin - Adicionar Produto (Modo Manual)
 
-// Verificar autenticação
-if (!sessionStorage.getItem('admin_authenticated')) {
-    window.location.href = 'login.html';
-}
-
 // Estado do produto
 let currentProduct = null;
 
 // Aguardar DOM carregar
 document.addEventListener('DOMContentLoaded', function() {
-
-// Logout
-document.getElementById('logout-btn')?.addEventListener('click', () => {
-    sessionStorage.removeItem('admin_authenticated');
-    sessionStorage.removeItem('admin_login_time');
-    window.location.href = 'login.html';
-});
 
 // Carregar categorias dinamicamente
 async function loadCategories() {

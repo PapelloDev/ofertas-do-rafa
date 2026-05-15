@@ -4,46 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Produtos - Admin</title>
+    <link rel="icon" type="image/png" href="/site/assets/images/logo/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/admin/assets/js/admin-layout.js"></script>
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-[#1A5F5F] text-white shadow-lg">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <a href="index.html" class="text-2xl font-bold">📦 Ofertas do Rafa</a>
-                    <span class="text-sm opacity-75">Admin</span>
-                </div>
-                <button id="logout-btn" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-colors">
-                    Sair
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md mb-6">
-        <div class="container mx-auto px-4">
-            <div class="flex space-x-4 py-3">
-                <a href="index.html" class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                    🏠 Dashboard
-                </a>
-                <a href="adicionar-produto.html" class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                    ➕ Adicionar Produto
-                </a>
-                <a href="listar-produtos.html" class="px-4 py-2 bg-[#1A5F5F] text-white rounded-lg">
-                    📋 Gerenciar Produtos
-                </a>
-                <a href="categorias.html" class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                    🏷️ Categorias
-                </a>
-            </div>
-        </div>
-    </nav>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <div id="admin-header"></div>
+    <script>
+        document.getElementById('admin-header').innerHTML = AdminLayout.createHeader('listar');
+        AdminLayout.init('listar');
+    </script>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 pb-12">
+    <main class="flex-1 container mx-auto px-4 py-6">
         <div class="max-w-6xl mx-auto">
             <h1 class="text-3xl font-bold text-gray-900 mb-6">📋 Gerenciar Produtos</h1>
 
@@ -91,6 +64,11 @@
         </div>
     </main>
 
-    <script src="assets/js/listar-produtos.js"></script>
+    <div id="admin-footer"></div>
+    <script>
+        document.getElementById('admin-footer').innerHTML = AdminLayout.createFooter();
+    </script>
+    
+    <script src="/admin/assets/js/listar-produtos.js"></script>
 </body>
 </html>
