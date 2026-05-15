@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando... - Ofertas do Rafa</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1A5F5F 0%, #0D4444 100%);
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+        .logo {
+            width: 200px;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #F5A623;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="assets/images/logo/logo-original.jpg" alt="Ofertas do Rafa" class="logo">
+        <div class="spinner"></div>
+        <h1>🔗 Redirecionando...</h1>
+        <p>Você será redirecionado em instantes!</p>
+    </div>
+    
+    <script>
+        // Pegar o código curto da URL
+        const pathParts = window.location.pathname.split('/');
+        const shortCode = pathParts[pathParts.length - 1].replace('.html', '');
+        
+        // Buscar produtos
+        fetch('/data/produtos.json')
+            .then(response => response.json())
+            .then(data => {
+                // Encontrar produto pelo short_code
+                const product = data.produtos.find(p => p.short_code === shortCode);
+                
+                if (product) {
+                    // Redirecionar para o link de afiliado
+                    window.location.href = product.link_afiliado;
+                } else {
+                    // Se não encontrar, redirecionar para home
+                    window.location.href = '/';
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                // Em caso de erro, redirecionar para home
+                window.location.href = '/';
+            });
+    </script>
+</body>
+</html>

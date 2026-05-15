@@ -40,6 +40,13 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             
             return full_path
         else:
+            # Verificar se é uma URL curta (formato: /abc123)
+            # URLs curtas têm 6 caracteres alfanuméricos e não têm extensão
+            path_parts = path.strip('/').split('/')
+            if len(path_parts) == 1 and len(path_parts[0]) == 6 and path_parts[0].isalnum() and '.' not in path_parts[0]:
+                # É uma URL curta, redirecionar para página de redirect
+                return os.path.join(os.getcwd(), 'site', 'redirect.html')
+            
             # Servir da pasta site
             if path == '/' or path == '':
                 path = '/index.html'

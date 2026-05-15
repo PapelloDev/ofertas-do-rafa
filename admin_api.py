@@ -8,9 +8,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 from bs4 import BeautifulSoup
-import json
 import os
+import json
 import re
+import random
+import string
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 from dotenv import load_dotenv
@@ -381,13 +383,24 @@ def save_product():
         existing_index = next((i for i, p in enumerate(data['produtos']) if p['asin'] == product['asin']), None)
         
         if existing_index is not None:
-            # Atualizar produto existente
+            # Atualizar produto existente (manter short_code se existir)
+            if 'short_code' not in product and 'short_code' in data['produtos'][existing_index]:
+                product['short_code'] = data['produtos'][existing_index]['short_code']
             data['produtos'][existing_index] = product
             print(f"Produto atualizado: {product['asin']}")
         else:
+            # Gerar código curto único para novo produto
+            short_code = generate_short_code()
+            # Verificar se já existe (improvável mas possível)
+            while any(p.get('short_code') == short_code for p in data['produtos']):
+                short_code = generate_short_code()
+            
+            product['short_code'] = short_code
+            product['short_url'] = f"https://ofertasdorafa.app.br/{short_code}"
+            
             # Adicionar novo produto
             data['produtos'].append(product)
-            print(f"Novo produto adicionado: {product['asin']}")
+            print(f"Novo produto adicionado: {product['asin']} | URL curta: {product['short_url']}")
         
         # Atualizar timestamp
         data['config']['ultima_atualizacao'] = datetime.now().isoformat()
@@ -438,6 +451,12 @@ def generate_product_page():
     except Exception as e:
         print(f"Erro ao gerar página: {e}")
         return jsonify({'error': str(e)}), 500
+
+def generate_short_code(length=6):
+    """Gera um código curto único para URL"""
+    characters = string.ascii_lowercase + string.digits
+    return ''.join(random.choice(characters) for _ in range(length))
+
 
 def generate_category_html(category):
     """Gera HTML da página de categoria"""
