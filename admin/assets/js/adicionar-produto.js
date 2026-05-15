@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Carregar categorias dinamicamente
 async function loadCategories() {
     try {
-        const response = await fetch('../site/data/produtos.json');
+        const response = await fetch('http://localhost:8000/data/produtos.json');
         const data = await response.json();
         
         const categorySelect = document.getElementById('category');

@@ -6,7 +6,7 @@ let categories = [];
 // Carregar produtos e categorias
 async function loadData() {
     try {
-        const response = await fetch('/site/data/produtos.json');
+        const response = await fetch('http://localhost:8000/data/produtos.json');
         const data = await response.json();
         
         allProducts = data.produtos || [];
@@ -143,7 +143,7 @@ function renderProducts() {
                         
                         <!-- Ações -->
                         <div class="mt-4 flex space-x-2">
-                            <a href="/site/produto/${product.asin}.html" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                            <a href="http://localhost:8000/produto/${product.asin}.html" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
                                 👁️ Ver no Site
                             </a>
                             <a href="${product.link_afiliado}" target="_blank" class="bg-[#F5A623] hover:bg-[#E09619] text-white px-4 py-2 rounded-lg text-sm transition-colors">
