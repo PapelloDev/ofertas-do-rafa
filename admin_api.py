@@ -478,23 +478,7 @@ def generate_category_html(category):
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <nav class="flex items-center justify-between py-4">
-                <a href="../index.html" class="flex items-center">
-                    <img src="../assets/images/logo/logo-original.jpg" alt="Ofertas do Rafa" class="logo-img">
-                </a>
-                
-                <div class="hidden md:flex items-center gap-2">
-                    <a href="../index.html" class="nav-link">Início</a>
-                    <a href="eletronicos.html" class="nav-link">📱 Eletrônicos</a>
-                    <a href="corrida.html" class="nav-link">🏃 Corrida</a>
-                    <a href="outros.html" class="nav-link">✌️ Outros</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <!-- Header e Footer serão inseridos via JavaScript -->
     
     <!-- Category Hero -->
     <section class="category-hero" style="background: linear-gradient(135deg, {category['cor']} 0%, {category['cor']}dd 100%);">
@@ -521,29 +505,12 @@ def generate_category_html(category):
         </div>
     </section>
     
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="text-center mb-6">
-                <img src="../assets/images/logo/logo-original.jpg" alt="Ofertas do Rafa" class="logo-img mx-auto mb-4" style="border-radius: 12px;">
-                <h3 class="text-xl font-bold mb-2">Ofertas do Rafa</h3>
-                <p class="opacity-90">Ofertas Cuidadosamente Curadas</p>
-            </div>
-            
-            <div class="disclaimer">
-                <h4 class="font-bold mb-2">⚠️ Aviso de Programa de Afiliados</h4>
-                <p>
-                    Este site participa do <strong>Programa de Associados da Amazon</strong>, um programa de publicidade 
-                    de afiliados projetado para fornecer um meio para sites ganharem taxas de publicidade através de 
-                    publicidade e links para Amazon.com.br.
-                </p>
-            </div>
-            
-            <div class="text-center mt-6 text-sm opacity-75">
-                <p>&copy; 2026 Ofertas do Rafa. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Layout Components -->
+    <script src="../assets/js/site-layout.js"></script>
+    <script>
+        // Inicializar layout
+        SiteLayout.init('{category['id']}');
+    </script>
     
     <script>
         // Load products for this category
