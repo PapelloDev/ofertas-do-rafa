@@ -162,11 +162,15 @@ function renderProducts() {
 
 // Excluir produto
 async function deleteProduct(asin) {
+    console.log('🗑️ Tentando deletar produto:', asin);
+    
     if (!confirm('Tem certeza que deseja excluir este produto?')) {
+        console.log('❌ Usuário cancelou');
         return;
     }
     
     try {
+        console.log('📤 Enviando requisição para API...');
         const response = await fetch('http://localhost:5001/api/delete-product', {
             method: 'POST',
             headers: {
@@ -175,17 +179,26 @@ async function deleteProduct(asin) {
             body: JSON.stringify({ asin })
         });
         
+        console.log('📥 Resposta recebida:', response.status);
+        
         if (!response.ok) {
-            throw new Error('Erro ao excluir produto');
+            const errorData = await response.json();
+            console.error('❌ Erro da API:', errorData);
+            throw new Error(errorData.error || 'Erro ao excluir produto');
         }
+        
+        const result = await response.json();
+        console.log('✅ Resultado:', result);
         
         alert('Produto excluído com sucesso!');
         
         // Recarregar dados
+        console.log('🔄 Recarregando dados...');
         await loadData();
+        console.log('✅ Dados recarregados!');
         
     } catch (error) {
-        console.error('Erro ao excluir:', error);
+        console.error('❌ Erro ao excluir:', error);
         alert('Erro ao excluir produto: ' + error.message);
     }
 }
