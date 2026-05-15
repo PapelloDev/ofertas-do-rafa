@@ -32,6 +32,8 @@ def send_product_to_whatsapp(product_data, product_url):
         desconto = product_data.get('desconto_percent', 0)
         brand = product_data.get('brand', '')
         imagem_url = product_data.get('imagem_url', '')
+        expiry_date = product_data.get('expiry_date')
+        expiry_hours = product_data.get('expiry_hours', 0)
         
         # Emoji baseado no desconto
         if desconto >= 50:
@@ -60,10 +62,30 @@ def send_product_to_whatsapp(product_data, product_url):
             economia = preco_original - preco_atual
             message += f"💵 Economia: *R$ {economia:.2f}*\n"
         
+        # Adicionar prazo de validade se existir
+        if expiry_date and expiry_hours > 0:
+            from datetime import datetime
+            expiry_dt = datetime.fromisoformat(expiry_date.replace('Z', '+00:00'))
+            
+            if expiry_hours < 24:
+                prazo_texto = f"{expiry_hours}h"
+            elif expiry_hours == 24:
+                prazo_texto = "24 horas"
+            elif expiry_hours == 48:
+                prazo_texto = "2 dias"
+            elif expiry_hours == 72:
+                prazo_texto = "3 dias"
+            elif expiry_hours == 168:
+                prazo_texto = "1 semana"
+            else:
+                dias = expiry_hours // 24
+                prazo_texto = f"{dias} dias"
+            
+            message += f"⏰ Válido por: *{prazo_texto}*\n"
+        
         message += f"\n"
-        message += f"👉 *Ver oferta completa:*\n{product_url}\n\n"
-        message += f"⏰ _Oferta por tempo limitado!_\n"
-        message += f"🤖 _Atualizado automaticamente_"
+        message += f"🔗 *Ver oferta:*\n{product_url}\n\n"
+        message += f"_💡 Aproveite enquanto dura!_"
         
         # Enviar mensagem com imagem
         print(f"📤 Enviando para WhatsApp...")
