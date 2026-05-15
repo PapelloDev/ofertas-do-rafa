@@ -95,15 +95,15 @@ function createFooter() {
             <div class="text-center mb-6">
                 <img src="/assets/images/logo/logo-original.jpg" alt="Ofertas do Rafa" class="logo-img mx-auto mb-4" style="border-radius: 12px;">
                 <h3 class="text-xl font-bold mb-2">Ofertas do Rafa</h3>
-                <p class="opacity-90">Ofertas Cuidadosamente Curadas</p>
+                <p class="opacity-90">As melhores ofertas da Amazon em um só lugar</p>
             </div>
             
             <div class="disclaimer">
-                <h4 class="font-bold mb-2">⚠️ Aviso de Programa de Afiliados</h4>
+                <h4 class="font-bold mb-2">⚠️ Programa de Afiliados</h4>
                 <p>
-                    Este site participa do <strong>Programa de Associados da Amazon</strong>, um programa de publicidade 
-                    de afiliados projetado para fornecer um meio para sites ganharem taxas de publicidade através de 
-                    publicidade e links para Amazon.com.br.
+                    Participamos do <strong>Programa de Associados da Amazon</strong>. 
+                    Ao comprar através dos nossos links, você nos ajuda a manter o site 
+                    sem custo adicional para você.
                 </p>
             </div>
             
