@@ -698,6 +698,14 @@ def delete_product():
         
         print(f"✅ Produto excluído: {asin}")
         
+        # Deploy automático para GitHub
+        try:
+            print("🚀 Iniciando deploy automático...")
+            deploy_result = deploy_changes(f"Produto removido: {asin}")
+            print(f"✅ Deploy concluído: {deploy_result}")
+        except Exception as deploy_error:
+            print(f"⚠️ Erro no deploy (produto foi deletado localmente): {deploy_error}")
+        
         return jsonify({'success': True, 'message': 'Produto excluído com sucesso'})
         
     except Exception as e:
@@ -742,6 +750,15 @@ def remove_expired():
             json.dump(produtos_data, f, ensure_ascii=False, indent=2)
         
         print(f"✅ {len(produtos_removidos)} produto(s) expirado(s) removido(s)")
+        
+        # Deploy automático se houver produtos removidos
+        if len(produtos_removidos) > 0:
+            try:
+                print("🚀 Iniciando deploy automático...")
+                deploy_result = deploy_changes(f"Removidos {len(produtos_removidos)} produto(s) expirado(s)")
+                print(f"✅ Deploy concluído: {deploy_result}")
+            except Exception as deploy_error:
+                print(f"⚠️ Erro no deploy: {deploy_error}")
         
         return jsonify({
             'success': True,
@@ -860,6 +877,52 @@ def get_analytics():
     except Exception as e:
         print(f"Erro ao obter analytics: {e}")
         return jsonify({'error': str(e)}), 500
+
+
+def deploy_changes(commit_message):
+    """Função auxiliar para fazer deploy de mudanças no GitHub"""
+    # Configurações do GitHub
+    token = os.getenv('GITHUB_TOKEN')
+    repo_name = os.getenv('GITHUB_REPO')
+    branch = os.getenv('GITHUB_BRANCH', 'main')
+    
+    if not token or not repo_name:
+        raise Exception('GitHub não configurado no .env')
+    
+    print(f"📤 Deploy para GitHub...")
+    print(f"   Repositório: {repo_name}")
+    print(f"   Mensagem: {commit_message}")
+    
+    # Conectar ao GitHub
+    g = Github(token)
+    repo = g.get_repo(repo_name)
+    
+    # Ler arquivo produtos.json local
+    with open(DATA_FILE, 'r', encoding='utf-8') as f:
+        produtos_content = f.read()
+    
+    # Atualizar produtos.json no GitHub
+    try:
+        contents = repo.get_contents('site/data/produtos.json', ref=branch)
+        repo.update_file(
+            'site/data/produtos.json',
+            commit_message,
+            produtos_content,
+            contents.sha,
+            branch=branch
+        )
+        print(f"   ✅ produtos.json atualizado no GitHub")
+    except Exception as e:
+        # Se não existir, criar
+        repo.create_file(
+            'site/data/produtos.json',
+            commit_message,
+            produtos_content,
+            branch=branch
+        )
+        print(f"   ✅ produtos.json criado no GitHub")
+    
+    return "Deploy concluído com sucesso"
 
 
 @app.route('/api/deploy', methods=['POST'])

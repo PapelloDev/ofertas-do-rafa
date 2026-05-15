@@ -1,80 +1,5 @@
 {
-  "produtos": [
-    {
-      "asin": "MANUAL_1778850397675",
-      "titulo": "� Título do Produto *",
-      "descricao": "",
-      "categoria": "eletronicos",
-      "preco_original": 250,
-      "preco_atual": 178,
-      "desconto_percent": 29,
-      "imagem_url": "https://m.media-amazon.com/images/I/51uK6mXqlGL._AC_SX679_.jpg",
-      "link_afiliado": "https://amzn.to/4uRijt3",
-      "brand": "marca",
-      "features": [
-        "carac 1 ",
-        "c2",
-        "c3"
-      ],
-      "data_atualizacao": "2026-05-15T13:06:37.675Z",
-      "expiry_date": "2026-05-16T13:06:37.676Z",
-      "expiry_hours": 24
-    },
-    {
-      "asin": "MANUAL_1778861552041",
-      "titulo": "aaaa",
-      "descricao": "",
-      "categoria": "corrida",
-      "preco_original": 222,
-      "preco_atual": 22,
-      "desconto_percent": 90,
-      "imagem_url": "aaaa",
-      "link_afiliado": "aaa",
-      "brand": "aaa",
-      "features": [
-        "aaa"
-      ],
-      "data_atualizacao": "2026-05-15T16:12:32.041Z",
-      "expiry_date": "2026-05-16T16:12:32.041Z",
-      "expiry_hours": 24
-    },
-    {
-      "asin": "MANUAL_1778862982841",
-      "titulo": "aaaa",
-      "descricao": "",
-      "categoria": "corrida",
-      "preco_original": 222,
-      "preco_atual": 22,
-      "desconto_percent": 90,
-      "imagem_url": "https://m.media-amazon.com/images/I/51uK6mXqlGL._AC_SX679_.jpg",
-      "link_afiliado": "aaa",
-      "brand": "aaa",
-      "features": [
-        "aaa"
-      ],
-      "data_atualizacao": "2026-05-15T16:36:22.842Z",
-      "expiry_date": "2026-05-16T16:36:22.842Z",
-      "expiry_hours": 24
-    },
-    {
-      "asin": "MANUAL_1778872024065",
-      "titulo": "teste",
-      "descricao": "",
-      "categoria": "eletronicos",
-      "preco_original": 1111,
-      "preco_atual": 111111,
-      "desconto_percent": 0,
-      "imagem_url": "https://images-na.ssl-images-amazon.com/images/I/71n8e4wSM-L._AC_UL165_SR165,165_.jpg",
-      "link_afiliado": "teste",
-      "brand": "aaa",
-      "features": [
-        "aaa"
-      ],
-      "data_atualizacao": "2026-05-15T19:07:04.065Z",
-      "expiry_date": "2026-05-16T19:07:04.066Z",
-      "expiry_hours": 24
-    }
-  ],
+  "produtos": [],
   "categorias": [
     {
       "id": "eletronicos",
@@ -106,6 +31,6 @@
     "site_slogan": "Ofertas Cuidadosamente Curadas",
     "site_url": "https://ofertasdorafa.netlify.app",
     "partner_tag": "rahsinc-20",
-    "ultima_atualizacao": "2026-05-15T16:07:06.934815"
+    "ultima_atualizacao": "2026-05-15T17:39:01.422770"
   }
 }
