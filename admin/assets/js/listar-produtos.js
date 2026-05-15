@@ -149,7 +149,7 @@ function renderProducts() {
                             <a href="${product.link_afiliado}" target="_blank" class="bg-[#F5A623] hover:bg-[#E09619] text-white px-4 py-2 rounded-lg text-sm transition-colors">
                                 🔗 Ver na Amazon
                             </a>
-                            <button onclick="deleteProduct('${product.asin}')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                            <button class="delete-product-btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors" data-asin="${product.asin}">
                                 🗑️ Excluir
                             </button>
                         </div>
@@ -231,6 +231,17 @@ document.getElementById('remove-expired-btn').addEventListener('click', async ()
 document.getElementById('filter-category').addEventListener('change', renderProducts);
 document.getElementById('filter-status').addEventListener('change', renderProducts);
 document.getElementById('search-input').addEventListener('input', renderProducts);
+
+// Event delegation para botões de deletar
+document.getElementById('products-list').addEventListener('click', function(e) {
+    if (e.target.classList.contains('delete-product-btn') || e.target.closest('.delete-product-btn')) {
+        const button = e.target.classList.contains('delete-product-btn') ? e.target : e.target.closest('.delete-product-btn');
+        const asin = button.getAttribute('data-asin');
+        if (asin) {
+            deleteProduct(asin);
+        }
+    }
+});
 
 // Carregar dados ao iniciar
 loadData();
