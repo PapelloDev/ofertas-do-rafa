@@ -511,7 +511,13 @@ def generate_product_html(product, categories):
                         <p class="text-green-600 font-semibold">Economize R$ {(product['preco_original'] - product['preco_atual']):.2f}</p>
                     </div>
                     
-                    <a href="{product['link_afiliado']}" target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full text-center text-xl py-4 mb-6">
+                    <a href="{product['link_afiliado']}" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn btn-primary w-full text-center text-xl py-4 mb-6"
+                       data-asin="{product['asin']}"
+                       data-title="{product['titulo']}"
+                       data-category="{product['categoria']}">
                         🛒 Comprar na Amazon
                     </a>
                     
@@ -543,6 +549,9 @@ def generate_product_html(product, categories):
             </div>
         </div>
     </footer>
+    
+    <!-- Analytics -->
+    <script src="../assets/js/analytics.js"></script>
 </body>
 </html>'''
     
@@ -745,6 +754,114 @@ def remove_expired():
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/api/track-click', methods=['POST'])
+def track_click():
+    """Registrar clique em produto"""
+    try:
+        data = request.json
+        
+        analytics_file = os.path.join(SITE_DIR, 'data', 'analytics.json')
+        
+        # Ler analytics existente
+        if os.path.exists(analytics_file):
+            with open(analytics_file, 'r', encoding='utf-8') as f:
+                analytics_data = json.load(f)
+        else:
+            analytics_data = {
+                'clicks': [],
+                'summary': {
+                    'total_clicks': 0,
+                    'clicks_by_product': {},
+                    'clicks_by_category': {},
+                    'clicks_by_date': {}
+                },
+                'last_updated': ''
+            }
+        
+        # Adicionar novo clique
+        click_data = {
+            'asin': data.get('asin'),
+            'product_title': data.get('product_title'),
+            'category': data.get('category'),
+            'timestamp': data.get('timestamp'),
+            'user_agent': data.get('user_agent', ''),
+            'referrer': data.get('referrer', '')
+        }
+        
+        analytics_data['clicks'].append(click_data)
+        
+        # Atualizar sumário
+        analytics_data['summary']['total_clicks'] += 1
+        
+        # Por produto
+        asin = click_data['asin']
+        if asin not in analytics_data['summary']['clicks_by_product']:
+            analytics_data['summary']['clicks_by_product'][asin] = {
+                'count': 0,
+                'title': click_data['product_title']
+            }
+        analytics_data['summary']['clicks_by_product'][asin]['count'] += 1
+        
+        # Por categoria
+        category = click_data['category']
+        if category:
+            if category not in analytics_data['summary']['clicks_by_category']:
+                analytics_data['summary']['clicks_by_category'][category] = 0
+            analytics_data['summary']['clicks_by_category'][category] += 1
+        
+        # Por data
+        date = click_data['timestamp'][:10]  # YYYY-MM-DD
+        if date not in analytics_data['summary']['clicks_by_date']:
+            analytics_data['summary']['clicks_by_date'][date] = 0
+        analytics_data['summary']['clicks_by_date'][date] += 1
+        
+        # Atualizar timestamp
+        analytics_data['last_updated'] = datetime.now().isoformat()
+        
+        # Salvar
+        with open(analytics_file, 'w', encoding='utf-8') as f:
+            json.dump(analytics_data, f, ensure_ascii=False, indent=2)
+        
+        print(f"📊 Clique registrado: {click_data['product_title']}")
+        
+        return jsonify({'success': True})
+        
+    except Exception as e:
+        print(f"Erro ao registrar clique: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/analytics', methods=['GET'])
+def get_analytics():
+    """Obter dados de analytics"""
+    try:
+        analytics_file = os.path.join(SITE_DIR, 'data', 'analytics.json')
+        
+        if not os.path.exists(analytics_file):
+            return jsonify({
+                'clicks': [],
+                'summary': {
+                    'total_clicks': 0,
+                    'clicks_by_product': {},
+                    'clicks_by_category': {},
+                    'clicks_by_date': {}
+                }
+            })
+        
+        with open(analytics_file, 'r', encoding='utf-8') as f:
+            analytics_data = json.load(f)
+        
+        # Limitar clicks aos últimos 1000 para não sobrecarregar
+        if len(analytics_data['clicks']) > 1000:
+            analytics_data['clicks'] = analytics_data['clicks'][-1000:]
+        
+        return jsonify(analytics_data)
+        
+    except Exception as e:
+        print(f"Erro ao obter analytics: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/api/deploy', methods=['POST'])
 def deploy_to_github():
     """Commit e push automático para GitHub"""
@@ -851,6 +968,8 @@ if __name__ == '__main__':
     print("  POST /api/deploy                - Deploy automático para GitHub")
     print("  POST /api/delete-product        - Excluir produto")
     print("  POST /api/remove-expired        - Remover produtos expirados")
+    print("  POST /api/track-click           - Registrar clique em produto")
+    print("  GET  /api/analytics             - Obter dados de analytics")
     print("  POST /api/save-category         - Salvar categoria")
     print("  POST /api/delete-category       - Excluir categoria")
     print()
