@@ -14,6 +14,8 @@ import re
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 from dotenv import load_dotenv
+from github import Github
+import base64
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -655,6 +657,96 @@ def delete_category():
         print(f"Erro ao excluir categoria: {e}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/deploy', methods=['POST'])
+def deploy_to_github():
+    """Commit e push automático para GitHub"""
+    try:
+        data = request.json
+        asin = data.get('asin', 'produto')
+        message = data.get('message', f'Novo produto: {asin}')
+        
+        # Configurações do GitHub
+        token = os.getenv('GITHUB_TOKEN')
+        repo_name = os.getenv('GITHUB_REPO')
+        branch = os.getenv('GITHUB_BRANCH', 'main')
+        
+        if not token or not repo_name:
+            return jsonify({'error': 'GitHub não configurado no .env'}), 500
+        
+        print(f"📤 Iniciando deploy para GitHub...")
+        print(f"   Repositório: {repo_name}")
+        print(f"   Branch: {branch}")
+        
+        # Conectar ao GitHub
+        g = Github(token)
+        repo = g.get_repo(repo_name)
+        
+        # Ler arquivo produtos.json local
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            produtos_content = f.read()
+        
+        # Atualizar produtos.json no GitHub
+        try:
+            contents = repo.get_contents('site/data/produtos.json', ref=branch)
+            repo.update_file(
+                'site/data/produtos.json',
+                message,
+                produtos_content,
+                contents.sha,
+                branch=branch
+            )
+            print(f"   ✅ produtos.json atualizado")
+        except Exception as e:
+            # Se não existir, criar
+            repo.create_file(
+                'site/data/produtos.json',
+                message,
+                produtos_content,
+                branch=branch
+            )
+            print(f"   ✅ produtos.json criado")
+        
+        # Atualizar página do produto
+        product_file = f'site/produto/{asin}.html'
+        if os.path.exists(product_file):
+            with open(product_file, 'r', encoding='utf-8') as f:
+                product_content = f.read()
+            
+            try:
+                contents = repo.get_contents(f'site/produto/{asin}.html', ref=branch)
+                repo.update_file(
+                    f'site/produto/{asin}.html',
+                    message,
+                    product_content,
+                    contents.sha,
+                    branch=branch
+                )
+                print(f"   ✅ Página do produto atualizada")
+            except:
+                repo.create_file(
+                    f'site/produto/{asin}.html',
+                    message,
+                    product_content,
+                    branch=branch
+                )
+                print(f"   ✅ Página do produto criada")
+        
+        print(f"✅ Deploy realizado com sucesso!")
+        print(f"   Netlify vai fazer rebuild em ~2 minutos")
+        
+        return jsonify({
+            'success': True,
+            'message': 'Deploy iniciado! Site será atualizado em ~2 minutos.',
+            'commit_message': message
+        })
+        
+    except Exception as e:
+        print(f"❌ Erro no deploy: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
 if __name__ == '__main__':
     print("=" * 60)
     print("🚀 API Admin - Ofertas do Rafa")
@@ -668,6 +760,7 @@ if __name__ == '__main__':
     print("  POST /api/save-product          - Salvar produto no JSON")
     print("  POST /api/generate-product-page - Gerar página HTML")
     print("  POST /api/send-to-whatsapp      - Enviar produto para WhatsApp")
+    print("  POST /api/deploy                - Deploy automático para GitHub")
     print("  POST /api/save-category         - Salvar categoria")
     print("  POST /api/delete-category       - Excluir categoria")
     print()

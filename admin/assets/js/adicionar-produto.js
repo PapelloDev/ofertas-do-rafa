@@ -239,6 +239,37 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
             console.warn('⚠️ Erro ao enviar para WhatsApp:', whatsappError);
         }
         
+        // Fazer deploy automático para GitHub
+        try {
+            console.log('📤 Iniciando deploy para GitHub...');
+            const deployResponse = await fetch('http://localhost:5001/api/deploy', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    asin: currentProduct.asin,
+                    message: `Novo produto: ${currentProduct.titulo}`
+                })
+            });
+            
+            if (deployResponse.ok) {
+                const deployData = await deployResponse.json();
+                console.log('✅ Deploy iniciado!', deployData.message);
+                alert('✅ Produto publicado com sucesso!\n\n' + 
+                      '📱 WhatsApp: Enviado\n' +
+                      '🚀 Deploy: Iniciado\n' +
+                      '⏱️ Site será atualizado em ~2 minutos\n\n' +
+                      'Acesse: https://ofertasdorafa.app.br');
+            } else {
+                console.warn('⚠️ Deploy falhou, mas produto foi salvo localmente');
+                alert('⚠️ Produto salvo localmente.\n\nFaça git push manual para publicar no site.');
+            }
+        } catch (deployError) {
+            console.error('❌ Erro no deploy:', deployError);
+            alert('⚠️ Produto salvo localmente.\n\nFaça git push manual para publicar no site.');
+        }
+        
         // Mostrar mensagem de sucesso
         document.getElementById('product-preview').classList.add('hidden');
         document.getElementById('success-message').classList.remove('hidden');
