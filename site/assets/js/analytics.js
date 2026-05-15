@@ -12,8 +12,13 @@ async function trackClick(asin, productTitle, category) {
             referrer: document.referrer
         };
 
+        // Determinar URL da API (localhost ou produção)
+        const apiUrl = window.location.hostname === 'localhost' 
+            ? 'http://localhost:5001/api/track-click'
+            : '/.netlify/functions/track-click';
+
         // Enviar para API
-        await fetch('http://localhost:5001/api/track-click', {
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,9 +26,14 @@ async function trackClick(asin, productTitle, category) {
             body: JSON.stringify(clickData)
         });
 
-        console.log('✅ Clique registrado:', clickData);
+        if (response.ok) {
+            console.log('✅ Clique registrado:', clickData);
+        } else {
+            console.warn('⚠️ Resposta não OK:', response.status);
+        }
     } catch (error) {
         console.error('❌ Erro ao registrar clique:', error);
+        // Não bloquear navegação mesmo se falhar
     }
 }
 
