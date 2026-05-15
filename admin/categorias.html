@@ -4,48 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Categorias - Admin Ofertas do Rafa</title>
-    <link rel="icon" type="image/png" href="../site/assets/images/logo/favicon.png">
-    <link rel="apple-touch-icon" href="../site/assets/images/logo/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/site/assets/images/logo/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --primary: #1A5F5F;
-            --secondary: #F5A623;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+    <script src="/admin/assets/js/admin-layout.js"></script>
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center hover:opacity-80">
-                        <img src="../site/assets/images/logo/logo-full.png" alt="Ofertas do Rafa" class="h-16 w-auto max-w-sm">
-                        <span class="ml-4 text-xl font-bold text-gray-800">Admin Panel</span>
-                    </a>
-                </div>
-                <button id="logout-btn" class="text-gray-600 hover:text-red-600 font-medium">
-                    🚪 Sair
-                </button>
-            </div>
-        </div>
-    </header>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <div id="admin-header"></div>
+    <script>
+        document.getElementById('admin-header').innerHTML = AdminLayout.createHeader('categorias');
+        AdminLayout.init('categorias');
+    </script>
     
     <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Breadcrumb -->
-        <nav class="mb-6">
-            <a href="index.html" class="text-[#1A5F5F] hover:underline">Dashboard</a>
-            <span class="text-gray-500 mx-2">/</span>
-            <span class="text-gray-700">Categorias</span>
-        </nav>
+    <main class="flex-1 container mx-auto px-4 py-6">
+        <div class="max-w-4xl mx-auto">
         
         <!-- Add Category Card -->
         <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
@@ -186,19 +158,7 @@
     </main>
     
     <script>
-        // Verificar autenticação
-        if (sessionStorage.getItem('admin_authenticated') !== 'true') {
-            window.location.href = 'login.html';
-        }
-        
-        // Logout
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            sessionStorage.removeItem('admin_authenticated');
-            sessionStorage.removeItem('admin_login_time');
-            window.location.href = 'login.html';
-        });
-        
-        // Sincronizar color picker com input hex
+        // Carregar categorias picker com input hex
         const colorPicker = document.getElementById('category-color');
         const colorHex = document.getElementById('category-color-hex');
         
@@ -338,6 +298,13 @@
         
         // Carregar ao iniciar
         loadCategories();
+    </script>
+        </div>
+    </main>
+    
+    <div id="admin-footer"></div>
+    <script>
+        document.getElementById('admin-footer').innerHTML = AdminLayout.createFooter();
     </script>
 </body>
 </html>

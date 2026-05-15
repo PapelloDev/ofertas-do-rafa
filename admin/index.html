@@ -4,40 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Admin Ofertas do Rafa</title>
-    <link rel="icon" type="image/png" href="../site/assets/images/logo/favicon.png">
-    <link rel="apple-touch-icon" href="../site/assets/images/logo/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/site/assets/images/logo/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --primary: #1A5F5F;
-            --secondary: #F5A623;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
+    <script src="/admin/assets/js/admin-layout.js"></script>
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <img src="../site/assets/images/logo/logo-full.png" alt="Ofertas do Rafa" class="h-16 w-auto max-w-sm">
-                    <span class="ml-4 text-xl font-bold text-gray-800">Admin Panel</span>
-                </div>
-                <button id="logout-btn" class="text-gray-600 hover:text-red-600 font-medium">
-                    🚪 Sair
-                </button>
-            </div>
-        </div>
-    </header>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <div id="admin-header"></div>
+    <script>
+        document.getElementById('admin-header').innerHTML = AdminLayout.createHeader('dashboard');
+        AdminLayout.init('dashboard');
+    </script>
     
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-1 container mx-auto px-4 py-6">
+        <div class="max-w-7xl mx-auto">
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
@@ -91,7 +71,7 @@
                 </a>
                 <a href="listar-produtos.html" class="flex items-center justify-center bg-gray-700 hover:bg-gray-800 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105">
                     <span class="text-2xl mr-3">📋</span>
-                    Ver Produtos
+                    Gerenciar Produtos
                 </a>
             </div>
         </div>
@@ -106,22 +86,10 @@
     </main>
     
     <script>
-        // Verificar autenticação
-        if (sessionStorage.getItem('admin_authenticated') !== 'true') {
-            window.location.href = 'login.html';
-        }
-        
-        // Logout
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            sessionStorage.removeItem('admin_authenticated');
-            sessionStorage.removeItem('admin_login_time');
-            window.location.href = 'login.html';
-        });
-        
         // Carregar estatísticas
         async function loadStats() {
             try {
-                const response = await fetch('../site/data/produtos.json');
+                const response = await fetch('/site/data/produtos.json');
                 const data = await response.json();
                 
                 const produtos = data.produtos || [];
@@ -169,6 +137,13 @@
         
         // Carregar ao iniciar
         loadStats();
+    </script>
+        </div>
+    </main>
+    
+    <div id="admin-footer"></div>
+    <script>
+        document.getElementById('admin-footer').innerHTML = AdminLayout.createFooter();
     </script>
 </body>
 </html>
