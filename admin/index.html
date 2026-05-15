@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Admin Ofertas do Rafa</title>
+    <link rel="icon" type="image/png" href="../site/assets/images/logo/favicon.png">
+    <link rel="apple-touch-icon" href="../site/assets/images/logo/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #1A5F5F;
+            --secondary: #F5A623;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <img src="../site/assets/images/logo/logo-full.png" alt="Ofertas do Rafa" class="h-16 w-auto max-w-sm">
+                    <span class="ml-4 text-xl font-bold text-gray-800">Admin Panel</span>
+                </div>
+                <button id="logout-btn" class="text-gray-600 hover:text-red-600 font-medium">
+                    🚪 Sair
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Total de Produtos</p>
+                        <p id="total-products" class="text-3xl font-bold text-gray-900 mt-2">0</p>
+                    </div>
+                    <div class="bg-[#1A5F5F] bg-opacity-10 rounded-full p-3">
+                        <span class="text-3xl">📦</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Eletrônicos</p>
+                        <p id="eletronicos-count" class="text-3xl font-bold text-gray-900 mt-2">0</p>
+                    </div>
+                    <div class="bg-[#1A5F5F] bg-opacity-10 rounded-full p-3">
+                        <span class="text-3xl">📱</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Itens de Corrida</p>
+                        <p id="corrida-count" class="text-3xl font-bold text-gray-900 mt-2">0</p>
+                    </div>
+                    <div class="bg-[#F5A623] bg-opacity-10 rounded-full p-3">
+                        <span class="text-3xl">🏃</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Ações Rápidas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="adicionar-produto.html" class="flex items-center justify-center bg-[#F5A623] hover:bg-[#E09619] text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105">
+                    <span class="text-2xl mr-3">➕</span>
+                    Adicionar Produto
+                </a>
+                <a href="categorias.html" class="flex items-center justify-center bg-[#1A5F5F] hover:bg-[#0D4444] text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105">
+                    <span class="text-2xl mr-3">�</span>
+                    Gerenciar Categorias
+                </a>
+                <a href="listar-produtos.html" class="flex items-center justify-center bg-gray-700 hover:bg-gray-800 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 transform hover:scale-105">
+                    <span class="text-2xl mr-3">📋</span>
+                    Ver Produtos
+                </a>
+            </div>
+        </div>
+        
+        <!-- Recent Products -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Produtos Recentes</h2>
+            <div id="recent-products" class="space-y-4">
+                <p class="text-gray-500 text-center py-8">Nenhum produto adicionado ainda</p>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Verificar autenticação
+        if (sessionStorage.getItem('admin_authenticated') !== 'true') {
+            window.location.href = 'login.html';
+        }
+        
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            sessionStorage.removeItem('admin_authenticated');
+            sessionStorage.removeItem('admin_login_time');
+            window.location.href = 'login.html';
+        });
+        
+        // Carregar estatísticas
+        async function loadStats() {
+            try {
+                const response = await fetch('../site/data/produtos.json');
+                const data = await response.json();
+                
+                const produtos = data.produtos || [];
+                const eletronicos = produtos.filter(p => p.categoria === 'eletronicos');
+                const corrida = produtos.filter(p => p.categoria === 'corrida');
+                
+                document.getElementById('total-products').textContent = produtos.length;
+                document.getElementById('eletronicos-count').textContent = eletronicos.length;
+                document.getElementById('corrida-count').textContent = corrida.length;
+                
+                // Mostrar produtos recentes
+                if (produtos.length > 0) {
+                    const recent = produtos.slice(-5).reverse();
+                    displayRecentProducts(recent);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar estatísticas:', error);
+            }
+        }
+        
+        function displayRecentProducts(products) {
+            const container = document.getElementById('recent-products');
+            
+            if (products.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum produto adicionado ainda</p>';
+                return;
+            }
+            
+            container.innerHTML = products.map(product => `
+                <div class="flex items-center justify-between border-b pb-4">
+                    <div class="flex items-center space-x-4">
+                        <img src="${product.imagem_url}" alt="${product.titulo}" class="w-16 h-16 object-cover rounded">
+                        <div>
+                            <h3 class="font-semibold text-gray-900">${product.titulo}</h3>
+                            <p class="text-sm text-gray-500">${product.categoria === 'eletronicos' ? '📱 Eletrônicos' : '🏃 Corrida'}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-[#1A5F5F]">R$ ${product.preco_atual.toFixed(2)}</p>
+                        <p class="text-sm text-green-600">${product.desconto_percent}% OFF</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Carregar ao iniciar
+        loadStats();
+    </script>
+</body>
+</html>

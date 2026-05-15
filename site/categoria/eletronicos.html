@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ofertas de Eletrônicos - Smartphones, tablets, gadgets e acessórios tecnológicos com os melhores descontos.">
+    <title>Eletrônicos - Ofertas do Rafa</title>
+    
+    <link rel="icon" type="image/png" href="../assets/images/logo/favicon.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="flex items-center justify-between py-4">
+                <a href="../index.html" class="flex items-center">
+                    <img src="../assets/images/logo/logo-full.png" alt="Ofertas do Rafa" class="logo-img">
+                </a>
+                
+                <div class="hidden md:flex items-center gap-2">
+                    <a href="../index.html" class="nav-link">Início</a>
+                    <a href="eletronicos.html" class="nav-link active">📱 Eletrônicos</a>
+                    <a href="corrida.html" class="nav-link">🏃 Corrida</a>
+                </div>
+                
+                <button id="mobile-menu-btn" class="md:hidden p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </nav>
+            
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="../index.html" class="block nav-link mb-2">Início</a>
+                <a href="eletronicos.html" class="block nav-link active mb-2">📱 Eletrônicos</a>
+                <a href="corrida.html" class="block nav-link">🏃 Corrida</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">📱 Eletrônicos</h1>
+            <p class="hero-subtitle">Smartphones, tablets, gadgets e acessórios tecnológicos</p>
+        </div>
+    </section>
+    
+    <!-- Products Grid -->
+    <section class="container">
+        <div id="products-container" class="product-grid">
+            <div class="col-span-full text-center py-8">
+                <div class="loading"></div>
+                <p class="mt-4 text-gray-600">Carregando ofertas...</p>
+            </div>
+        </div>
+        
+        <div id="empty-state" class="empty-state hidden">
+            <div class="empty-state-icon">🔍</div>
+            <h3 class="empty-state-title">Nenhuma oferta de eletrônicos no momento</h3>
+            <p>Estamos trabalhando para trazer as melhores ofertas para você!</p>
+            <a href="../index.html" class="btn btn-primary mt-4">Ver Todas as Ofertas</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center mb-6">
+                <img src="../assets/images/logo/logo-full.png" alt="Ofertas do Rafa" class="logo-img mx-auto mb-4" style="filter: brightness(0) invert(1);">
+                <h3 class="text-xl font-bold mb-2">Ofertas do Rafa</h3>
+                <p class="opacity-90">Ofertas Cuidadosamente Curadas</p>
+            </div>
+            
+            <div class="disclaimer">
+                <h4 class="font-bold mb-2">⚠️ Aviso de Programa de Afiliados</h4>
+                <p>
+                    Este site participa do <strong>Programa de Associados da Amazon</strong>. Como Associado da Amazon, 
+                    eu ganho com compras qualificadas.
+                </p>
+            </div>
+            
+            <div class="text-center mt-6 text-sm opacity-75">
+                <p>&copy; 2026 Ofertas do Rafa. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Carregar apenas produtos de eletrônicos
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('../data/produtos.json');
+                const data = await response.json();
+                
+                const products = (data.produtos || []).filter(p => p.categoria === 'eletronicos' && p.ativo !== false);
+                
+                if (products.length > 0) {
+                    renderProducts(products, data.categorias);
+                } else {
+                    showEmptyState();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar produtos:', error);
+                showEmptyState();
+            }
+        });
+        
+        function renderProducts(products, categories) {
+            const container = document.getElementById('products-container');
+            container.innerHTML = products.map(product => {
+                const discount = product.desconto_percent || 0;
+                const category = categories.find(c => c.id === product.categoria) || {};
+                
+                return `
+                    <div class="product-card">
+                        <a href="../produto/${product.asin}.html">
+                            <img src="${product.imagem_url}" alt="${product.titulo}" class="product-image" loading="lazy">
+                        </a>
+                        <div class="product-content">
+                            <div class="flex gap-2 mb-2">
+                                <span class="badge badge-${product.categoria}">${category.icone || ''} ${category.nome || product.categoria}</span>
+                                ${discount > 0 ? `<span class="badge badge-discount">${Math.round(discount)}% OFF</span>` : ''}
+                            </div>
+                            
+                            ${product.brand ? `<p class="product-brand">${product.brand}</p>` : ''}
+                            
+                            <h3 class="product-title">
+                                <a href="../produto/${product.asin}.html" class="text-inherit hover:text-primary">
+                                    ${product.titulo}
+                                </a>
+                            </h3>
+                            
+                            <div class="product-prices mt-auto">
+                                ${product.preco_original > product.preco_atual ? `
+                                    <p class="price-original">De: R$ ${product.preco_original.toFixed(2).replace('.', ',')}</p>
+                                ` : ''}
+                                <p class="price-current">R$ ${product.preco_atual.toFixed(2).replace('.', ',')}</p>
+                            </div>
+                            
+                            <a href="${product.link_afiliado}" target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full mt-4">
+                                🛒 Ver Oferta na Amazon
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function showEmptyState() {
+            document.getElementById('products-container').innerHTML = '';
+            document.getElementById('empty-state').classList.remove('hidden');
+        }
+        
+        // Mobile menu
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

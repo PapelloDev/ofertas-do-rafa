@@ -1,0 +1,252 @@
+// Admin - Adicionar Produto (Modo Manual)
+
+// Verificar autenticação
+if (!sessionStorage.getItem('admin_authenticated')) {
+    window.location.href = 'login.html';
+}
+
+// Estado do produto
+let currentProduct = null;
+
+// Aguardar DOM carregar
+document.addEventListener('DOMContentLoaded', function() {
+
+// Logout
+document.getElementById('logout-btn')?.addEventListener('click', () => {
+    sessionStorage.removeItem('admin_authenticated');
+    sessionStorage.removeItem('admin_login_time');
+    window.location.href = 'login.html';
+});
+
+// Carregar categorias dinamicamente
+async function loadCategories() {
+    try {
+        const response = await fetch('../site/data/produtos.json');
+        const data = await response.json();
+        
+        const categorySelect = document.getElementById('category');
+        categorySelect.innerHTML = '<option value="">Selecione uma categoria</option>';
+        
+        data.categorias.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.id;
+            option.textContent = `${cat.icone} ${cat.nome}`;
+            categorySelect.appendChild(option);
+        });
+        
+    } catch (error) {
+        console.error('Erro ao carregar categorias:', error);
+    }
+}
+
+// Carregar categorias ao iniciar
+loadCategories();
+
+// Extrair ASIN do link
+function extractASIN(url) {
+    const patterns = [
+        /\/dp\/([A-Z0-9]{10})/,
+        /\/gp\/product\/([A-Z0-9]{10})/,
+        /\/product\/([A-Z0-9]{10})/,
+        /asin=([A-Z0-9]{10})/,
+        /\/([A-Z0-9]{10})(?:\/|\?|$)/
+    ];
+    
+    for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match && match[1]) {
+            return match[1];
+        }
+    }
+    
+    return null;
+}
+
+// Mostrar preview do produto
+function displayProductPreview(product) {
+    document.getElementById('preview-image').src = product.imagem_url;
+    document.getElementById('preview-title').textContent = product.titulo;
+    document.getElementById('preview-brand').textContent = product.brand ? `Marca: ${product.brand}` : '';
+    
+    if (product.preco_original > product.preco_atual) {
+        document.getElementById('preview-price-original').textContent = `De: R$ ${product.preco_original.toFixed(2)}`;
+    } else {
+        document.getElementById('preview-price-original').textContent = '';
+    }
+    
+    document.getElementById('preview-price-current').textContent = `R$ ${product.preco_atual.toFixed(2)}`;
+    document.getElementById('preview-discount').textContent = `${Math.round(product.desconto_percent)}% OFF`;
+    
+    // Features
+    const featuresList = document.getElementById('features-list');
+    if (product.features && product.features.length > 0) {
+        featuresList.innerHTML = product.features.map(f => `<li>${f}</li>`).join('');
+    } else {
+        featuresList.innerHTML = '<li class="text-gray-500">Nenhuma característica disponível</li>';
+    }
+    
+    // Limpar prazo de validade anterior se existir
+    const existingExpiry = document.querySelector('.expiry-info');
+    if (existingExpiry) {
+        existingExpiry.remove();
+    }
+    
+    // Mostrar prazo de validade se existir
+    if (product.expiry_date) {
+        const expiryDate = new Date(product.expiry_date);
+        const expiryInfo = document.createElement('div');
+        expiryInfo.className = 'expiry-info mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg';
+        expiryInfo.innerHTML = `
+            <p class="text-sm font-medium text-yellow-800">
+                ⏰ Oferta válida até: ${expiryDate.toLocaleString('pt-BR')}
+            </p>
+            <p class="text-xs text-yellow-600 mt-1">
+                (${product.expiry_hours} horas a partir de agora)
+            </p>
+        `;
+        const previewContainer = document.querySelector('#product-preview .border');
+        if (previewContainer) {
+            previewContainer.appendChild(expiryInfo);
+        }
+    }
+    
+    document.getElementById('product-preview').classList.remove('hidden');
+    
+    // Scroll para o preview
+    document.getElementById('product-preview').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Visualizar produto (botão preview)
+document.getElementById('preview-btn').addEventListener('click', function() {
+    const affiliateLink = document.getElementById('affiliate-link').value.trim();
+    const category = document.getElementById('category').value;
+    const title = document.getElementById('manual-title').value.trim();
+    const price = parseFloat(document.getElementById('manual-price').value);
+    const image = document.getElementById('manual-image').value.trim();
+    
+    // Validações
+    if (!affiliateLink) {
+        alert('Por favor, insira o link de afiliado da Amazon');
+        return;
+    }
+    
+    if (!category) {
+        alert('Por favor, selecione uma categoria');
+        return;
+    }
+    
+    if (!title) {
+        alert('Por favor, preencha o título do produto');
+        return;
+    }
+    
+    if (!price || price <= 0) {
+        alert('Por favor, preencha um preço válido');
+        return;
+    }
+    
+    if (!image) {
+        alert('Por favor, insira a URL da imagem');
+        return;
+    }
+    
+    // Extrair ASIN do link
+    const asin = extractASIN(affiliateLink) || 'MANUAL_' + Date.now();
+    
+    // Montar dados do produto
+    const originalPrice = parseFloat(document.getElementById('manual-original-price').value) || price;
+    const brand = document.getElementById('manual-brand').value.trim() || '';
+    const featuresText = document.getElementById('manual-features').value.trim();
+    const features = featuresText ? featuresText.split('\n').filter(f => f.trim()) : [];
+    
+    const discount = originalPrice > price ? 
+        Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
+    
+    currentProduct = {
+        asin: asin,
+        titulo: title,
+        descricao: '',
+        categoria: category,
+        preco_original: originalPrice,
+        preco_atual: price,
+        desconto_percent: discount,
+        imagem_url: image,
+        link_afiliado: affiliateLink,
+        brand: brand,
+        features: features,
+        data_atualizacao: new Date().toISOString()
+    };
+    
+    // Adicionar prazo de validade
+    const expiryHours = parseInt(document.getElementById('expiry-hours').value);
+    if (expiryHours > 0) {
+        const expiryDate = new Date();
+        expiryDate.setHours(expiryDate.getHours() + expiryHours);
+        currentProduct.expiry_date = expiryDate.toISOString();
+        currentProduct.expiry_hours = expiryHours;
+    }
+    
+    // Mostrar preview
+    displayProductPreview(currentProduct);
+});
+
+// Publicar produto
+document.getElementById('publish-btn').addEventListener('click', async () => {
+    if (!currentProduct) {
+        alert('Nenhum produto para publicar');
+        return;
+    }
+    
+    try {
+        // Chamar API para salvar
+        const saveResponse = await fetch('http://localhost:5001/api/save-product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(currentProduct)
+        });
+        
+        if (!saveResponse.ok) {
+            throw new Error('Erro ao salvar produto');
+        }
+        
+        // Gerar página do produto
+        await fetch('http://localhost:5001/api/generate-product-page', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ asin: currentProduct.asin })
+        });
+        
+        // Enviar para WhatsApp
+        try {
+            const whatsappResponse = await fetch('http://localhost:5001/api/send-to-whatsapp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ asin: currentProduct.asin })
+            });
+            
+            if (whatsappResponse.ok) {
+                console.log('✅ Produto enviado para WhatsApp');
+            } else {
+                console.warn('⚠️ Falha ao enviar para WhatsApp (produto publicado com sucesso)');
+            }
+        } catch (whatsappError) {
+            console.warn('⚠️ Erro ao enviar para WhatsApp:', whatsappError);
+        }
+        
+        // Mostrar mensagem de sucesso
+        document.getElementById('product-preview').classList.add('hidden');
+        document.getElementById('success-message').classList.remove('hidden');
+        
+    } catch (error) {
+        console.error('Erro ao publicar:', error);
+        alert('Erro ao publicar produto: ' + error.message + '\n\nVerifique se o servidor backend está rodando.');
+    }
+});
+
+}); // Fim DOMContentLoaded

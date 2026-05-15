@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Admin Ofertas do Rafa</title>
+    <link rel="icon" type="image/png" href="../site/assets/images/logo/favicon.png">
+    <link rel="apple-touch-icon" href="../site/assets/images/logo/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #1A5F5F;
+            --secondary: #F5A623;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #0D4444 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <img src="../site/assets/images/logo/logo-full.png" alt="Ofertas do Rafa" class="h-28 w-auto max-w-md mx-auto mb-4">
+            <h1 class="text-2xl font-bold text-gray-800">Admin Panel</h1>
+            <p class="text-gray-600 mt-2">Gerenciar Ofertas do Rafa</p>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                    🔒 Senha de Acesso
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A5F5F] focus:border-transparent outline-none transition"
+                    placeholder="Digite a senha"
+                    required
+                    autocomplete="current-password"
+                >
+            </div>
+            
+            <!-- Error Message -->
+            <div id="error-message" class="hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                ❌ Senha incorreta. Tente novamente.
+            </div>
+            
+            <!-- Submit Button -->
+            <button 
+                type="submit"
+                class="w-full bg-[#F5A623] hover:bg-[#E09619] text-white font-semibold py-3 px-6 rounded-lg transition duration-200 transform hover:scale-105"
+            >
+                Entrar
+            </button>
+        </form>
+        
+        <!-- Info -->
+        <div class="mt-6 text-center text-sm text-gray-500">
+            <p>🔐 Acesso restrito ao administrador</p>
+        </div>
+    </div>
+    
+    <script>
+        // Senha padrão (em produção, usar autenticação real)
+        const ADMIN_PASSWORD = 'ofertas2026';
+        
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            if (password === ADMIN_PASSWORD) {
+                // Salvar sessão
+                sessionStorage.setItem('admin_authenticated', 'true');
+                sessionStorage.setItem('admin_login_time', Date.now());
+                
+                // Redirecionar para dashboard
+                window.location.href = 'index.html';
+            } else {
+                // Mostrar erro
+                errorMessage.classList.remove('hidden');
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+                
+                // Ocultar erro após 3s
+                setTimeout(() => {
+                    errorMessage.classList.add('hidden');
+                }, 3000);
+            }
+        });
+        
+        // Verificar se já está autenticado
+        if (sessionStorage.getItem('admin_authenticated') === 'true') {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

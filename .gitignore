@@ -1,0 +1,14 @@
+.env
+*.db
+*.log
+__pycache__/
+*.pyc
+.DS_Store
+venv/
+.venv/
+env/
+.vscode/
+.idea/
+products.db
+deal_monitor.log
+CREDENCIAIS.md

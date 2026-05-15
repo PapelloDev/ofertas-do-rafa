@@ -1,0 +1,14 @@
+requests
+python-dotenv
+schedule
+pytest
+pytest-mock
+pytest-cov
+flask
+flask-cors
+beautifulsoup4
+lxml
+pytest-mock==3.12.0
+schedule==1.2.0
+python-amazon-paapi==5.2.0
+qrcode==7.4.2

@@ -1,0 +1,93 @@
+{
+  "produtos": [
+    {
+      "asin": "MANUAL_1778850397675",
+      "titulo": "� Título do Produto *",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 250,
+      "preco_atual": 178,
+      "desconto_percent": 29,
+      "imagem_url": "https://m.media-amazon.com/images/I/51uK6mXqlGL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4uRijt3",
+      "brand": "marca",
+      "features": [
+        "carac 1 ",
+        "c2",
+        "c3"
+      ],
+      "data_atualizacao": "2026-05-15T13:06:37.675Z",
+      "expiry_date": "2026-05-16T13:06:37.676Z",
+      "expiry_hours": 24
+    },
+    {
+      "asin": "MANUAL_1778861552041",
+      "titulo": "aaaa",
+      "descricao": "",
+      "categoria": "corrida",
+      "preco_original": 222,
+      "preco_atual": 22,
+      "desconto_percent": 90,
+      "imagem_url": "aaaa",
+      "link_afiliado": "aaa",
+      "brand": "aaa",
+      "features": [
+        "aaa"
+      ],
+      "data_atualizacao": "2026-05-15T16:12:32.041Z",
+      "expiry_date": "2026-05-16T16:12:32.041Z",
+      "expiry_hours": 24
+    },
+    {
+      "asin": "MANUAL_1778862982841",
+      "titulo": "aaaa",
+      "descricao": "",
+      "categoria": "corrida",
+      "preco_original": 222,
+      "preco_atual": 22,
+      "desconto_percent": 90,
+      "imagem_url": "https://m.media-amazon.com/images/I/51uK6mXqlGL._AC_SX679_.jpg",
+      "link_afiliado": "aaa",
+      "brand": "aaa",
+      "features": [
+        "aaa"
+      ],
+      "data_atualizacao": "2026-05-15T16:36:22.842Z",
+      "expiry_date": "2026-05-16T16:36:22.842Z",
+      "expiry_hours": 24
+    }
+  ],
+  "categorias": [
+    {
+      "id": "eletronicos",
+      "nome": "Eletrônicos",
+      "slug": "eletronicos",
+      "icone": "📱",
+      "cor": "#1A5F5F",
+      "descricao": "Smartphones, tablets, gadgets e acessórios tecnológicos"
+    },
+    {
+      "id": "corrida",
+      "nome": "Itens de Corrida",
+      "slug": "corrida",
+      "icone": "🏃",
+      "cor": "#F5A623",
+      "descricao": "Tênis, roupas, acessórios e equipamentos para corrida"
+    },
+    {
+      "id": "outros",
+      "nome": "Outros Produtos",
+      "slug": "outros",
+      "icone": "✌️",
+      "cor": "#1A5F5F",
+      "descricao": "Produtos que não encaixam em categorias especificas"
+    }
+  ],
+  "config": {
+    "site_name": "Ofertas do Rafa",
+    "site_slogan": "Ofertas Cuidadosamente Curadas",
+    "site_url": "https://ofertasdorafa.netlify.app",
+    "partner_tag": "rahsinc-20",
+    "ultima_atualizacao": "2026-05-15T13:36:30.279200"
+  }
+}

@@ -1,0 +1,678 @@
+#!/usr/bin/env python3
+"""
+API Backend para Admin - Ofertas do Rafa
+Extrai dados de produtos da Amazon e gerencia o site
+"""
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import requests
+from bs4 import BeautifulSoup
+import json
+import os
+import re
+from datetime import datetime
+from urllib.parse import urlparse, parse_qs
+from dotenv import load_dotenv
+
+# Carregar variáveis de ambiente
+load_dotenv()
+
+app = Flask(__name__)
+CORS(app)  # Permitir requisições do frontend
+
+# Paths
+SITE_DIR = 'site'
+DATA_FILE = os.path.join(SITE_DIR, 'data', 'produtos.json')
+PRODUCTS_DIR = os.path.join(SITE_DIR, 'produto')
+
+# Headers para simular navegador
+HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1'
+}
+
+def expand_short_url(short_url):
+    """Expande URLs encurtadas (amzn.to) para obter a URL completa"""
+    try:
+        response = requests.head(short_url, allow_redirects=True, timeout=10)
+        return response.url
+    except Exception as e:
+        print(f"Erro ao expandir URL: {e}")
+        return short_url
+
+def extract_asin_from_url(url):
+    """Extrai ASIN de uma URL da Amazon"""
+    # Se for link encurtado, expandir primeiro
+    if 'amzn.to' in url or 'a.co' in url:
+        print(f"Expandindo link encurtado: {url}")
+        url = expand_short_url(url)
+        print(f"URL expandida: {url}")
+    
+    # Padrões de URL da Amazon
+    patterns = [
+        r'/dp/([A-Z0-9]{10})',           # /dp/B08XYZ1234
+        r'/gp/product/([A-Z0-9]{10})',   # /gp/product/B08XYZ1234
+        r'/product/([A-Z0-9]{10})',      # /product/B08XYZ1234
+        r'asin=([A-Z0-9]{10})',          # ?asin=B08XYZ1234
+        r'/([A-Z0-9]{10})(?:/|\?|$)',    # Genérico
+    ]
+    
+    for pattern in patterns:
+        match = re.search(pattern, url)
+        if match and match.group(1):
+            return match.group(1)
+    
+    return None
+
+def extract_from_pa_api(asin):
+    """Extrai dados usando Amazon Product Advertising API como fallback"""
+    try:
+        from amazon_client import AmazonClient
+        
+        # Inicializar cliente
+        client = AmazonClient()
+        
+        # Buscar produto
+        items = client.get_items([asin])
+        
+        if not items or len(items) == 0:
+            return None
+        
+        item = items[0]
+        
+        # Extrair dados
+        data = {}
+        
+        # Título
+        if 'title' in item:
+            data['titulo'] = item['title']
+        
+        # Preços
+        if 'price' in item and item['price']:
+            data['preco_atual'] = item['price']
+            data['preco_original'] = item.get('original_price', item['price'])
+        
+        # Imagem
+        if 'image_url' in item:
+            data['imagem_url'] = item['image_url']
+        
+        # Marca
+        if 'brand' in item:
+            data['brand'] = item['brand']
+        
+        # Features
+        if 'features' in item and item['features']:
+            data['features'] = item['features'][:5]  # Limitar a 5
+        
+        return data
+        
+    except Exception as e:
+        print(f"Erro ao usar PA-API: {e}")
+        return None
+
+@app.route('/api/extract-product', methods=['POST'])
+def extract_product():
+    """Extrai dados do produto da Amazon"""
+    try:
+        data = request.json
+        asin = data.get('asin')
+        affiliate_link = data.get('affiliate_link')
+        category = data.get('category')
+        
+        # Se não tiver ASIN, tentar extrair do link
+        if not asin and affiliate_link:
+            print(f"Extraindo ASIN do link: {affiliate_link}")
+            asin = extract_asin_from_url(affiliate_link)
+        
+        if not asin:
+            return jsonify({'error': 'Não foi possível extrair o ASIN do link. Verifique se o link está correto.'}), 400
+        
+        print(f"ASIN extraído: {asin}")
+        print(f"Extraindo dados do produto...")
+        
+        # URL da Amazon
+        amazon_url = f"https://www.amazon.com.br/dp/{asin}"
+        
+        # Fazer requisição
+        response = requests.get(amazon_url, headers=HEADERS, timeout=10)
+        response.raise_for_status()
+        
+        # Parse HTML
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        print(f"HTML recebido: {len(response.content)} bytes")
+        print(f"Status code: {response.status_code}")
+        
+        # Extrair dados
+        product_data = {
+            'asin': asin,
+            'titulo': extract_title(soup),
+            'descricao': extract_description(soup),
+            'categoria': category,
+            'preco_original': extract_original_price(soup),
+            'preco_atual': extract_current_price(soup),
+            'desconto_percent': 0,  # Será calculado
+            'imagem_url': extract_image(soup),
+            'brand': extract_brand(soup),
+            'features': extract_features(soup),
+            'link_afiliado': affiliate_link,
+            'ativo': True,
+            'data_adicao': datetime.now().isoformat(),
+            'data_atualizacao': datetime.now().isoformat()
+        }
+        
+        # Calcular desconto
+        if product_data['preco_original'] > product_data['preco_atual']:
+            product_data['desconto_percent'] = round(
+                ((product_data['preco_original'] - product_data['preco_atual']) / product_data['preco_original']) * 100,
+                1
+            )
+        
+        print(f"✅ Dados extraídos:")
+        print(f"  - Título: {product_data['titulo']}")
+        print(f"  - Preço atual: R$ {product_data['preco_atual']}")
+        print(f"  - Preço original: R$ {product_data['preco_original']}")
+        print(f"  - Desconto: {product_data['desconto_percent']}%")
+        print(f"  - Marca: {product_data['brand']}")
+        print(f"  - Features: {len(product_data['features'])} itens")
+        
+        # Se não conseguiu extrair dados básicos, tentar PA-API
+        if product_data['titulo'] == "Produto sem título" or product_data['preco_atual'] == 0:
+            print("⚠️ Scraping falhou, tentando Amazon PA-API...")
+            try:
+                pa_api_data = extract_from_pa_api(asin)
+                if pa_api_data:
+                    # Mesclar dados da PA-API
+                    product_data.update(pa_api_data)
+                    print(f"✅ Dados obtidos via PA-API")
+            except Exception as e:
+                print(f"⚠️ PA-API também falhou: {e}")
+        
+        return jsonify(product_data)
+        
+    except Exception as e:
+        print(f"Erro ao extrair produto: {e}")
+        return jsonify({'error': str(e)}), 500
+
+def extract_title(soup):
+    """Extrai título do produto"""
+    selectors = [
+        '#productTitle',
+        'span#productTitle',
+        'h1#title',
+        'h1.product-title',
+        '[data-feature-name="title"] h1',
+        '.product-title-word-break'
+    ]
+    
+    for selector in selectors:
+        element = soup.select_one(selector)
+        if element:
+            title = element.get_text().strip()
+            if title and len(title) > 5:  # Validar que tem conteúdo
+                return title
+    
+    # Tentar pelo meta tag
+    meta_title = soup.find('meta', {'name': 'title'})
+    if meta_title and meta_title.get('content'):
+        return meta_title['content'].strip()
+    
+    return "Produto sem título"
+
+def extract_description(soup):
+    """Extrai descrição do produto"""
+    selectors = [
+        '#feature-bullets',
+        '#productDescription',
+        '.product-description'
+    ]
+    
+    for selector in selectors:
+        element = soup.select_one(selector)
+        if element:
+            text = element.get_text().strip()
+            # Limitar a 500 caracteres
+            return text[:500] + '...' if len(text) > 500 else text
+    
+    return ""
+
+def extract_current_price(soup):
+    """Extrai preço atual"""
+    selectors = [
+        '.a-price[data-a-color="price"] .a-offscreen',
+        '.a-price-whole',
+        '#priceblock_ourprice',
+        '#priceblock_dealprice',
+        '.a-price .a-offscreen',
+        '#corePrice_feature_div .a-price .a-offscreen',
+        '.priceToPay .a-offscreen',
+        '[data-feature-name="corePrice"] .a-offscreen'
+    ]
+    
+    for selector in selectors:
+        elements = soup.select(selector)
+        for element in elements:
+            price_text = element.get_text().strip()
+            # Extrair apenas números e vírgula
+            price = re.sub(r'[^\d,]', '', price_text)
+            if price:
+                price = price.replace('.', '').replace(',', '.')
+                try:
+                    price_float = float(price)
+                    if price_float > 0:  # Validar que é um preço válido
+                        return price_float
+                except:
+                    continue
+    
+    return 0.0
+
+def extract_original_price(soup):
+    """Extrai preço original (antes do desconto)"""
+    selectors = [
+        '.a-text-price .a-offscreen',
+        '#priceblock_saleprice',
+        '.basisPrice .a-offscreen'
+    ]
+    
+    for selector in selectors:
+        element = soup.select_one(selector)
+        if element:
+            price_text = element.get_text().strip()
+            price = re.sub(r'[^\d,]', '', price_text)
+            price = price.replace(',', '.')
+            try:
+                return float(price)
+            except:
+                continue
+    
+    # Se não encontrar preço original, retornar o preço atual
+    return extract_current_price(soup)
+
+def extract_image(soup):
+    """Extrai URL da imagem principal"""
+    # Tentar pegar imagem de alta resolução
+    selectors = [
+        '#landingImage',
+        '#imgBlkFront',
+        '#main-image',
+        '.a-dynamic-image',
+        '[data-a-dynamic-image]'
+    ]
+    
+    for selector in selectors:
+        element = soup.select_one(selector)
+        if element:
+            # Tentar pegar o src de alta resolução
+            img_url = (element.get('data-old-hires') or 
+                      element.get('data-a-dynamic-image') or 
+                      element.get('src'))
+            
+            if img_url:
+                # Se for JSON (data-a-dynamic-image), pegar a primeira URL
+                if img_url.startswith('{'):
+                    try:
+                        import json
+                        images = json.loads(img_url)
+                        if images:
+                            img_url = list(images.keys())[0]
+                    except:
+                        pass
+                
+                # Limpar URL se necessário
+                if img_url and 'http' in img_url:
+                    return img_url.split(',')[0].strip()
+    
+    # Tentar pelo meta tag
+    meta_image = soup.find('meta', {'property': 'og:image'})
+    if meta_image and meta_image.get('content'):
+        return meta_image['content']
+    
+    return "https://via.placeholder.com/500x500?text=Sem+Imagem"
+
+def extract_brand(soup):
+    """Extrai marca do produto"""
+    selectors = [
+        '#bylineInfo',
+        '.a-size-base.po-break-word',
+        'a#brand'
+    ]
+    
+    for selector in selectors:
+        element = soup.select_one(selector)
+        if element:
+            brand = element.get_text().strip()
+            # Remover "Marca:" ou "Visitar loja"
+            brand = re.sub(r'(Marca:|Visitar.*loja)', '', brand).strip()
+            return brand
+    
+    return ""
+
+def extract_features(soup):
+    """Extrai características do produto"""
+    features = []
+    
+    # Tentar extrair de feature bullets
+    bullets = soup.select('#feature-bullets li span.a-list-item')
+    for bullet in bullets[:5]:  # Limitar a 5 features
+        text = bullet.get_text().strip()
+        if text and len(text) > 10:  # Ignorar textos muito curtos
+            features.append(text)
+    
+    return features
+
+@app.route('/api/save-product', methods=['POST'])
+def save_product():
+    """Salva produto no JSON"""
+    try:
+        product = request.json
+        
+        # Ler dados existentes
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Verificar se produto já existe (por ASIN)
+        existing_index = next((i for i, p in enumerate(data['produtos']) if p['asin'] == product['asin']), None)
+        
+        if existing_index is not None:
+            # Atualizar produto existente
+            data['produtos'][existing_index] = product
+            print(f"Produto atualizado: {product['asin']}")
+        else:
+            # Adicionar novo produto
+            data['produtos'].append(product)
+            print(f"Novo produto adicionado: {product['asin']}")
+        
+        # Atualizar timestamp
+        data['config']['ultima_atualizacao'] = datetime.now().isoformat()
+        
+        # Salvar
+        with open(DATA_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        return jsonify({'success': True, 'message': 'Produto salvo com sucesso'})
+        
+    except Exception as e:
+        print(f"Erro ao salvar produto: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/generate-product-page', methods=['POST'])
+def generate_product_page():
+    """Gera página HTML do produto"""
+    try:
+        data = request.json
+        asin = data.get('asin')
+        
+        if not asin:
+            return jsonify({'error': 'ASIN não fornecido'}), 400
+        
+        # Ler dados do produto
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            products_data = json.load(f)
+        
+        product = next((p for p in products_data['produtos'] if p['asin'] == asin), None)
+        
+        if not product:
+            return jsonify({'error': 'Produto não encontrado'}), 404
+        
+        # Gerar HTML
+        html = generate_product_html(product, products_data['categorias'])
+        
+        # Salvar arquivo
+        product_file = os.path.join(PRODUCTS_DIR, f"{asin}.html")
+        os.makedirs(PRODUCTS_DIR, exist_ok=True)
+        
+        with open(product_file, 'w', encoding='utf-8') as f:
+            f.write(html)
+        
+        print(f"Página gerada: {product_file}")
+        
+        return jsonify({'success': True, 'message': 'Página gerada com sucesso', 'file': product_file})
+        
+    except Exception as e:
+        print(f"Erro ao gerar página: {e}")
+        return jsonify({'error': str(e)}), 500
+
+def generate_product_html(product, categories):
+    """Gera HTML da página do produto"""
+    category = next((c for c in categories if c['id'] == product['categoria']), {})
+    
+    html = f'''<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{product.get('descricao', product['titulo'])}">
+    <meta name="keywords" content="{product['titulo']}, {category.get('nome', '')}, oferta, desconto, Amazon">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{product['titulo']} - {product['desconto_percent']}% OFF">
+    <meta property="og:description" content="De R$ {product['preco_original']:.2f} por R$ {product['preco_atual']:.2f}">
+    <meta property="og:image" content="{product['imagem_url']}">
+    <meta property="og:type" content="product">
+    
+    <title>{product['titulo']} - Ofertas do Rafa</title>
+    
+    <link rel="icon" type="image/png" href="../assets/images/logo/favicon.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="flex items-center justify-between py-4">
+                <a href="../index.html" class="flex items-center">
+                    <img src="../assets/images/logo/logo-full.png" alt="Ofertas do Rafa" class="logo-img">
+                </a>
+                
+                <div class="hidden md:flex items-center gap-2">
+                    <a href="../index.html" class="nav-link">Início</a>
+                    <a href="../categoria/eletronicos.html" class="nav-link">📱 Eletrônicos</a>
+                    <a href="../categoria/corrida.html" class="nav-link">🏃 Corrida</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Product Detail -->
+    <main class="container py-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Image -->
+                <div>
+                    <img src="{product['imagem_url']}" alt="{product['titulo']}" class="w-full rounded-lg shadow-lg">
+                </div>
+                
+                <!-- Info -->
+                <div>
+                    <div class="mb-4">
+                        <span class="badge badge-{product['categoria']}">{category.get('icone', '')} {category.get('nome', '')}</span>
+                        <span class="badge badge-discount ml-2">{round(product['desconto_percent'])}% OFF</span>
+                    </div>
+                    
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4">{product['titulo']}</h1>
+                    
+                    {f'<p class="text-lg text-gray-600 mb-4">Marca: <strong>{product["brand"]}</strong></p>' if product.get('brand') else ''}
+                    
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        {f'<p class="text-gray-500 line-through text-lg mb-2">De: R$ {product["preco_original"]:.2f}</p>' if product['preco_original'] > product['preco_atual'] else ''}
+                        <p class="text-4xl font-bold text-[#1A5F5F] mb-2">R$ {product['preco_atual']:.2f}</p>
+                        <p class="text-green-600 font-semibold">Economize R$ {(product['preco_original'] - product['preco_atual']):.2f}</p>
+                    </div>
+                    
+                    <a href="{product['link_afiliado']}" target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full text-center text-xl py-4 mb-6">
+                        🛒 Comprar na Amazon
+                    </a>
+                    
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-800">
+                        ⚡ <strong>Oferta por tempo limitado!</strong> Preços e disponibilidade podem variar.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Features -->
+            {f'''<div class="mt-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Características</h2>
+                <ul class="space-y-2">
+                    {"".join([f'<li class="flex items-start"><span class="text-green-600 mr-2">✓</span><span>{feature}</span></li>' for feature in product.get('features', [])])}
+                </ul>
+            </div>''' if product.get('features') else ''}
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="disclaimer">
+                <h4 class="font-bold mb-2">⚠️ Aviso de Programa de Afiliados</h4>
+                <p>Este site participa do Programa de Associados da Amazon. Como Associado da Amazon, eu ganho com compras qualificadas.</p>
+            </div>
+            <div class="text-center mt-6 text-sm opacity-75">
+                <p>&copy; 2026 Ofertas do Rafa. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>'''
+    
+    return html
+
+@app.route('/api/save-category', methods=['POST'])
+def save_category():
+    """Salva nova categoria no JSON"""
+    try:
+        category = request.json
+        
+        # Ler dados existentes
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Verificar se categoria já existe
+        existing_index = next((i for i, c in enumerate(data['categorias']) if c['id'] == category['id']), None)
+        
+        if existing_index is not None:
+            return jsonify({'error': 'Categoria com este ID já existe'}), 400
+        
+        # Adicionar nova categoria
+        data['categorias'].append(category)
+        print(f"Nova categoria adicionada: {category['id']}")
+        
+        # Atualizar timestamp
+        data['config']['ultima_atualizacao'] = datetime.now().isoformat()
+        
+        # Salvar
+        with open(DATA_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        return jsonify({'success': True, 'message': 'Categoria salva com sucesso'})
+        
+    except Exception as e:
+        print(f"Erro ao salvar categoria: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/send-to-whatsapp', methods=['POST'])
+def send_to_whatsapp():
+    """Envia produto para o WhatsApp"""
+    try:
+        data_request = request.json
+        asin = data_request.get('asin')
+        
+        if not asin:
+            return jsonify({'error': 'ASIN não fornecido'}), 400
+        
+        # Ler dados do produto
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        product = next((p for p in data['produtos'] if p['asin'] == asin), None)
+        
+        if not product:
+            return jsonify({'error': 'Produto não encontrado'}), 404
+        
+        # URL do produto
+        site_url = data['config'].get('site_url', 'https://ofertasdorafa.netlify.app')
+        product_url = f"{site_url}/produto/{asin}.html"
+        
+        # Importar e executar envio
+        from send_product_whatsapp import send_product_to_whatsapp
+        
+        success = send_product_to_whatsapp(product, product_url)
+        
+        if success:
+            return jsonify({'success': True, 'message': 'Produto enviado para WhatsApp'})
+        else:
+            return jsonify({'error': 'Falha ao enviar para WhatsApp'}), 500
+        
+    except Exception as e:
+        print(f"Erro ao enviar para WhatsApp: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/delete-category', methods=['POST'])
+def delete_category():
+    """Exclui categoria do JSON"""
+    try:
+        data_request = request.json
+        category_id = data_request.get('id')
+        
+        if not category_id:
+            return jsonify({'error': 'ID da categoria não fornecido'}), 400
+        
+        # Ler dados existentes
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Verificar se há produtos usando esta categoria
+        products_with_category = [p for p in data['produtos'] if p.get('categoria') == category_id]
+        
+        if products_with_category:
+            return jsonify({
+                'error': f'Não é possível excluir. Existem {len(products_with_category)} produto(s) usando esta categoria.'
+            }), 400
+        
+        # Remover categoria
+        data['categorias'] = [c for c in data['categorias'] if c['id'] != category_id]
+        print(f"Categoria excluída: {category_id}")
+        
+        # Atualizar timestamp
+        data['config']['ultima_atualizacao'] = datetime.now().isoformat()
+        
+        # Salvar
+        with open(DATA_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        return jsonify({'success': True, 'message': 'Categoria excluída com sucesso'})
+        
+    except Exception as e:
+        print(f"Erro ao excluir categoria: {e}")
+        return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
+    print("=" * 60)
+    print("🚀 API Admin - Ofertas do Rafa")
+    print("=" * 60)
+    print()
+    print("📡 Servidor rodando em: http://localhost:5001")
+    print("📂 Diretório do site:", SITE_DIR)
+    print()
+    print("Endpoints disponíveis:")
+    print("  POST /api/extract-product       - Extrair dados da Amazon")
+    print("  POST /api/save-product          - Salvar produto no JSON")
+    print("  POST /api/generate-product-page - Gerar página HTML")
+    print("  POST /api/send-to-whatsapp      - Enviar produto para WhatsApp")
+    print("  POST /api/save-category         - Salvar categoria")
+    print("  POST /api/delete-category       - Excluir categoria")
+    print()
+    print("Pressione Ctrl+C para parar")
+    print("=" * 60)
+    print()
+    
+    app.run(debug=True, port=5001)

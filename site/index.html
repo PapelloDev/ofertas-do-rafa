@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ofertas do Rafa - As melhores ofertas de eletrônicos e itens de corrida cuidadosamente curadas para você.">
+    <meta name="keywords" content="ofertas, descontos, eletrônicos, corrida, amazon, promoções">
+    <meta name="author" content="Ofertas do Rafa">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ofertasdorafa.netlify.app/">
+    <meta property="og:title" content="Ofertas do Rafa - Ofertas Cuidadosamente Curadas">
+    <meta property="og:description" content="As melhores ofertas de eletrônicos e itens de corrida com os maiores descontos!">
+    <meta property="og:image" content="https://ofertasdorafa.netlify.app/assets/images/logo/logo-full.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ofertasdorafa.netlify.app/">
+    <meta property="twitter:title" content="Ofertas do Rafa - Ofertas Cuidadosamente Curadas">
+    <meta property="twitter:description" content="As melhores ofertas de eletrônicos e itens de corrida com os maiores descontos!">
+    <meta property="twitter:image" content="https://ofertasdorafa.netlify.app/assets/images/logo/logo-full.png">
+    
+    <title>Ofertas do Rafa - Ofertas Cuidadosamente Curadas</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/logo/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/logo/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center">
+                    <img src="assets/images/logo/logo-full.png" alt="Ofertas do Rafa" class="logo-img">
+                </a>
+                
+                <!-- Navigation -->
+                <div class="hidden md:flex items-center gap-2">
+                    <a href="index.html" class="nav-link active">Início</a>
+                    <a href="categoria/eletronicos.html" class="nav-link">📱 Eletrônicos</a>
+                    <a href="categoria/corrida.html" class="nav-link">🏃 Corrida</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </nav>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="index.html" class="block nav-link active mb-2">Início</a>
+                <a href="categoria/eletronicos.html" class="block nav-link mb-2">📱 Eletrônicos</a>
+                <a href="categoria/corrida.html" class="block nav-link">🏃 Corrida</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">🔥 Ofertas do Rafa</h1>
+            <p class="hero-subtitle">Ofertas Cuidadosamente Curadas</p>
+            <p class="mt-4 text-lg opacity-90">
+                As melhores ofertas de eletrônicos e itens de corrida com os maiores descontos!
+            </p>
+        </div>
+    </section>
+    
+    <!-- Category Filter -->
+    <section class="container py-6">
+        <div class="flex flex-wrap gap-3 justify-center">
+            <button class="btn btn-outline category-filter active" data-category="todos">
+                Todos os Produtos
+            </button>
+            <button class="btn btn-outline category-filter" data-category="eletronicos">
+                📱 Eletrônicos
+            </button>
+            <button class="btn btn-outline category-filter" data-category="corrida">
+                🏃 Itens de Corrida
+            </button>
+        </div>
+    </section>
+    
+    <!-- Products Grid -->
+    <section class="container">
+        <div id="products-container" class="product-grid">
+            <!-- Products will be loaded here by JavaScript -->
+            <div class="col-span-full text-center py-8">
+                <div class="loading"></div>
+                <p class="mt-4 text-gray-600">Carregando ofertas...</p>
+            </div>
+        </div>
+        
+        <!-- Empty State (hidden by default) -->
+        <div id="empty-state" class="empty-state hidden">
+            <div class="empty-state-icon">🔍</div>
+            <h3 class="empty-state-title">Nenhuma oferta encontrada</h3>
+            <p>Estamos trabalhando para trazer as melhores ofertas para você!</p>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center mb-6">
+                <img src="assets/images/logo/logo-full.png" alt="Ofertas do Rafa" class="logo-img mx-auto mb-4" style="filter: brightness(0) invert(1);">
+                <h3 class="text-xl font-bold mb-2">Ofertas do Rafa</h3>
+                <p class="opacity-90">Ofertas Cuidadosamente Curadas</p>
+            </div>
+            
+            <!-- Disclaimer de Afiliados -->
+            <div class="disclaimer">
+                <h4 class="font-bold mb-2">⚠️ Aviso de Programa de Afiliados</h4>
+                <p>
+                    Este site participa do <strong>Programa de Associados da Amazon</strong>, um programa de publicidade 
+                    de afiliados projetado para fornecer um meio para sites ganharem taxas de publicidade através de 
+                    publicidade e links para Amazon.com.br.
+                </p>
+                <p class="mt-2">
+                    Como Associado da Amazon, eu ganho com compras qualificadas. Isso significa que, quando você clica 
+                    em um link de produto e faz uma compra, posso receber uma pequena comissão sem custo adicional para você.
+                </p>
+                <p class="mt-2">
+                    <strong>Todas as ofertas são cuidadosamente selecionadas</strong> e os preços/disponibilidade podem 
+                    variar. Última atualização: <span id="last-update">--</span>
+                </p>
+            </div>
+            
+            <div class="text-center mt-6 text-sm opacity-75">
+                <p>&copy; 2026 Ofertas do Rafa. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
