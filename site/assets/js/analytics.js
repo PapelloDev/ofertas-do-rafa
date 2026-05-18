@@ -39,19 +39,40 @@ async function trackClick(asin, productTitle, category) {
 
 // Adicionar tracking a todos os links de afiliado
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔍 Analytics: Inicializando tracking...');
+    
     // Encontrar todos os botões "Ver Oferta"
     const affiliateButtons = document.querySelectorAll('[data-asin]');
     
-    affiliateButtons.forEach(button => {
+    console.log(`📊 Analytics: Encontrados ${affiliateButtons.length} botões com data-asin`);
+    
+    if (affiliateButtons.length === 0) {
+        console.warn('⚠️ Analytics: Nenhum botão com data-asin encontrado!');
+        return;
+    }
+    
+    affiliateButtons.forEach((button, index) => {
+        const asin = button.getAttribute('data-asin');
+        const title = button.getAttribute('data-title');
+        const category = button.getAttribute('data-category');
+        
+        console.log(`✅ Analytics: Botão ${index + 1} configurado:`, { asin, title, category });
+        
         button.addEventListener('click', function(e) {
-            const asin = this.getAttribute('data-asin');
-            const title = this.getAttribute('data-title');
-            const category = this.getAttribute('data-category');
+            console.log('🖱️ Analytics: Clique detectado no botão!');
+            
+            const clickAsin = this.getAttribute('data-asin');
+            const clickTitle = this.getAttribute('data-title');
+            const clickCategory = this.getAttribute('data-category');
+            
+            console.log('📤 Analytics: Enviando dados:', { clickAsin, clickTitle, clickCategory });
             
             // Registrar clique (não bloqueia navegação)
-            trackClick(asin, title, category);
+            trackClick(clickAsin, clickTitle, clickCategory);
         });
     });
+    
+    console.log('✅ Analytics: Tracking configurado com sucesso!');
 });
 
 // Exportar função para uso global
