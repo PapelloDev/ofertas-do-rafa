@@ -18,6 +18,31 @@
       "expiry_date": "2026-05-16T21:36:12.824Z",
       "expiry_hours": 24,
       "preco_promocional": 27.99
+    },
+    {
+      "asin": "MANUAL_1779116810318",
+      "titulo": "Rastreador Smart Tag Bluetooth",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 39.9,
+      "preco_atual": 34.9,
+      "preco_promocional": null,
+      "desconto_percent": 13,
+      "imagem_url": "https://m.media-amazon.com/images/I/51da7O3Gp-L._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/3PJdhzX",
+      "brand": "Genérico",
+      "features": [
+        "📍 Localização Inteligente – Compatível com o app Buscar (Find My) para rastrear em tempo real.",
+        "🔊 Alarme Sonoro Integrado – Facilita encontrar objetos próximos com apenas um toque.",
+        "🔋 Bateria de Longa Duração – Até 365 dias de uso contínuo sem preocupações.",
+        "🐾 Uso Versátil – Ideal para chaves, mochilas, malas, pets e até crianças.",
+        "💎 Design Compacto e Resistente – Pequeno, leve e fácil de prender em qualquer objeto."
+      ],
+      "data_atualizacao": "2026-05-18T15:06:50.318Z",
+      "expiry_date": "2026-05-19T15:06:50.318Z",
+      "expiry_hours": 24,
+      "short_code": "pn6ze1",
+      "short_url": "https://ofertasdorafa.app.br/pn6ze1"
     }
   ],
   "categorias": [
@@ -51,6 +76,6 @@
     "site_slogan": "Ofertas Cuidadosamente Curadas",
     "site_url": "https://ofertasdorafa.netlify.app",
     "partner_tag": "rahsinc-20",
-    "ultima_atualizacao": "2026-05-18T11:41:44.166354"
+    "ultima_atualizacao": "2026-05-18T12:06:53.977610"
   }
 }
