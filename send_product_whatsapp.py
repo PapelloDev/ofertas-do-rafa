@@ -29,22 +29,36 @@ def send_product_to_whatsapp(product_data, product_url):
         titulo = product_data.get('titulo', 'Produto')
         preco_atual = product_data.get('preco_atual', 0)
         preco_original = product_data.get('preco_original', 0)
+        preco_promocional = product_data.get('preco_promocional')
         desconto = product_data.get('desconto_percent', 0)
         brand = product_data.get('brand', '')
         imagem_url = product_data.get('imagem_url', '')
         expiry_date = product_data.get('expiry_date')
         expiry_hours = product_data.get('expiry_hours', 0)
         
-        # Emoji baseado no desconto
-        if desconto >= 50:
+        # Verificar se é promoção especial (preço editado manualmente)
+        is_special_promo = preco_promocional is not None and preco_promocional > 0
+        
+        # Emoji baseado no desconto ou promoção especial
+        if is_special_promo:
+            emoji = "🎉"
+            header = "🎉 *PROMOÇÃO ESPECIAL!* 🎉"
+        elif desconto >= 50:
             emoji = "🔥"
+            header = f"{emoji} *NOVA OFERTA!* {emoji}"
         elif desconto >= 30:
             emoji = "💥"
+            header = f"{emoji} *NOVA OFERTA!* {emoji}"
         else:
             emoji = "⚡"
+            header = f"{emoji} *NOVA OFERTA!* {emoji}"
         
         # Construir mensagem
-        message = f"{emoji} *NOVA OFERTA!* {emoji}\n\n"
+        message = f"{header}\n\n"
+        
+        if is_special_promo:
+            message += "⭐ *PREÇO EXCLUSIVO DO RAFA!* ⭐\n\n"
+        
         message += f"📦 *{titulo}*\n"
         
         if brand:
@@ -55,7 +69,10 @@ def send_product_to_whatsapp(product_data, product_url):
         if preco_original > preco_atual:
             message += f"💰 De: ~R$ {preco_original:.2f}~\n"
         
-        message += f"✅ Por: *R$ {preco_atual:.2f}*\n"
+        if is_special_promo:
+            message += f"✅ Por apenas: *R$ {preco_atual:.2f}* 🎯\n"
+        else:
+            message += f"✅ Por: *R$ {preco_atual:.2f}*\n"
         
         if desconto > 0:
             message += f"📉 Desconto: *{int(desconto)}% OFF*\n"

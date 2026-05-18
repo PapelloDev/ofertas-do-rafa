@@ -142,13 +142,16 @@ function renderProducts() {
                         </div>
                         
                         <!-- Ações -->
-                        <div class="mt-4 flex space-x-2">
+                        <div class="mt-4 flex flex-wrap gap-2">
                             <a href="http://localhost:8000/produto/${product.asin}.html" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
                                 👁️ Ver no Site
                             </a>
                             <a href="${product.link_afiliado}" target="_blank" class="bg-[#F5A623] hover:bg-[#E09619] text-white px-4 py-2 rounded-lg text-sm transition-colors">
                                 🔗 Ver na Amazon
                             </a>
+                            <button onclick="openEditPriceModal('${product.asin}')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                                💰 Editar Preço
+                            </button>
                             <button class="delete-product-btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors" data-asin="${product.asin}">
                                 🗑️ Excluir
                             </button>
@@ -255,6 +258,106 @@ document.getElementById('products-list').addEventListener('click', function(e) {
         }
     }
 });
+
+// Editar Preço
+let currentEditProduct = null;
+
+function openEditPriceModal(asin) {
+    const product = allProducts.find(p => p.asin === asin);
+    if (!product) return;
+    
+    currentEditProduct = product;
+    
+    // Preencher modal
+    document.getElementById('edit-product-title').textContent = product.titulo;
+    document.getElementById('edit-price-original').value = product.preco_original || product.preco_atual;
+    document.getElementById('edit-price-new').value = product.preco_promocional || '';
+    
+    // Mostrar modal
+    document.getElementById('edit-price-modal').classList.remove('hidden');
+    
+    // Calcular desconto ao digitar
+    const newPriceInput = document.getElementById('edit-price-new');
+    newPriceInput.addEventListener('input', updateDiscountPreview);
+    updateDiscountPreview();
+}
+
+function updateDiscountPreview() {
+    const originalPrice = parseFloat(document.getElementById('edit-price-original').value);
+    const newPrice = parseFloat(document.getElementById('edit-price-new').value);
+    
+    const discountPreview = document.getElementById('discount-preview');
+    const discountValue = document.getElementById('discount-value');
+    
+    if (newPrice && newPrice < originalPrice) {
+        const discount = ((originalPrice - newPrice) / originalPrice * 100).toFixed(0);
+        const economy = (originalPrice - newPrice).toFixed(2);
+        
+        discountValue.textContent = `${discount}% (Economize R$ ${economy})`;
+        discountPreview.classList.remove('hidden');
+    } else {
+        discountPreview.classList.add('hidden');
+    }
+}
+
+async function savePriceEdit() {
+    if (!currentEditProduct) return;
+    
+    const newPrice = parseFloat(document.getElementById('edit-price-new').value);
+    const originalPrice = parseFloat(document.getElementById('edit-price-original').value);
+    
+    // Atualizar produto
+    const updatedProduct = {
+        ...currentEditProduct,
+        preco_promocional: newPrice || null,
+        preco_atual: newPrice || currentEditProduct.preco_atual,
+        preco_original: originalPrice
+    };
+    
+    // Recalcular desconto
+    if (newPrice && newPrice < originalPrice) {
+        updatedProduct.desconto_percent = Math.round(((originalPrice - newPrice) / originalPrice) * 100);
+    }
+    
+    try {
+        // Salvar no backend
+        const response = await fetch('http://localhost:5001/api/save-product', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedProduct)
+        });
+        
+        if (response.ok) {
+            alert('✅ Preço atualizado com sucesso!');
+            closeEditPriceModal();
+            loadData(); // Recarregar lista
+        } else {
+            alert('❌ Erro ao salvar preço');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('❌ Erro ao salvar preço');
+    }
+}
+
+function closeEditPriceModal() {
+    document.getElementById('edit-price-modal').classList.add('hidden');
+    currentEditProduct = null;
+}
+
+// Event listeners do modal
+document.getElementById('cancel-edit-btn').addEventListener('click', closeEditPriceModal);
+document.getElementById('save-price-btn').addEventListener('click', savePriceEdit);
+
+// Fechar modal ao clicar fora
+document.getElementById('edit-price-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'edit-price-modal') {
+        closeEditPriceModal();
+    }
+});
+
+// Adicionar botão de editar preço na renderização
+window.openEditPriceModal = openEditPriceModal;
 
 // Carregar dados ao iniciar
 loadData();
