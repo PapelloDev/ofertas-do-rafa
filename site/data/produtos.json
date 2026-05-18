@@ -6,8 +6,8 @@
       "descricao": "",
       "categoria": "outros",
       "preco_original": 35.98,
-      "preco_atual": 30.98,
-      "desconto_percent": 14,
+      "preco_atual": 27.99,
+      "desconto_percent": 22,
       "imagem_url": "https://m.media-amazon.com/images/I/51PrhihwEQL._AC_SX522_.jpg",
       "link_afiliado": "https://amzn.to/4wzAvJn",
       "brand": "Ricca",
@@ -16,7 +16,8 @@
       ],
       "data_atualizacao": "2026-05-15T21:36:12.824Z",
       "expiry_date": "2026-05-16T21:36:12.824Z",
-      "expiry_hours": 24
+      "expiry_hours": 24,
+      "preco_promocional": 27.99
     }
   ],
   "categorias": [
@@ -50,6 +51,6 @@
     "site_slogan": "Ofertas Cuidadosamente Curadas",
     "site_url": "https://ofertasdorafa.netlify.app",
     "partner_tag": "rahsinc-20",
-    "ultima_atualizacao": "2026-05-15T18:38:13.080786"
+    "ultima_atualizacao": "2026-05-18T11:41:44.166354"
   }
 }

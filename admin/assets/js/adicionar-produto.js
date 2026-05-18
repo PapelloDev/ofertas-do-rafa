@@ -56,14 +56,25 @@ function displayProductPreview(product) {
     document.getElementById('preview-title').textContent = product.titulo;
     document.getElementById('preview-brand').textContent = product.brand ? `Marca: ${product.brand}` : '';
     
-    if (product.preco_original > product.preco_atual) {
-        document.getElementById('preview-price-original').textContent = `De: R$ ${product.preco_original.toFixed(2)}`;
+    // Usar preço promocional se existir, senão usar preço atual
+    const precoExibicao = product.preco_promocional || product.preco_atual;
+    const precoOriginal = product.preco_original || product.preco_atual;
+    
+    if (precoOriginal > precoExibicao) {
+        document.getElementById('preview-price-original').textContent = `De: R$ ${precoOriginal.toFixed(2)}`;
     } else {
         document.getElementById('preview-price-original').textContent = '';
     }
     
-    document.getElementById('preview-price-current').textContent = `R$ ${product.preco_atual.toFixed(2)}`;
-    document.getElementById('preview-discount').textContent = `${Math.round(product.desconto_percent)}% OFF`;
+    document.getElementById('preview-price-current').textContent = `R$ ${precoExibicao.toFixed(2)}`;
+    
+    // Recalcular desconto se houver preço promocional
+    let desconto = product.desconto_percent;
+    if (product.preco_promocional && precoOriginal > product.preco_promocional) {
+        desconto = Math.round(((precoOriginal - product.preco_promocional) / precoOriginal) * 100);
+    }
+    
+    document.getElementById('preview-discount').textContent = `${Math.round(desconto)}% OFF`;
     
     // Features
     const featuresList = document.getElementById('features-list');
@@ -157,6 +168,7 @@ document.getElementById('preview-btn').addEventListener('click', function() {
         categoria: category,
         preco_original: originalPrice,
         preco_atual: price,
+        preco_promocional: null, // Será definido ao editar preço
         desconto_percent: discount,
         imagem_url: image,
         link_afiliado: affiliateLink,
