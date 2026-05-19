@@ -1179,9 +1179,150 @@ if __name__ == '__main__':
     print("  GET  /api/analytics             - Obter dados de analytics")
     print("  POST /api/save-category         - Salvar categoria")
     print("  POST /api/delete-category       - Excluir categoria")
+    print("  POST /api/save-config           - Salvar configurações")
+    print("  POST /api/generate-hook         - Gerar gancho com IA")
+    print("  POST /api/test-openai           - Testar OpenAI")
     print()
     print("Pressione Ctrl+C para parar")
     print("=" * 60)
     print()
     
     app.run(debug=True, port=5001)
+
+@app.route('/api/save-config', methods=['POST'])
+def save_config():
+    """Salvar configurações"""
+    try:
+        config_data = request.json
+        
+        # Ler dados atuais
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Atualizar config
+        if 'config' not in data:
+            data['config'] = {}
+        
+        data['config'].update(config_data)
+        data['config']['ultima_atualizacao'] = datetime.now().isoformat()
+        
+        # Salvar
+        with open(DATA_FILE, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        print(f"✅ Configurações salvas")
+        return jsonify({'success': True})
+        
+    except Exception as e:
+        print(f"Erro ao salvar configurações: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/generate-hook', methods=['POST'])
+def generate_hook():
+    """Gerar gancho de venda com OpenAI"""
+    try:
+        data_request = request.json
+        title = data_request.get('title', '')
+        features = data_request.get('features', '')
+        
+        if not title:
+            return jsonify({'error': 'Título é obrigatório'}), 400
+        
+        # Ler configurações
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        config = data.get('config', {})
+        api_key = config.get('openai_api_key')
+        model = config.get('openai_model', 'gpt-4o-mini')
+        
+        if not api_key:
+            return jsonify({
+                'error': 'Chave API da OpenAI não configurada',
+                'details': 'Configure a chave em Configurações → Inteligência Artificial'
+            }), 400
+        
+        # Chamar OpenAI
+        import openai
+        openai.api_key = api_key
+        
+        prompt = f"""Você é um especialista em copywriting para vendas online.
+
+Crie um gancho de venda CURTO (máximo 2 linhas) para este produto:
+
+Produto: {title}
+{f'Características: {features}' if features else ''}
+
+O gancho deve:
+1. Levantar um problema ou dor que o cliente tem
+2. Apresentar o produto como a solução
+3. Ser direto e impactante
+4. Usar linguagem coloquial brasileira
+5. NÃO usar emojis
+
+Exemplo de formato:
+"Cansado de perder suas chaves? Este rastreador inteligente resolve esse problema de vez!"
+
+Retorne APENAS o gancho, sem aspas ou formatação extra."""
+
+        response = openai.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": "Você é um especialista em copywriting de vendas."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.8,
+            max_tokens=100
+        )
+        
+        hook = response.choices[0].message.content.strip()
+        
+        # Remover aspas se houver
+        hook = hook.strip('"').strip("'")
+        
+        print(f"✅ Gancho gerado: {hook}")
+        
+        return jsonify({'hook': hook})
+        
+    except Exception as e:
+        print(f"Erro ao gerar gancho: {e}")
+        return jsonify({
+            'error': 'Erro ao gerar gancho',
+            'details': str(e)
+        }), 500
+
+@app.route('/api/test-openai', methods=['POST'])
+def test_openai():
+    """Testar conexão com OpenAI"""
+    try:
+        data_request = request.json
+        api_key = data_request.get('api_key')
+        model = data_request.get('model', 'gpt-4o-mini')
+        
+        if not api_key:
+            return jsonify({'error': 'Chave API não fornecida'}), 400
+        
+        import openai
+        openai.api_key = api_key
+        
+        response = openai.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "user", "content": "Diga apenas 'OK'"}
+            ],
+            max_tokens=10
+        )
+        
+        message = response.choices[0].message.content
+        
+        return jsonify({
+            'success': True,
+            'message': message,
+            'model': model
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'error': 'Erro ao conectar com OpenAI',
+            'details': str(e)
+        }), 500

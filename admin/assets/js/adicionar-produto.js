@@ -161,6 +161,9 @@ document.getElementById('preview-btn').addEventListener('click', function() {
     const discount = originalPrice > price ? 
         Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
     
+    // Gancho de venda
+    const hook = document.getElementById('manual-hook').value.trim();
+    
     currentProduct = {
         asin: asin,
         titulo: title,
@@ -174,6 +177,7 @@ document.getElementById('preview-btn').addEventListener('click', function() {
         link_afiliado: affiliateLink,
         brand: brand,
         features: features,
+        hook: hook || null, // Gancho de venda
         data_atualizacao: new Date().toISOString()
     };
     
@@ -277,6 +281,56 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
     } catch (error) {
         console.error('Erro ao publicar:', error);
         alert('Erro ao publicar produto: ' + error.message + '\n\nVerifique se o servidor backend está rodando.');
+    }
+});
+
+// Gerar gancho com IA
+document.getElementById('generate-hook-btn').addEventListener('click', async function() {
+    const title = document.getElementById('manual-title').value.trim();
+    const features = document.getElementById('manual-features').value.trim();
+    
+    if (!title) {
+        alert('⚠️ Por favor, preencha o título do produto primeiro');
+        return;
+    }
+    
+    const btn = this;
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span>🔄</span><span>Gerando...</span>';
+    
+    try {
+        const response = await fetch('http://localhost:5001/api/generate-hook', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: title,
+                features: features
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+            document.getElementById('manual-hook').value = result.hook;
+            
+            // Animação de sucesso
+            btn.innerHTML = '<span>✅</span><span>Gerado!</span>';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        } else {
+            alert(`❌ Erro: ${result.error}\n\n${result.details || ''}`);
+            btn.innerHTML = originalText;
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('❌ Erro ao gerar gancho. Verifique se a chave API da OpenAI está configurada em Configurações.');
+        btn.innerHTML = originalText;
+    } finally {
+        btn.disabled = false;
     }
 });
 

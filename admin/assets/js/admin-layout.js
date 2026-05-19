@@ -65,6 +65,10 @@ function createAdminHeader(currentPage = '') {
                         <span>🏷️</span>
                         <span>Categorias</span>
                     </a>
+                    <a href="/admin/configuracoes.html" class="nav-link ${currentPage === 'configuracoes' ? 'active' : ''}">
+                        <span>⚙️</span>
+                        <span>Configurações</span>
+                    </a>
                 </div>
             </div>
         </nav>

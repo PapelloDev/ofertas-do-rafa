@@ -59,6 +59,11 @@ def send_product_to_whatsapp(product_data, product_url):
         if is_special_promo:
             message += "⭐ *PREÇO EXCLUSIVO DO RAFA!* ⭐\n\n"
         
+        # Adicionar gancho se existir
+        hook = product_data.get('hook')
+        if hook:
+            message += f"💭 _{hook}_\n\n"
+        
         message += f"📦 *{titulo}*\n"
         
         if brand:
