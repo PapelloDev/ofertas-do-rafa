@@ -105,8 +105,12 @@ def send_product_to_whatsapp(product_data, product_url):
             
             message += f"⏰ Válido por: *{prazo_texto}*\n"
         
+        # Usar URL curta se disponível
+        short_url = product_data.get('short_url')
+        link_to_share = short_url if short_url else product_url
+        
         message += f"\n"
-        message += f"🔗 *Ver oferta:*\n{product_url}\n\n"
+        message += f"🔗 *Ver oferta:*\n{link_to_share}\n\n"
         message += f"_💡 Aproveite enquanto dura!_"
         
         # Enviar mensagem com imagem
