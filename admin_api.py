@@ -1158,37 +1158,6 @@ def deploy_to_github():
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
-
-if __name__ == '__main__':
-    print("=" * 60)
-    print("🚀 API Admin - Ofertas do Rafa")
-    print("=" * 60)
-    print()
-    print("📡 Servidor rodando em: http://localhost:5001")
-    print("📂 Diretório do site:", SITE_DIR)
-    print()
-    print("Endpoints disponíveis:")
-    print("  POST /api/extract-product       - Extrair dados da Amazon")
-    print("  POST /api/save-product          - Salvar produto no JSON")
-    print("  POST /api/generate-product-page - Gerar página HTML")
-    print("  POST /api/send-to-whatsapp      - Enviar produto para WhatsApp")
-    print("  POST /api/deploy                - Deploy automático para GitHub")
-    print("  POST /api/delete-product        - Excluir produto")
-    print("  POST /api/remove-expired        - Remover produtos expirados")
-    print("  POST /api/track-click           - Registrar clique em produto")
-    print("  GET  /api/analytics             - Obter dados de analytics")
-    print("  POST /api/save-category         - Salvar categoria")
-    print("  POST /api/delete-category       - Excluir categoria")
-    print("  POST /api/save-config           - Salvar configurações")
-    print("  POST /api/generate-hook         - Gerar gancho com IA")
-    print("  POST /api/test-openai           - Testar OpenAI")
-    print()
-    print("Pressione Ctrl+C para parar")
-    print("=" * 60)
-    print()
-    
-    app.run(debug=True, port=5001)
-
 @app.route('/api/save-config', methods=['POST'])
 def save_config():
     """Salvar configurações"""
@@ -1326,3 +1295,34 @@ def test_openai():
             'error': 'Erro ao conectar com OpenAI',
             'details': str(e)
         }), 500
+
+
+if __name__ == '__main__':
+    print("=" * 60)
+    print("🚀 API Admin - Ofertas do Rafa")
+    print("=" * 60)
+    print()
+    print("📡 Servidor rodando em: http://localhost:5001")
+    print("📂 Diretório do site:", SITE_DIR)
+    print()
+    print("Endpoints disponíveis:")
+    print("  POST /api/extract-product       - Extrair dados da Amazon")
+    print("  POST /api/save-product          - Salvar produto no JSON")
+    print("  POST /api/generate-product-page - Gerar página HTML")
+    print("  POST /api/send-to-whatsapp      - Enviar produto para WhatsApp")
+    print("  POST /api/deploy                - Deploy automático para GitHub")
+    print("  POST /api/delete-product        - Excluir produto")
+    print("  POST /api/remove-expired        - Remover produtos expirados")
+    print("  POST /api/track-click           - Registrar clique em produto")
+    print("  GET  /api/analytics             - Obter dados de analytics")
+    print("  POST /api/save-category         - Salvar categoria")
+    print("  POST /api/delete-category       - Excluir categoria")
+    print("  POST /api/save-config           - Salvar configurações")
+    print("  POST /api/generate-hook         - Gerar gancho com IA")
+    print("  POST /api/test-openai           - Testar OpenAI")
+    print()
+    print("Pressione Ctrl+C para parar")
+    print("=" * 60)
+    print()
+    
+    app.run(debug=True, port=5001)
