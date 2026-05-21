@@ -57,29 +57,62 @@
     
     <script>
         // Pegar o código curto da URL
-        const pathParts = window.location.pathname.split('/');
-        const shortCode = pathParts[pathParts.length - 1].replace('.html', '');
+        // Pode vir como /eg238p ou /redirect.html (com query string ou referrer)
+        let shortCode = '';
         
-        // Buscar produtos
-        fetch('/data/produtos.json')
-            .then(response => response.json())
-            .then(data => {
-                // Encontrar produto pelo short_code
-                const product = data.produtos.find(p => p.short_code === shortCode);
-                
-                if (product) {
-                    // Redirecionar para o link de afiliado
-                    window.location.href = product.link_afiliado;
-                } else {
-                    // Se não encontrar, redirecionar para home
+        // Tentar pegar do pathname primeiro
+        const pathParts = window.location.pathname.split('/').filter(p => p);
+        
+        // Se o último elemento não for redirect.html, é o código
+        if (pathParts.length > 0 && pathParts[pathParts.length - 1] !== 'redirect.html') {
+            shortCode = pathParts[pathParts.length - 1].replace('.html', '');
+        } else if (pathParts.length > 1) {
+            // Se for redirect.html, pegar o penúltimo
+            shortCode = pathParts[pathParts.length - 2].replace('.html', '');
+        }
+        
+        // Se ainda não tiver código, tentar pegar do referrer
+        if (!shortCode && document.referrer) {
+            const referrerPath = new URL(document.referrer).pathname;
+            const referrerParts = referrerPath.split('/').filter(p => p);
+            if (referrerParts.length > 0) {
+                shortCode = referrerParts[referrerParts.length - 1].replace('.html', '');
+            }
+        }
+        
+        console.log('Short code detectado:', shortCode);
+        
+        if (!shortCode || shortCode === 'redirect') {
+            console.error('Código curto não encontrado');
+            window.location.href = '/';
+        } else {
+            // Buscar produtos
+            fetch('/data/produtos.json')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Produtos carregados:', data.produtos.length);
+                    
+                    // Encontrar produto pelo short_code
+                    const product = data.produtos.find(p => p.short_code === shortCode);
+                    
+                    if (product) {
+                        console.log('Produto encontrado:', product.titulo);
+                        console.log('Redirecionando para:', product.link_afiliado);
+                        
+                        // Redirecionar para o link de afiliado
+                        window.location.href = product.link_afiliado;
+                    } else {
+                        console.error('Produto não encontrado para código:', shortCode);
+                        // Se não encontrar, redirecionar para home
+                        window.location.href = '/';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar produtos:', error);
+                    // Em caso de erro, redirecionar para home
                     window.location.href = '/';
-                }
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                // Em caso de erro, redirecionar para home
-                window.location.href = '/';
-            });
+                });
+        }
     </script>
 </body>
 </html>

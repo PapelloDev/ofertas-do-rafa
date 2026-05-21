@@ -1,0 +1,19 @@
+[build]
+  publish = "."
+  
+[[redirects]]
+  from = "/:code"
+  to = "/redirect.html"
+  status = 200
+  force = false
+  conditions = {path = ["/:code"]}
+  
+  # Apenas redirecionar se for código de 6 caracteres
+  # e não for uma rota existente
+  
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

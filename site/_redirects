@@ -1,0 +1,5 @@
+# Netlify Redirects - URLs Curtas
+# Redirecionar códigos de 6 caracteres para redirect.html
+
+# URLs curtas (6 caracteres alfanuméricos)
+/:code  /redirect.html  200

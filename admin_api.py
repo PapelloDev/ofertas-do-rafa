@@ -1197,13 +1197,13 @@ def generate_hook():
         if not title:
             return jsonify({'error': 'Título é obrigatório'}), 400
         
-        # Ler configurações
-        with open(DATA_FILE, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+        # Ler configurações do .env
+        import os
+        from dotenv import load_dotenv
+        load_dotenv()
         
-        config = data.get('config', {})
-        api_key = config.get('openai_api_key')
-        model = config.get('openai_model', 'gpt-4o-mini')
+        api_key = os.getenv('OPENAI_API_KEY')
+        model = os.getenv('OPENAI_MODEL', 'gpt-4o-mini')
         
         if not api_key:
             return jsonify({
