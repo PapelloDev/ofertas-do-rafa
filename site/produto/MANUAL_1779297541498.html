@@ -76,6 +76,41 @@
                         🛒 Comprar na Amazon
                     </a>
                     
+                    <!-- Contador Regressivo -->
+                    <div id="countdown-container" class="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 rounded-lg p-6 mb-4">
+                        <div class="text-center">
+                            <p class="text-red-600 font-bold text-lg mb-3">⏰ OFERTA TERMINA EM:</p>
+                            <div id="countdown" class="flex justify-center gap-4 text-2xl font-bold text-red-600">
+                                <div class="flex flex-col items-center">
+                                    <span id="hours" class="text-4xl">00</span>
+                                    <span class="text-xs text-gray-600">HORAS</span>
+                                </div>
+                                <span class="text-4xl">:</span>
+                                <div class="flex flex-col items-center">
+                                    <span id="minutes" class="text-4xl">00</span>
+                                    <span class="text-xs text-gray-600">MIN</span>
+                                </div>
+                                <span class="text-4xl">:</span>
+                                <div class="flex flex-col items-center">
+                                    <span id="seconds" class="text-4xl">00</span>
+                                    <span class="text-xs text-gray-600">SEG</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-3">🔥 Não perca esta oportunidade!</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Oferta Expirada -->
+                    <div id="expired-container" class="hidden bg-gray-100 border-2 border-gray-400 rounded-lg p-6 mb-4">
+                        <div class="text-center">
+                            <p class="text-gray-600 font-bold text-xl mb-2">⏰ OFERTA EXPIRADA</p>
+                            <p class="text-gray-500">Esta promoção não está mais disponível.</p>
+                            <a href="../index.html" class="inline-block mt-4 text-[#1A5F5F] hover:underline">
+                                ← Ver outras ofertas
+                            </a>
+                        </div>
+                    </div>
+                    
                     <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-800">
                         ⚡ <strong>Oferta por tempo limitado!</strong> Preços e disponibilidade podem variar.
                     </div>
@@ -107,5 +142,53 @@
     
     <!-- Analytics -->
     <script src="../assets/js/analytics.js"></script>
+    
+    <!-- Countdown Timer -->
+    <script>
+        const expiryDate = '2026-05-21T17:19:01.498Z';
+        
+        if (expiryDate) {
+            const countdownContainer = document.getElementById('countdown-container');
+            const expiredContainer = document.getElementById('expired-container');
+            const buyButton = document.querySelector('.btn-primary');
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const expiry = new Date(expiryDate).getTime();
+                const distance = expiry - now;
+                
+                if (distance < 0) {
+                    // Oferta expirada
+                    countdownContainer.classList.add('hidden');
+                    expiredContainer.classList.remove('hidden');
+                    buyButton.classList.add('hidden');
+                    buyButton.disabled = true;
+                    return;
+                }
+                
+                // Calcular tempo restante
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Atualizar display
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+                
+                // Adicionar efeito de urgência quando faltam menos de 1 hora
+                if (hours === 0 && minutes < 60) {
+                    countdownContainer.classList.add('animate-pulse');
+                }
+            }
+            
+            // Atualizar a cada segundo
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        } else {
+            // Se não tem data de expiração, esconder contador
+            document.getElementById('countdown-container').classList.add('hidden');
+        }
+    </script>
 </body>
 </html>
