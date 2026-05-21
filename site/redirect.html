@@ -97,10 +97,12 @@
                     
                     if (product) {
                         console.log('Produto encontrado:', product.titulo);
-                        console.log('Redirecionando para:', product.link_afiliado);
                         
-                        // Redirecionar para o link de afiliado
-                        window.location.href = product.link_afiliado;
+                        // Redirecionar para a página do produto no site
+                        const productPageUrl = `/produto/${product.asin}.html`;
+                        console.log('Redirecionando para:', productPageUrl);
+                        
+                        window.location.href = productPageUrl;
                     } else {
                         console.error('Produto não encontrado para código:', shortCode);
                         // Se não encontrar, redirecionar para home
