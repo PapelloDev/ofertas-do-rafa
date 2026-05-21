@@ -98,6 +98,34 @@
       "expiry_hours": 24,
       "short_code": "eg238p",
       "short_url": "https://ofertasdorafa.app.br/eg238p"
+    },
+    {
+      "asin": "MANUAL_1779369813777",
+      "titulo": "Adaptador USB Tipo-C para USB Tipo A Carregamento Rápido 30W",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 12.9,
+      "preco_atual": 8.9,
+      "preco_promocional": null,
+      "desconto_percent": 31,
+      "imagem_url": "https://m.media-amazon.com/images/I/51lReaR57KL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4nHOE3e",
+      "brand": "",
+      "features": [
+        "Salve Seus Carregadores Antigos: Não jogue fora seus carregadores de parede ou veiculares só porque a entrada é USB antiga. Com este adaptador, você transforma qualquer porta USB padrão (Tipo A) em uma entrada USB-C moderna para usar seus cabos novos",
+        "Compatível com iPhone 15 e 16 no Carro: Seu carro não tem entrada USB-C? Use este adaptador para conectar o cabo original do seu iPhone 15/16 ou Android no painel do veículo. Compatível com Apple CarPlay e Android Auto (desde que o carro suporte dados via USB)",
+        "Conecte Periféricos USB-C no PC: Seu computador ou notebook não tem entrada Tipo C? Resolva isso agora. Conecte Webcams, HDs Externos, Fones de Ouvido (USB-C), Hubs e Celulares diretamente na porta USB do seu computador para trabalhar e transferir arquivos",
+        "Carregamento e Dados Estáveis: Suporta carregamento seguro para seus dispositivos e transferência de dados rápida (480Mbps a 5Gbps, dependendo do modelo). Permite passar fotos do celular para o computador e fazer backups",
+        "Ultra Compacto e Portátil: Cabe no bolso, na bolsa ou no estojo. Leve com você para viagens, trabalho ou uso no carro, oferecendo praticidade onde você estiver",
+        "Plug and Play e Seguro: Sem necessidade de drivers ou instalação. Conector reforçado para garantir um encaixe preciso que não folga, protegendo a integridade da porta USB-C do seu dispositivo",
+        "Acabamento Resistente: Basta conectar e usar. Feito com ABS e liga metálica, garantindo durabilidade e praticidade no uso diário"
+      ],
+      "hook": "Seu carro ainda tem só USB antiga? Com este adaptador, você conecta seu iPhone 15/16 e transforma seu carregador em uma potência moderna!",
+      "data_atualizacao": "2026-05-21T13:23:33.777Z",
+      "expiry_date": "2026-05-22T13:23:33.777Z",
+      "expiry_hours": 24,
+      "short_code": "lom7bc",
+      "short_url": "https://ofertasdorafa.app.br/lom7bc"
     }
   ],
   "categorias": [
@@ -131,6 +159,6 @@
     "site_slogan": "Ofertas Cuidadosamente Curadas",
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
-    "ultima_atualizacao": "2026-05-21T10:19:24.137897"
+    "ultima_atualizacao": "2026-05-21T10:23:36.515207"
   }
 }
