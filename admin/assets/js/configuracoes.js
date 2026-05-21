@@ -13,6 +13,7 @@ async function loadConfig() {
         document.getElementById('site-slogan').value = config.site_slogan || '';
         document.getElementById('site-url').value = config.site_url || '';
         document.getElementById('partner-tag').value = config.partner_tag || '';
+        document.getElementById('whatsapp-group-url').value = config.whatsapp_group_url || '';
         document.getElementById('openai-api-key').value = config.openai_api_key || '';
         document.getElementById('openai-model').value = config.openai_model || 'gpt-4o-mini';
         
@@ -29,6 +30,7 @@ async function saveConfig() {
         site_slogan: document.getElementById('site-slogan').value,
         site_url: document.getElementById('site-url').value,
         partner_tag: document.getElementById('partner-tag').value,
+        whatsapp_group_url: document.getElementById('whatsapp-group-url').value,
         openai_api_key: document.getElementById('openai-api-key').value,
         openai_model: document.getElementById('openai-model').value
     };
