@@ -300,7 +300,13 @@ document.getElementById('generate-hook-btn').addEventListener('click', async fun
     btn.innerHTML = '<span>🔄</span><span>Gerando...</span>';
     
     try {
-        const response = await fetch('http://localhost:5001/api/generate-hook', {
+        // Usar função serverless do Netlify em produção, localhost em dev
+        const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        const apiUrl = isProduction 
+            ? '/.netlify/functions/generate-hook'
+            : 'http://localhost:5001/api/generate-hook';
+        
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
