@@ -79,6 +79,33 @@
       "expiry_hours": 24,
       "short_code": "lom7bc",
       "short_url": "https://ofertasdorafa.app.br/lom7bc"
+    },
+    {
+      "asin": "MANUAL_1779370346657",
+      "titulo": "arregador Celular Tipo C Turbo 40W 9.1A",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 34.99,
+      "preco_atual": 30.99,
+      "preco_promocional": null,
+      "desconto_percent": 11,
+      "imagem_url": "https://m.media-amazon.com/images/I/615mhrtQA+L._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/4uWzc5C",
+      "brand": "Genérico",
+      "features": [
+        "COMPATIBILIDADE: Compatível com qualquer Smartphone IOS e Android ou demais eletrônicos como GPS, Power Banks, Fones, Etc. O cabo incluso é USB-C / USB-C porém o Carregador pode ser utilizado com qualquer cabo USB ou USB-C.",
+        "CARREGAMENTO TURBO: Chega de carregadores lentos, Com Potência de 40W e 9.1A, O Carregador / Cabo oferece um carregamento super-rápido para não te deixar na mão!",
+        "CAPACIDADE: Carregue até 2 dispositivos ao mesmo tempo com Duas Saídas: Tipo C 9.1A (PD+QC4.0) + USB 3.0",
+        "COMPLETO: Segue com Fonte + Cabo de dados / carregamento USB-C de 40W (não se engane, demais cabos do mercado não possuem essa capacidade e a maioria dos anuncios de carregador não vem com cabo)",
+        "SEGURANÇA: Com proteção contra sobrecarga, sobretensão e curto-circuito para maior segurança.",
+        "QUALIDADE: Inteiramente construído com materiais de qualidade para entregar a potência real do Anúncio com o carregador e o cabo! Cabo feito de Nylon trancado para Maior durabilidade!"
+      ],
+      "hook": "Perdeu seu carregador caro para iPhone? na amazon tem baratinho mas só hoje!",
+      "data_atualizacao": "2026-05-21T13:32:26.657Z",
+      "expiry_date": "2026-05-22T13:32:26.657Z",
+      "expiry_hours": 24,
+      "short_code": "a2y79h",
+      "short_url": "https://ofertasdorafa.app.br/a2y79h"
     }
   ],
   "categorias": [
@@ -113,6 +140,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-21T10:25:15.196928"
+    "ultima_atualizacao": "2026-05-21T10:32:36.888808"
   }
 }
