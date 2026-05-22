@@ -132,6 +132,26 @@
       "expiry_hours": 24,
       "short_code": "azd2cb",
       "short_url": "https://ofertasdorafa.app.br/azd2cb"
+    },
+    {
+      "asin": "MANUAL_1779479971180",
+      "titulo": "GO ENERGY NOW GEL (10 sachês de 30g) Laranja com Acerola",
+      "descricao": "",
+      "categoria": "corrida",
+      "preco_original": 31.9,
+      "preco_atual": 31.9,
+      "preco_promocional": null,
+      "desconto_percent": 0,
+      "imagem_url": "https://m.media-amazon.com/images/I/712sO9zNHXL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/43qqLUm",
+      "brand": "Athletica Nutrition",
+      "features": [],
+      "hook": null,
+      "data_atualizacao": "2026-05-22T19:59:31.181Z",
+      "expiry_date": "2026-05-23T19:59:31.181Z",
+      "expiry_hours": 24,
+      "short_code": "rgkah4",
+      "short_url": "https://ofertasdorafa.app.br/rgkah4"
     }
   ],
   "categorias": [
@@ -166,6 +186,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-21T17:49:24.734373"
+    "ultima_atualizacao": "2026-05-22T16:59:38.211711"
   }
 }
