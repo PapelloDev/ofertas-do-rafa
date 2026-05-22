@@ -1345,7 +1345,7 @@ def generate_hook():
         if not api_key:
             return jsonify({
                 'error': 'Chave API da OpenAI não configurada',
-                'details': 'Configure a chave em Configurações → Inteligência Artificial'
+                'details': 'Configure OPENAI_API_KEY no arquivo .env'
             }), 400
         
         # Chamar OpenAI
