@@ -152,6 +152,34 @@
       "expiry_hours": 24,
       "short_code": "rgkah4",
       "short_url": "https://ofertasdorafa.app.br/rgkah4"
+    },
+    {
+      "asin": "MANUAL_1779483215195",
+      "titulo": "Leitor de Cartão Micro SD 4 em 1",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 29.99,
+      "preco_atual": 25.61,
+      "preco_promocional": null,
+      "desconto_percent": 15,
+      "imagem_url": "https://m.media-amazon.com/images/I/61x2zpzKD-L._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/4dr57VX",
+      "brand": "",
+      "features": [
+        "📂 4 EM 1 MULTICONEXÃO: USB, USB-C e Micro USB no mesmo dispositivo.",
+        "⚡ TRANSFERÊNCIA RÁPIDA: Ideal para fotos, vídeos e arquivos pesados.",
+        "📱 COMPATÍVEL COM CELULAR: Use diretamente no smartphone OTG.",
+        "💻 FUNCIONA EM PC E NOTEBOOK: Plug and play sem instalação complexa.",
+        "📸 PERFEITO PARA CÂMERAS E DRONES: Leitura prática de cartões Micro SD.",
+        "🔄 DESIGN COMPACTO: Fácil de transportar e guardar.",
+        "🧠 SOLUÇÃO INTELIGENTE: Expanda sua conectividade instantaneamente."
+      ],
+      "hook": null,
+      "data_atualizacao": "2026-05-22T20:53:35.195Z",
+      "expiry_date": "2026-05-23T20:53:35.195Z",
+      "expiry_hours": 24,
+      "short_code": "8iyr2b",
+      "short_url": "https://ofertasdorafa.app.br/8iyr2b"
     }
   ],
   "categorias": [
@@ -186,6 +214,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-22T16:59:38.211711"
+    "ultima_atualizacao": "2026-05-22T17:53:45.911047"
   }
 }
