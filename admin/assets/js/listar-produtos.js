@@ -152,6 +152,9 @@ function renderProducts() {
                             <button onclick="openEditPriceModal('${product.asin}')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
                                 💰 Editar Preço
                             </button>
+                            <button class="resend-whatsapp-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition-colors" data-asin="${product.asin}">
+                                📤 Reenviar WhatsApp
+                            </button>
                             <button class="delete-product-btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition-colors" data-asin="${product.asin}">
                                 🗑️ Excluir
                             </button>
@@ -161,6 +164,42 @@ function renderProducts() {
             </div>
         `;
     }).join('');
+}
+
+// Reenviar produto para WhatsApp
+async function resendToWhatsApp(asin) {
+    console.log('📤 Reenviando produto para WhatsApp:', asin);
+    
+    if (!confirm('Deseja reenviar este produto para o grupo do WhatsApp?')) {
+        console.log('❌ Usuário cancelou');
+        return;
+    }
+    
+    try {
+        console.log('📡 Chamando API...');
+        const response = await fetch('http://localhost:5001/api/send-to-whatsapp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ asin: asin })
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('❌ Erro da API:', errorData);
+            throw new Error(errorData.error || 'Erro ao enviar para WhatsApp');
+        }
+        
+        const result = await response.json();
+        console.log('✅ Resposta da API:', result);
+        
+        alert('✅ Produto reenviado para WhatsApp com sucesso!');
+        
+    } catch (error) {
+        console.error('❌ Erro ao reenviar:', error);
+        alert('Erro ao reenviar para WhatsApp: ' + error.message);
+    }
 }
 
 // Excluir produto
@@ -248,13 +287,23 @@ document.getElementById('filter-category').addEventListener('change', renderProd
 document.getElementById('filter-status').addEventListener('change', renderProducts);
 document.getElementById('search-input').addEventListener('input', renderProducts);
 
-// Event delegation para botões de deletar
+// Event delegation para botões
 document.getElementById('products-list').addEventListener('click', function(e) {
+    // Botão de deletar
     if (e.target.classList.contains('delete-product-btn') || e.target.closest('.delete-product-btn')) {
         const button = e.target.classList.contains('delete-product-btn') ? e.target : e.target.closest('.delete-product-btn');
         const asin = button.getAttribute('data-asin');
         if (asin) {
             deleteProduct(asin);
+        }
+    }
+    
+    // Botão de reenviar WhatsApp
+    if (e.target.classList.contains('resend-whatsapp-btn') || e.target.closest('.resend-whatsapp-btn')) {
+        const button = e.target.classList.contains('resend-whatsapp-btn') ? e.target : e.target.closest('.resend-whatsapp-btn');
+        const asin = button.getAttribute('data-asin');
+        if (asin) {
+            resendToWhatsApp(asin);
         }
     }
 });
