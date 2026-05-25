@@ -180,6 +180,34 @@
       "expiry_hours": 24,
       "short_code": "8iyr2b",
       "short_url": "https://ofertasdorafa.app.br/8iyr2b"
+    },
+    {
+      "asin": "MANUAL_1779716580057",
+      "titulo": "Kit 2 Adaptadores Lightning/USB-C",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 28.9,
+      "preco_atual": 25.8,
+      "preco_promocional": null,
+      "desconto_percent": 11,
+      "imagem_url": "https://m.media-amazon.com/images/I/61R3mJrvoEL._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/3PJiuI2",
+      "brand": "",
+      "features": [
+        "✅ Carregamento Rápido de até 60W (PD) — Compatível com tecnologia Power Delivery, permite carregar seus dispositivos USB-C com velocidade e segurança.",
+        "✅ Alta Velocidade de Transferência de Dados — Transmissão de arquivos estável e eficiente com velocidade de até 480 Mbps, ideal para sincronizar fotos, vídeos e documentos rapidamente.",
+        "✅ Compatível com iPhone 15 e Dispositivos USB-C — Ideal para iPhone 15/15 Pro/15 Pro Max/15 Plus, além de modelos como Google Pixel, Samsung Galaxy, iPad Pro, entre outros.",
+        "✅ Resistor Integrado de 56 KΩ — Protege seus dispositivos contra sobrecargas, superaquecimento e curtos-circuitos, garantindo segurança total na utilização.",
+        "✅ Construção Premium em Alumínio — Estrutura reforçada e acabamento elegante em liga de alumínio, resistente a oxidação, desgaste e impactos do dia a dia.",
+        "✅ Design Compacto e Portátil — Pequeno, leve e discreto. Ideal para carregar no bolso ou mochila, perfeito para viagens, trabalho ou uso diário.",
+        "✅ Plug and Play — Sem Configurações — Conector USB-C reversível, fácil de usar: basta conectar e começar a carregar ou transferir dados, sem necessidade de drivers ou software."
+      ],
+      "hook": "IPhone novo, vai perder os carregadores e fones antigos? recupere-os com esse adaptador, no kit vem 2",
+      "data_atualizacao": "2026-05-25T13:43:00.057Z",
+      "expiry_date": "2026-05-26T13:43:00.057Z",
+      "expiry_hours": 24,
+      "short_code": "ieke7y",
+      "short_url": "https://ofertasdorafa.app.br/ieke7y"
     }
   ],
   "categorias": [
@@ -214,6 +242,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-22T17:53:45.911047"
+    "ultima_atualizacao": "2026-05-25T10:43:03.236948"
   }
 }
