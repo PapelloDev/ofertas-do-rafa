@@ -208,6 +208,30 @@
       "expiry_hours": 24,
       "short_code": "ieke7y",
       "short_url": "https://ofertasdorafa.app.br/ieke7y"
+    },
+    {
+      "asin": "MANUAL_1779716852053",
+      "titulo": "GU Energy Original Sports Nutrition Energy Gel",
+      "descricao": "",
+      "categoria": "corrida",
+      "preco_original": 278,
+      "preco_atual": 278,
+      "preco_promocional": null,
+      "desconto_percent": 0,
+      "imagem_url": "https://m.media-amazon.com/images/I/61z0qWpoFuL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4uqtUiU",
+      "brand": "",
+      "features": [
+        "Fornece nutrição esportiva e energia durante atividades físicas",
+        "Gel energético em embalagem de 24 unidades, sabor Vanilla Bean",
+        "Ideal para atletas e praticantes de esportes que necessitam de energia rápida"
+      ],
+      "hook": "O mais procurado carbogel do mercado! saindo na faixa de 11 reais por unidade!",
+      "data_atualizacao": "2026-05-25T13:47:32.053Z",
+      "expiry_date": "2026-05-26T13:47:32.053Z",
+      "expiry_hours": 24,
+      "short_code": "8rkv44",
+      "short_url": "https://ofertasdorafa.app.br/8rkv44"
     }
   ],
   "categorias": [
@@ -242,6 +266,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-25T10:43:03.236948"
+    "ultima_atualizacao": "2026-05-25T10:47:37.248451"
   }
 }
