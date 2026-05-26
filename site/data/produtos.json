@@ -284,6 +284,32 @@
       "expiry_hours": 24,
       "short_code": "6npsql",
       "short_url": "https://ofertasdorafa.app.br/6npsql"
+    },
+    {
+      "asin": "MANUAL_1779806515124",
+      "titulo": "Tapete para Banheiro de Terra Diatomácea Drytomita",
+      "descricao": "",
+      "categoria": "outros",
+      "preco_original": 249,
+      "preco_atual": 94.98,
+      "preco_promocional": null,
+      "desconto_percent": 62,
+      "imagem_url": "https://m.media-amazon.com/images/I/61pSQb4I+8L._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4uJoyPO",
+      "brand": "Momo Lifestyle",
+      "features": [
+        "Esqueça os pisos úmidos e molhados do banheiro: o inovador tapete de banho diatomáceo Momo Lifestyle contém propriedades de absorção de água super rápidas, permitindo que seque em apenas alguns minutos, mantendo seu banheiro fresco e seco em todos os momentos!",
+        "Antiderrapante: o Drytomita oferece aderência natural. Cada passo é firme e confiante, enquanto sua superfície suave protege o piso, evitando marcas indesejadas.",
+        "Compromisso ecológico: Ao optar pelo Tapete Drytomita, você escolhe uma alternativa ecológica, feita exclusivamente de materiais naturais: terra diatomácea, fibra de madeira e cal hidratada.",
+        "Minimalista: As duas opções de cinza do Drytomita combinam com qualquer ambiente. Seu design minimalista e elegante destaca a estética do seu banheiro, mantendo uma aparência limpa e atemporal.",
+        "Ambiente limpo e seco: Diga adeus aos odores indesejados e às preocupações com mofo. O Drytomita age como um desodorizador natural."
+      ],
+      "hook": "Chega de piso molhado e odores no banheiro! O Tapete Rígido Drytomita seca em minutos e mantém tudo limpo e fresquinho.",
+      "data_atualizacao": "2026-05-26T14:41:55.125Z",
+      "expiry_date": "2026-05-27T14:41:55.125Z",
+      "expiry_hours": 24,
+      "short_code": "b0gcsd",
+      "short_url": "https://ofertasdorafa.app.br/b0gcsd"
     }
   ],
   "categorias": [
@@ -318,6 +344,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-26T11:38:32.980853"
+    "ultima_atualizacao": "2026-05-26T11:42:01.521773"
   }
 }
