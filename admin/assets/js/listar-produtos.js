@@ -170,7 +170,17 @@ function renderProducts() {
 async function resendToWhatsApp(asin) {
     console.log('📤 Reenviando produto para WhatsApp:', asin);
     
-    if (!confirm('Deseja reenviar este produto para o grupo do WhatsApp?')) {
+    // Perguntar quantas horas de validade
+    const hours = prompt('⏰ Quantas horas de validade para a oferta?\n(Digite 0 para não renovar)', '24');
+    
+    if (hours === null) {
+        console.log('❌ Usuário cancelou');
+        return;
+    }
+    
+    const expiryHours = parseInt(hours) || 0;
+    
+    if (!confirm(`Deseja reenviar este produto para o grupo do WhatsApp?\n${expiryHours > 0 ? `\n✅ Validade será renovada para ${expiryHours}h` : '\n⚠️ Validade não será alterada'}`)) {
         console.log('❌ Usuário cancelou');
         return;
     }
@@ -182,7 +192,11 @@ async function resendToWhatsApp(asin) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ asin: asin })
+            body: JSON.stringify({ 
+                asin: asin,
+                renew_expiry: expiryHours > 0,
+                expiry_hours: expiryHours
+            })
         });
         
         if (!response.ok) {
@@ -194,7 +208,10 @@ async function resendToWhatsApp(asin) {
         const result = await response.json();
         console.log('✅ Resposta da API:', result);
         
-        alert('✅ Produto reenviado para WhatsApp com sucesso!');
+        alert(`✅ Produto reenviado para WhatsApp com sucesso!${expiryHours > 0 ? `\n⏰ Validade renovada para ${expiryHours}h` : ''}`);
+        
+        // Recarregar lista de produtos
+        await loadProducts();
         
     } catch (error) {
         console.error('❌ Erro ao reenviar:', error);

@@ -890,6 +890,8 @@ def send_to_whatsapp():
     try:
         data_request = request.json
         asin = data_request.get('asin')
+        renew_expiry = data_request.get('renew_expiry', False)
+        expiry_hours = data_request.get('expiry_hours', 24)
         
         if not asin:
             return jsonify({'error': 'ASIN não fornecido'}), 400
@@ -903,6 +905,28 @@ def send_to_whatsapp():
         if not product:
             return jsonify({'error': 'Produto não encontrado'}), 404
         
+        # Renovar validade se solicitado
+        if renew_expiry and expiry_hours > 0:
+            from datetime import datetime, timedelta
+            now = datetime.now()
+            expiry_date = now + timedelta(hours=expiry_hours)
+            
+            product['expiry_date'] = expiry_date.isoformat()
+            product['expiry_hours'] = expiry_hours
+            
+            # Salvar alterações
+            with open(DATA_FILE, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            
+            # Regenerar página HTML
+            categories = data.get('categorias', [])
+            html = generate_product_html(product, categories)
+            product_file = os.path.join(PRODUCTS_DIR, f"{asin}.html")
+            with open(product_file, 'w', encoding='utf-8') as f:
+                f.write(html)
+            
+            print(f"✅ Validade renovada: {expiry_hours}h (até {expiry_date.strftime('%d/%m/%Y %H:%M')})")
+        
         # URL do produto
         site_url = data['config'].get('site_url', 'https://ofertasdorafa.netlify.app')
         product_url = f"{site_url}/produto/{asin}.html"
@@ -913,7 +937,10 @@ def send_to_whatsapp():
         success = send_product_to_whatsapp(product, product_url)
         
         if success:
-            return jsonify({'success': True, 'message': 'Produto enviado para WhatsApp'})
+            message = 'Produto enviado para WhatsApp'
+            if renew_expiry and expiry_hours > 0:
+                message += f' (validade renovada para {expiry_hours}h)'
+            return jsonify({'success': True, 'message': message})
         else:
             return jsonify({'error': 'Falha ao enviar para WhatsApp'}), 500
         
