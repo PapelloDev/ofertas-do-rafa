@@ -89,6 +89,17 @@
                     
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">arregador Celular Tipo C Turbo 40W 9.1A</h1>
                     
+                    <!-- Botão de Compra no Topo -->
+                    <a href="https://amzn.to/4uWzc5C" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-buy-top btn btn-primary w-full text-center text-xl py-4 mb-6 animate-pulse"
+                       data-asin="MANUAL_1779370346657"
+                       data-title="arregador Celular Tipo C Turbo 40W 9.1A"
+                       data-category="eletronicos">
+                        🛒 COMPRAR NA AMAZON AGORA
+                    </a>
+                    
                     <p class="text-lg text-gray-600 mb-4">Marca: <strong>Genérico</strong></p>
                     
                     <div class="bg-gray-50 rounded-lg p-6 mb-6">
@@ -204,7 +215,7 @@
         if (expiryDate) {
             const countdownContainer = document.getElementById('countdown-container');
             const expiredContainer = document.getElementById('expired-container');
-            const buyButton = document.querySelector('.btn-primary');
+            const buyButtons = document.querySelectorAll('.btn-primary');
             
             function updateCountdown() {
                 const now = new Date().getTime();
@@ -215,8 +226,10 @@
                     // Oferta expirada
                     countdownContainer.classList.add('hidden');
                     expiredContainer.classList.remove('hidden');
-                    buyButton.classList.add('hidden');
-                    buyButton.disabled = true;
+                    buyButtons.forEach(btn => {
+                        btn.classList.add('hidden');
+                        btn.disabled = true;
+                    });
                     return;
                 }
                 

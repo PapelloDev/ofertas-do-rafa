@@ -89,6 +89,17 @@
                     
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">GO ENERGY NOW GEL (10 sachês de 30g) Laranja com Acerola</h1>
                     
+                    <!-- Botão de Compra no Topo -->
+                    <a href="https://amzn.to/43qqLUm" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-buy-top btn btn-primary w-full text-center text-xl py-4 mb-6 animate-pulse"
+                       data-asin="MANUAL_1779479971180"
+                       data-title="GO ENERGY NOW GEL (10 sachês de 30g) Laranja com Acerola"
+                       data-category="corrida">
+                        🛒 COMPRAR NA AMAZON AGORA
+                    </a>
+                    
                     <p class="text-lg text-gray-600 mb-4">Marca: <strong>Athletica Nutrition</strong></p>
                     
                     <div class="bg-gray-50 rounded-lg p-6 mb-6">
@@ -199,7 +210,7 @@
         if (expiryDate) {
             const countdownContainer = document.getElementById('countdown-container');
             const expiredContainer = document.getElementById('expired-container');
-            const buyButton = document.querySelector('.btn-primary');
+            const buyButtons = document.querySelectorAll('.btn-primary');
             
             function updateCountdown() {
                 const now = new Date().getTime();
@@ -210,8 +221,10 @@
                     // Oferta expirada
                     countdownContainer.classList.add('hidden');
                     expiredContainer.classList.remove('hidden');
-                    buyButton.classList.add('hidden');
-                    buyButton.disabled = true;
+                    buyButtons.forEach(btn => {
+                        btn.classList.add('hidden');
+                        btn.disabled = true;
+                    });
                     return;
                 }
                 

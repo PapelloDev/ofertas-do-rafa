@@ -19,8 +19,8 @@ from dotenv import load_dotenv
 from github import Github
 import base64
 
-# Carregar variáveis de ambiente
-load_dotenv()
+# Carregar variáveis de ambiente (forçar reload)
+load_dotenv(override=True)
 
 app = Flask(__name__)
 CORS(app)  # Permitir requisições do frontend
@@ -657,6 +657,17 @@ def generate_product_html(product, categories):
                     
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">{product['titulo']}</h1>
                     
+                    <!-- Botão de Compra no Topo -->
+                    <a href="{product['link_afiliado']}" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-buy-top btn btn-primary w-full text-center text-xl py-4 mb-6 animate-pulse"
+                       data-asin="{product['asin']}"
+                       data-title="{product['titulo']}"
+                       data-category="{product['categoria']}">
+                        🛒 COMPRAR NA AMAZON AGORA
+                    </a>
+                    
                     {f'<p class="text-lg text-gray-600 mb-4">Marca: <strong>{product["brand"]}</strong></p>' if product.get('brand') else ''}
                     
                     <div class="bg-gray-50 rounded-lg p-6 mb-6">
@@ -772,7 +783,7 @@ def generate_product_html(product, categories):
         if (expiryDate) {{
             const countdownContainer = document.getElementById('countdown-container');
             const expiredContainer = document.getElementById('expired-container');
-            const buyButton = document.querySelector('.btn-primary');
+            const buyButtons = document.querySelectorAll('.btn-primary');
             
             function updateCountdown() {{
                 const now = new Date().getTime();
@@ -783,8 +794,10 @@ def generate_product_html(product, categories):
                     // Oferta expirada
                     countdownContainer.classList.add('hidden');
                     expiredContainer.classList.remove('hidden');
-                    buyButton.classList.add('hidden');
-                    buyButton.disabled = true;
+                    buyButtons.forEach(btn => {{
+                        btn.classList.add('hidden');
+                        btn.disabled = true;
+                    }});
                     return;
                 }}
                 
@@ -1334,13 +1347,16 @@ def generate_hook():
         if not title:
             return jsonify({'error': 'Título é obrigatório'}), 400
         
-        # Ler configurações do .env
+        # Ler configurações do .env (forçar reload)
         import os
         from dotenv import load_dotenv
-        load_dotenv()
+        load_dotenv(override=True)
         
         api_key = os.getenv('OPENAI_API_KEY')
         model = os.getenv('OPENAI_MODEL', 'gpt-4o-mini')
+        
+        print(f"🔑 Chave carregada (primeiros 20 chars): {api_key[:20] if api_key else 'NENHUMA'}...")
+        print(f"🤖 Modelo: {model}")
         
         if not api_key:
             return jsonify({

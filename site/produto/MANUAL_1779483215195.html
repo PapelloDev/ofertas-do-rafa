@@ -89,6 +89,17 @@
                     
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">Leitor de Cartão Micro SD 4 em 1</h1>
                     
+                    <!-- Botão de Compra no Topo -->
+                    <a href="https://amzn.to/4dr57VX" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-buy-top btn btn-primary w-full text-center text-xl py-4 mb-6 animate-pulse"
+                       data-asin="MANUAL_1779483215195"
+                       data-title="Leitor de Cartão Micro SD 4 em 1"
+                       data-category="eletronicos">
+                        🛒 COMPRAR NA AMAZON AGORA
+                    </a>
+                    
                     
                     
                     <div class="bg-gray-50 rounded-lg p-6 mb-6">
@@ -204,7 +215,7 @@
         if (expiryDate) {
             const countdownContainer = document.getElementById('countdown-container');
             const expiredContainer = document.getElementById('expired-container');
-            const buyButton = document.querySelector('.btn-primary');
+            const buyButtons = document.querySelectorAll('.btn-primary');
             
             function updateCountdown() {
                 const now = new Date().getTime();
@@ -215,8 +226,10 @@
                     // Oferta expirada
                     countdownContainer.classList.add('hidden');
                     expiredContainer.classList.remove('hidden');
-                    buyButton.classList.add('hidden');
-                    buyButton.disabled = true;
+                    buyButtons.forEach(btn => {
+                        btn.classList.add('hidden');
+                        btn.disabled = true;
+                    });
                     return;
                 }
                 
