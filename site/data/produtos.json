@@ -384,6 +384,24 @@
       "data_atualizacao": "2026-05-27T13:15:24.800Z",
       "short_code": "r2hkea",
       "short_url": "https://ofertasdorafa.app.br/r2hkea"
+    },
+    {
+      "asin": "MANUAL_1779888071953",
+      "titulo": "Album Capa Mole Baratinho!!",
+      "descricao": "",
+      "categoria": "outros",
+      "preco_original": 29.99,
+      "preco_atual": 22.9,
+      "preco_promocional": null,
+      "desconto_percent": 24,
+      "imagem_url": "https://m.media-amazon.com/images/I/71N-7EwcYwL._SY342_.jpg",
+      "link_afiliado": "https://amzn.to/43tJ6zY",
+      "brand": "Panini",
+      "features": [],
+      "hook": null,
+      "data_atualizacao": "2026-05-27T13:21:11.953Z",
+      "short_code": "2t8qgp",
+      "short_url": "https://ofertasdorafa.app.br/2t8qgp"
     }
   ],
   "categorias": [
@@ -418,6 +436,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-27T10:15:27.144032"
+    "ultima_atualizacao": "2026-05-27T10:21:16.911978"
   }
 }
