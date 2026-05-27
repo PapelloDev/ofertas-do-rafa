@@ -402,6 +402,26 @@
       "data_atualizacao": "2026-05-27T13:21:11.953Z",
       "short_code": "2t8qgp",
       "short_url": "https://ofertasdorafa.app.br/2t8qgp"
+    },
+    {
+      "asin": "MANUAL_1779889696159",
+      "titulo": "Pack YoPRO Bebida Láctea UHT Doce de Leite Havanna 15g de Proteínas 250ml - 24 unidades",
+      "descricao": "",
+      "categoria": "outros",
+      "preco_original": 177,
+      "preco_atual": 159,
+      "preco_promocional": null,
+      "desconto_percent": 10,
+      "imagem_url": "https://m.media-amazon.com/images/I/613JVcV8iSL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4fbsrIx",
+      "brand": "Havana",
+      "features": [],
+      "hook": "Whey YoPRO Havana, favorito da Mimi, no mercado compramos ontem por R$11,00 e aqui cada unidade esta saindo por 6,25!!",
+      "data_atualizacao": "2026-05-27T13:48:16.159Z",
+      "expiry_date": "2026-05-28T13:48:16.159Z",
+      "expiry_hours": 24,
+      "short_code": "lzrgwh",
+      "short_url": "https://ofertasdorafa.app.br/lzrgwh"
     }
   ],
   "categorias": [
@@ -436,6 +456,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-27T10:21:16.911978"
+    "ultima_atualizacao": "2026-05-27T10:48:22.136499"
   }
 }
