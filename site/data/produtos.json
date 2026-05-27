@@ -150,7 +150,7 @@
       ],
       "hook": null,
       "data_atualizacao": "2026-05-22T20:53:35.195Z",
-      "expiry_date": "2026-05-23T20:53:35.195Z",
+      "expiry_date": "2026-05-28T11:05:03.060811",
       "expiry_hours": 24,
       "short_code": "8iyr2b",
       "short_url": "https://ofertasdorafa.app.br/8iyr2b"
@@ -178,7 +178,7 @@
       ],
       "hook": "IPhone novo, vai perder os carregadores e fones antigos? recupere-os com esse adaptador, no kit vem 2",
       "data_atualizacao": "2026-05-25T13:43:00.057Z",
-      "expiry_date": "2026-05-26T13:43:00.057Z",
+      "expiry_date": "2026-05-28T11:05:22.664618",
       "expiry_hours": 24,
       "short_code": "ieke7y",
       "short_url": "https://ofertasdorafa.app.br/ieke7y"
@@ -228,7 +228,7 @@
       ],
       "hook": "Cansado de ficar sem bateria no celular na hora do aperto? Este power bank ultra slim com carregamento por indução garante energia rápida e prática onde você estiver!",
       "data_atualizacao": "2026-05-25T17:48:31.756Z",
-      "expiry_date": "2026-05-26T17:48:31.757Z",
+      "expiry_date": "2026-05-28T11:06:05.760545",
       "expiry_hours": 24,
       "short_code": "vwqd7q",
       "short_url": "https://ofertasdorafa.app.br/vwqd7q"
@@ -421,6 +421,34 @@
       "expiry_hours": 24,
       "short_code": "0h384l",
       "short_url": "https://ofertasdorafa.app.br/0h384l"
+    },
+    {
+      "asin": "MANUAL_1779891049760",
+      "titulo": "Calibrador Compressor Bomba De Ar Portátil Digital Mini Com Lanterna LED para Encher Pneus de Carro",
+      "descricao": "",
+      "categoria": "outros",
+      "preco_original": 79.9,
+      "preco_atual": 70.95,
+      "preco_promocional": null,
+      "desconto_percent": 11,
+      "imagem_url": "https://m.media-amazon.com/images/I/51RHJAuAPmL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/42YJNBg",
+      "brand": "",
+      "features": [
+        "🔧 Multifuncional e Inteligente Detecta automaticamente a pressão dos pneus em tempo real e infla com precisão milimétrica. Evite acidentes causados por pressão incorreta — com ajuste automático, diga adeus ao risco de pneus estourarem por excesso de ar.",
+        "🚗 Compatível com Tudo: Carros, Motos, Bikes e Bolas Vem com 3 bocais adaptáveis e 4 modos de inflação pré-configurados, permitindo uso em qualquer veículo ou esporte. Ideal para o dia a dia, viagens ou aventuras off-road.",
+        "🖥️ Display Digital de Alta Precisão com LED A tela LED integrada mostra a pressão em 4 unidades (PSI, BAR, KPA, kg/cm²), além do modo selecionado. Visualização clara até mesmo em ambientes escuros.",
+        "🔋 Bateria de Longa Duração – 4000mAh Recarregável Com uma bateria de lítio de alta capacidade, infla vários pneus com uma única carga. Carregamento USB-C rápido e prático: no carro, em casa ou com power bank.",
+        "🌙 Lanterna de Emergência Integrada Ideal para uso noturno ou em situações emergenciais. A potente luz LED facilita calibragens em locais com pouca iluminação, como garagens, acampamentos ou acostamentos.",
+        "📏 Compacto e Leve, Cabe no Porta-Luvas Design minimalista com apenas 420g e dimensões reduzidas. Perfeito para transportar no porta-luvas, mochila ou alforje. Portabilidade máxima com desempenho profissional.",
+        "⏱️ Infla Pneus em Minutos com Parada Automática Preencha o valor desejado e deixe que o compressor cuide do resto. Ele para sozinho ao atingir a pressão ideal — sem riscos e sem perda de tempo."
+      ],
+      "hook": "Chega de pneus descalibrados e riscos de acidentes! O calibrador digital portátil garante a pressão perfeita em qualquer situação.",
+      "data_atualizacao": "2026-05-27T14:10:49.760Z",
+      "expiry_date": "2026-05-28T14:10:49.760Z",
+      "expiry_hours": 24,
+      "short_code": "k5y2f0",
+      "short_url": "https://ofertasdorafa.app.br/k5y2f0"
     }
   ],
   "categorias": [
@@ -455,6 +483,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-27T11:04:40.321638"
+    "ultima_atualizacao": "2026-05-27T11:10:52.846147"
   }
 }
