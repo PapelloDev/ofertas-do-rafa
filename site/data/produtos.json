@@ -364,6 +364,26 @@
       "expiry_hours": 24,
       "short_code": "moevsm",
       "short_url": "https://ofertasdorafa.app.br/moevsm"
+    },
+    {
+      "asin": "MANUAL_1779887724800",
+      "titulo": "Álbum de Figurinhas Capa Dura Dourado!",
+      "descricao": "",
+      "categoria": "outros",
+      "preco_original": 79,
+      "preco_atual": 79,
+      "preco_promocional": null,
+      "desconto_percent": 0,
+      "imagem_url": "https://m.media-amazon.com/images/I/71c8PsQpLDL._SY342_.jpg",
+      "link_afiliado": "https://amzn.to/4dJk0Sj",
+      "brand": "Panini",
+      "features": [
+        "As emoções do maior espetáculo esportivo do mundo eternizadas no maior álbum de figurinhas de todos os tempos! Uma coleção completa, com todas as seleções classificadas, cromos especiais e todos os detalhes para você acompanhar de pertinho a disputa pela taça da FIFA World Cup 2026™! O álbum tem 980 cromos, sendo 68 deles especiais, e contempla as 48 seleções que participam do Mundial de 2026, que acontece entre junho e julho no México, nos Estados Unidos e no Canadá."
+      ],
+      "hook": null,
+      "data_atualizacao": "2026-05-27T13:15:24.800Z",
+      "short_code": "r2hkea",
+      "short_url": "https://ofertasdorafa.app.br/r2hkea"
     }
   ],
   "categorias": [
@@ -398,6 +418,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-27T10:06:59.754315"
+    "ultima_atualizacao": "2026-05-27T10:15:27.144032"
   }
 }
