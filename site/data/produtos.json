@@ -440,6 +440,36 @@
       "expiry_hours": 24,
       "short_code": "3gdqos",
       "short_url": "https://ofertasdorafa.app.br/3gdqos"
+    },
+    {
+      "asin": "MANUAL_1779998103644",
+      "titulo": "Caixa De Som Bluetooth Portátil",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 44.9,
+      "preco_atual": 39.9,
+      "preco_promocional": null,
+      "desconto_percent": 11,
+      "imagem_url": "https://m.media-amazon.com/images/I/51gRKuDc04L._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/4ahnzya",
+      "brand": "GO",
+      "features": [
+        "Caixa De Som Bluetooth Portátil GO 5W, Som Estéreo E Potente, Impermeável, Entrada USB/Cartão, Cabo UsbC, Microfone Integrado, Botões De Controle, Ideal Para Praia, Festas, Viagens, Monitor Sem Audio",
+        "🔊 Som Potente 5W em Tamanho Compacto: Design portátil com áudio limpo e graves reforçados para música, vídeo e chamadas.",
+        "📶 Bluetooth Wireless V5.3 Estável: Conexão rápida e compatível com celulares, tablets, notebooks e smart TVs.",
+        "🔌 Acompanha Manual e Cabo USB-C para Carregamento O produto inclui manual de instruções e cabo USB-C, garantindo configuração simples e recarga prática desde o primeiro uso.",
+        "🔋 Até 5 Horas de Reprodução: Bateria recarregável integrada para curtir música por mais tempo.",
+        "🎙 Microfone Integrado para Chamadas: Atenda ligações com viva-voz pela própria caixa de som.",
+        "🧳 Super Portátil com Alça de Transporte: Leve, compacta e fácil de levar para qualquer lugar.",
+        "⚡ Carregamento Rápido via USB-C : Recarregue a sua caixa de som de forma prática e eficiente através da entrada USB-C, garantindo menor tempo na tomada (~3hr) e mais tempo de uso.",
+        "💧 Resistente a Respingo: Ideal para uso em ambientes externos, praia, piscina e churrasco."
+      ],
+      "hook": "Já cansou de caixas de som fracas e sem mobilidade? Conheça a caixa de som Bluetooth portátil que vai transformar suas festas e viagens!",
+      "data_atualizacao": "2026-05-28T19:55:03.644Z",
+      "expiry_date": "2026-05-29T19:55:03.644Z",
+      "expiry_hours": 24,
+      "short_code": "0je7du",
+      "short_url": "https://ofertasdorafa.app.br/0je7du"
     }
   ],
   "categorias": [
@@ -482,6 +512,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-28T16:45:43.798070"
+    "ultima_atualizacao": "2026-05-28T16:55:05.828831"
   }
 }
