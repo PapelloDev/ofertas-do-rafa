@@ -341,6 +341,26 @@
       "expiry_hours": 24,
       "short_code": "pl4nzx",
       "short_url": "https://ofertasdorafa.app.br/pl4nzx"
+    },
+    {
+      "asin": "MANUAL_1779996909084",
+      "titulo": "Libere di Bere Bene Vinho Tinto Italiano",
+      "descricao": "",
+      "categoria": "alimentos",
+      "preco_original": 49.9,
+      "preco_atual": 34.9,
+      "preco_promocional": null,
+      "desconto_percent": 30,
+      "imagem_url": "https://m.media-amazon.com/images/I/514bcyobgvL._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/4afUjb3",
+      "brand": "liberi",
+      "features": [],
+      "hook": "Chega de vinhos sem sabor que estragam suas reuniões! O Libere di Bere Bene transforma cada taça em uma experiência inesquecível.",
+      "data_atualizacao": "2026-05-28T19:35:09.084Z",
+      "expiry_date": "2026-05-29T19:35:09.085Z",
+      "expiry_hours": 24,
+      "short_code": "1hn28s",
+      "short_url": "https://ofertasdorafa.app.br/1hn28s"
     }
   ],
   "categorias": [
@@ -383,6 +403,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-28T16:14:05.374021"
+    "ultima_atualizacao": "2026-05-28T16:35:12.375347"
   }
 }
