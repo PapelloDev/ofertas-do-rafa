@@ -178,7 +178,7 @@
       ],
       "hook": "Seu filho cansado e sem o que fazer nos dias quentes? O X-Shot é a solução perfeita para garantir diversão refrescante e ativa!",
       "data_atualizacao": "2026-05-27T12:49:49.923Z",
-      "expiry_date": "2026-05-28T12:49:49.925Z",
+      "expiry_date": "2026-05-29T10:15:35.786953",
       "expiry_hours": 24,
       "short_code": "qqwrdm",
       "short_url": "https://ofertasdorafa.app.br/qqwrdm"
@@ -367,6 +367,14 @@
       "icone": "✌️",
       "cor": "#1A5F5F",
       "descricao": "Produtos que não encaixam em categorias especificas"
+    },
+    {
+      "id": "alimentos",
+      "nome": "Alimentos e bebidas",
+      "slug": "alimentos",
+      "icone": "🍽",
+      "cor": "#FC8D0C",
+      "descricao": ""
     }
   ],
   "config": {
@@ -375,6 +383,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-27T11:32:15.336042"
+    "ultima_atualizacao": "2026-05-28T16:14:05.374021"
   }
 }
