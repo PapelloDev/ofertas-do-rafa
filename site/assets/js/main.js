@@ -9,7 +9,6 @@ let currentCategory = 'todos';
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     loadProducts();
-    initCategoryFilters();
 });
 
 // Mobile Menu Toggle
@@ -39,6 +38,9 @@ async function loadProducts() {
             document.getElementById('last-update').textContent = lastUpdate.toLocaleDateString('pt-BR');
         }
         
+        // Renderizar filtros de categoria
+        renderCategoryFilters();
+        
         // Renderizar produtos
         renderProducts(allProducts);
         
@@ -46,6 +48,32 @@ async function loadProducts() {
         console.error('Erro ao carregar produtos:', error);
         showEmptyState();
     }
+}
+
+// Renderizar filtros de categoria dinamicamente
+function renderCategoryFilters() {
+    const container = document.getElementById('category-filters');
+    
+    // Botão "Todos"
+    let filtersHTML = `
+        <button class="btn btn-outline category-filter active" data-category="todos">
+            Todos os Produtos
+        </button>
+    `;
+    
+    // Adicionar botões para cada categoria
+    categories.forEach(category => {
+        filtersHTML += `
+            <button class="btn btn-outline category-filter" data-category="${category.id}">
+                ${category.icone} ${category.nome}
+            </button>
+        `;
+    });
+    
+    container.innerHTML = filtersHTML;
+    
+    // Reinicializar event listeners
+    initCategoryFilters();
 }
 
 // Renderizar produtos na grid

@@ -51,9 +51,6 @@
                 <!-- Navigation -->
                 <div class="hidden md:flex items-center gap-2">
                     <a href="index.html" class="nav-link active">Início</a>
-                    <a href="categoria/eletronicos.html" class="nav-link">📱 Eletrônicos</a>
-                    <a href="categoria/corrida.html" class="nav-link">🏃 Corrida</a>
-                    <a href="categoria/outros.html" class="nav-link">✌️ Outros</a>
                 </div>
                 
                 <!-- Mobile Menu Button -->
@@ -67,8 +64,6 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <a href="index.html" class="block nav-link active mb-2">Início</a>
-                <a href="categoria/eletronicos.html" class="block nav-link mb-2">📱 Eletrônicos</a>
-                <a href="categoria/corrida.html" class="block nav-link">🏃 Corrida</a>
             </div>
         </div>
     </header>
@@ -109,15 +104,10 @@
     
     <!-- Category Filter -->
     <section class="container py-6">
-        <div class="flex flex-wrap gap-3 justify-center">
+        <div id="category-filters" class="flex flex-wrap gap-3 justify-center">
+            <!-- Filtros serão carregados dinamicamente do JSON -->
             <button class="btn btn-outline category-filter active" data-category="todos">
                 Todos os Produtos
-            </button>
-            <button class="btn btn-outline category-filter" data-category="eletronicos">
-                📱 Eletrônicos
-            </button>
-            <button class="btn btn-outline category-filter" data-category="corrida">
-                🏃 Itens de Corrida
             </button>
         </div>
     </section>

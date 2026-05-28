@@ -210,7 +210,7 @@
     
     <!-- Countdown Timer -->
     <script>
-        const expiryDate = '2026-05-28T12:49:49.925Z';
+        const expiryDate = '2026-05-29T10:15:35.786953';
         
         if (expiryDate) {
             const countdownContainer = document.getElementById('countdown-container');
@@ -223,7 +223,12 @@
                 const distance = expiry - now;
                 
                 if (distance < 0) {
-                    // Oferta expirada
+                    // Oferta expirada - redirecionar para home
+                    console.log('⚠️ Produto expirado, redirecionando para home...');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000); // Aguarda 2 segundos para mostrar mensagem
+                    
                     countdownContainer.classList.add('hidden');
                     expiredContainer.classList.remove('hidden');
                     buyButtons.forEach(btn => {
