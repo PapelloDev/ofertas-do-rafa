@@ -791,7 +791,12 @@ def generate_product_html(product, categories):
                 const distance = expiry - now;
                 
                 if (distance < 0) {{
-                    // Oferta expirada
+                    // Oferta expirada - redirecionar para home
+                    console.log('⚠️ Produto expirado, redirecionando para home...');
+                    setTimeout(() => {{
+                        window.location.href = '/';
+                    }}, 2000); // Aguarda 2 segundos para mostrar mensagem
+                    
                     countdownContainer.classList.add('hidden');
                     expiredContainer.classList.remove('hidden');
                     buyButtons.forEach(btn => {{
@@ -907,25 +912,40 @@ def send_to_whatsapp():
         
         # Renovar validade se solicitado
         if renew_expiry and expiry_hours > 0:
-            from datetime import datetime, timedelta
-            now = datetime.now()
-            expiry_date = now + timedelta(hours=expiry_hours)
-            
-            product['expiry_date'] = expiry_date.isoformat()
-            product['expiry_hours'] = expiry_hours
-            
-            # Salvar alterações
-            with open(DATA_FILE, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
-            
-            # Regenerar página HTML
-            categories = data.get('categorias', [])
-            html = generate_product_html(product, categories)
-            product_file = os.path.join(PRODUCTS_DIR, f"{asin}.html")
-            with open(product_file, 'w', encoding='utf-8') as f:
-                f.write(html)
-            
-            print(f"✅ Validade renovada: {expiry_hours}h (até {expiry_date.strftime('%d/%m/%Y %H:%M')})")
+            try:
+                from datetime import datetime, timedelta
+                print(f"🔄 Renovando validade do produto {asin} para {expiry_hours}h...")
+                
+                now = datetime.now()
+                expiry_date = now + timedelta(hours=expiry_hours)
+                
+                product['expiry_date'] = expiry_date.isoformat()
+                product['expiry_hours'] = expiry_hours
+                
+                print(f"📝 Nova data de expiração: {expiry_date.isoformat()}")
+                
+                # Salvar alterações no JSON
+                print(f"💾 Salvando alterações no JSON...")
+                with open(DATA_FILE, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+                print(f"✅ JSON atualizado!")
+                
+                # Regenerar página HTML
+                print(f"🔨 Regenerando página HTML...")
+                categories = data.get('categorias', [])
+                html = generate_product_html(product, categories)
+                product_file = os.path.join(PRODUCTS_DIR, f"{asin}.html")
+                os.makedirs(PRODUCTS_DIR, exist_ok=True)
+                with open(product_file, 'w', encoding='utf-8') as f:
+                    f.write(html)
+                print(f"✅ Página HTML regenerada: {product_file}")
+                
+                print(f"✅ Validade renovada: {expiry_hours}h (até {expiry_date.strftime('%d/%m/%Y %H:%M')})")
+            except Exception as e:
+                print(f"❌ Erro ao renovar validade: {e}")
+                import traceback
+                traceback.print_exc()
+                return jsonify({'error': f'Erro ao renovar validade: {str(e)}'}), 500
         
         # URL do produto
         site_url = data['config'].get('site_url', 'https://ofertasdorafa.netlify.app')

@@ -61,8 +61,20 @@ function renderProducts(products) {
     // Ocultar empty state
     emptyState.classList.add('hidden');
     
-    // Filtrar apenas produtos ativos
-    const activeProducts = products.filter(p => p.ativo !== false);
+    // Filtrar apenas produtos ativos e não expirados
+    const activeProducts = products.filter(p => {
+        // Verificar se está ativo
+        if (p.ativo === false) return false;
+        
+        // Verificar se está expirado
+        if (p.expiry_date) {
+            const now = new Date().getTime();
+            const expiry = new Date(p.expiry_date).getTime();
+            if (expiry < now) return false; // Produto expirado
+        }
+        
+        return true;
+    });
     
     if (activeProducts.length === 0) {
         showEmptyState();

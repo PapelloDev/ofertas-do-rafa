@@ -89,6 +89,17 @@
                     
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">Kit 2 Adaptadores Lightning/USB-C</h1>
                     
+                    <!-- Botão de Compra no Topo -->
+                    <a href="https://amzn.to/3PJiuI2" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-buy-top btn btn-primary w-full text-center text-xl py-4 mb-6 animate-pulse"
+                       data-asin="MANUAL_1779716580057"
+                       data-title="Kit 2 Adaptadores Lightning/USB-C"
+                       data-category="eletronicos">
+                        🛒 COMPRAR NA AMAZON AGORA
+                    </a>
+                    
                     
                     
                     <div class="bg-gray-50 rounded-lg p-6 mb-6">
@@ -199,12 +210,12 @@
     
     <!-- Countdown Timer -->
     <script>
-        const expiryDate = '2026-05-26T13:43:00.057Z';
+        const expiryDate = '2026-05-28T11:05:22.664618';
         
         if (expiryDate) {
             const countdownContainer = document.getElementById('countdown-container');
             const expiredContainer = document.getElementById('expired-container');
-            const buyButton = document.querySelector('.btn-primary');
+            const buyButtons = document.querySelectorAll('.btn-primary');
             
             function updateCountdown() {
                 const now = new Date().getTime();
@@ -212,11 +223,18 @@
                 const distance = expiry - now;
                 
                 if (distance < 0) {
-                    // Oferta expirada
+                    // Oferta expirada - redirecionar para home
+                    console.log('⚠️ Produto expirado, redirecionando para home...');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000); // Aguarda 2 segundos para mostrar mensagem
+                    
                     countdownContainer.classList.add('hidden');
                     expiredContainer.classList.remove('hidden');
-                    buyButton.classList.add('hidden');
-                    buyButton.disabled = true;
+                    buyButtons.forEach(btn => {
+                        btn.classList.add('hidden');
+                        btn.disabled = true;
+                    });
                     return;
                 }
                 
