@@ -264,7 +264,7 @@
       "features": [],
       "hook": "Whey YoPRO Havana, favorito da Mimi, no mercado compramos ontem por R$11,00 e aqui cada unidade esta saindo por 6,25!!",
       "data_atualizacao": "2026-05-27T13:48:16.159Z",
-      "expiry_date": "2026-05-28T13:48:16.159Z",
+      "expiry_date": "2026-05-29T16:37:37.309631",
       "expiry_hours": 24,
       "short_code": "lzrgwh",
       "short_url": "https://ofertasdorafa.app.br/lzrgwh"
@@ -337,7 +337,7 @@
       "features": [],
       "hook": "Sem tempo para refeições saudáveis e nutritivas? O Kit com 12 Barras de Proteína + Mu Crushbar 2.0 Zero Açúcar é a solução prática e deliciosa que você precisa!\n\nSelecione: Programe e Poupe (cancele quando quiser)",
       "data_atualizacao": "2026-05-27T14:21:10.133Z",
-      "expiry_date": "2026-05-28T14:21:10.133Z",
+      "expiry_date": "2026-05-29T16:37:29.739770",
       "expiry_hours": 24,
       "short_code": "pl4nzx",
       "short_url": "https://ofertasdorafa.app.br/pl4nzx"
@@ -361,6 +361,34 @@
       "expiry_hours": 24,
       "short_code": "1hn28s",
       "short_url": "https://ofertasdorafa.app.br/1hn28s"
+    },
+    {
+      "asin": "MANUAL_1779997287478",
+      "titulo": "Adaptador USB-C para HDMI 4K",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 29.9,
+      "preco_atual": 22.14,
+      "preco_promocional": null,
+      "desconto_percent": 26,
+      "imagem_url": "https://m.media-amazon.com/images/I/51C64PvWr8L._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/4uKHP3K",
+      "brand": "",
+      "features": [
+        "Adaptador USB-C para HDMI 4K, USB 3.0 e Carga PD - Compatibilidade com MacBook, Thunderbolt 3 e DEX Android - Eleva Sua Experiência Multimídia Oferece Carga Rápida Vende Mais",
+        "✅ Transforme Seu Dispositivo em um Centro Multimídia 4K Conecte seu notebook, tablet ou smartphone com USB-C a TVs e monitores em até 4K a 60Hz, com qualidade de cinema e zero travamento.",
+        "✅ Produtividade no Máximo com USB 3.0 de Alta Velocidade Transfira arquivos pesados em segundos com velocidade de até 5Gbps, ideal para quem trabalha com grandes volumes de dados ou backups rápidos.",
+        "✅ Carregamento Simultâneo com Tecnologia Power Delivery (PD) Carregue seus dispositivos enquanto usa, com eficiência energética de ponta, sem interromper sua produtividade.",
+        "✅ Compatibilidade Inteligente com DEX, MacBook e Muito Mais Compatível com Samsung DEX, MacBooks M1/M2, tablets Android, Windows e iOS. Um único adaptador, infinitas possibilidades.",
+        "✅ Design Compacto, Elegante e à Prova de Impacto Feito em liga metálica resistente, é leve, bonito e cabe no bolso. Ideal para uso profissional, home office ou viagens.",
+        "✅ Versatilidade Total com 3 Conexões em 1 HDMI, USB 3.0 e USB-C em um único adaptador. Conecte mouse, teclado, pen drive, carregador, monitor e mais, sem limitações."
+      ],
+      "hook": "Cansado de telas pequenas e pouca produtividade? O adaptador USB-C para HDMI 4K transforma qualquer dispositivo em uma estação multimídia poderosa!",
+      "data_atualizacao": "2026-05-28T19:41:27.478Z",
+      "expiry_date": "2026-05-29T19:41:27.478Z",
+      "expiry_hours": 24,
+      "short_code": "y9t7uq",
+      "short_url": "https://ofertasdorafa.app.br/y9t7uq"
     }
   ],
   "categorias": [
@@ -403,6 +431,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-28T16:35:12.375347"
+    "ultima_atualizacao": "2026-05-28T16:41:29.774707"
   }
 }
