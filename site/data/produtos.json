@@ -554,6 +554,26 @@
       "expiry_hours": 24,
       "short_code": "ca7vsz",
       "short_url": "https://ofertasdorafa.app.br/ca7vsz"
+    },
+    {
+      "asin": "MANUAL_1780074092134",
+      "titulo": "Azeite De Oliva Extra Virgem Andorinha - 500ml",
+      "descricao": "",
+      "categoria": "alimentos",
+      "preco_original": 33.56,
+      "preco_atual": 31.49,
+      "preco_promocional": null,
+      "desconto_percent": 6,
+      "imagem_url": "https://m.media-amazon.com/images/I/718KyX3eLvL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4o2zzcQ",
+      "brand": "Andorinha",
+      "features": [],
+      "hook": "Azeite de oliva está nas alturas e você não precisa gastar uma fortuna! O Azeite Extra Virgem Andorinha é a solução com o melhor preço do mercado!",
+      "data_atualizacao": "2026-05-29T17:01:32.134Z",
+      "expiry_date": "2026-05-30T17:01:32.135Z",
+      "expiry_hours": 24,
+      "short_code": "eeoz5g",
+      "short_url": "https://ofertasdorafa.app.br/eeoz5g"
     }
   ],
   "categorias": [
@@ -612,6 +632,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-29T11:31:06.829264"
+    "ultima_atualizacao": "2026-05-29T14:01:37.765817"
   }
 }
