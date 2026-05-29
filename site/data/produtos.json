@@ -497,6 +497,33 @@
       "expiry_hours": 24,
       "short_code": "zfffht",
       "short_url": "https://ofertasdorafa.app.br/zfffht"
+    },
+    {
+      "asin": "MANUAL_1780060020159",
+      "titulo": "Mochila Térmica, Mochila Cooler, Bolsa Térmica à Prova de Vazamento",
+      "descricao": "",
+      "categoria": "gato",
+      "preco_original": 123.9,
+      "preco_atual": 89.9,
+      "preco_promocional": null,
+      "desconto_percent": 27,
+      "imagem_url": "https://m.media-amazon.com/images/I/51mk5wQSuzL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4ec7lsw",
+      "brand": "",
+      "features": [
+        "Mochila Térmica, Mochila Cooler, Bolsa Térmica à Prova de Vazamento, Bolsa Bag Cooler Bolsa Térmica Isotérmica Cooler Caixa Para Bebidas Praia Viagem, PREMIUM",
+        "Leve praticidade e frescor para onde você for com a Mochila Térmica Cooler Portátil, a escolha ideal para quem busca manter alimentos e bebidas na temperatura perfeita durante passeios, viagens longas, piqueniques, praia ou até no dia a dia;",
+        "Design moderno e funcional, essa mochila combina conforto, eficiência térmica e versatilidade, garantindo que seus itens fiquem bem conservados por horas;",
+        "À prova de vazamentos: Revestimento interno resistente e impermeável, evitando qualquer tipo de vazamento ou sujeira indesejada;",
+        "Compartimento principal espaçoso que comporta garrafas, latas, lanches e refeições completas. Ideal para piqueniques em família, dias de praia ou viagens de carro;",
+        "Possui bolsos laterais e frontais para organizar utensílios, talheres, guardanapos, chaves, carteira ou outros objetos pessoais. Distribuição Exclusiva"
+      ],
+      "hook": "Sofrendo com bebidas quentes e alimentos estragados durante suas aventuras? A Mochila Térmica Cooler é a solução perfeita para manter tudo fresquinho e sempre à mão!",
+      "data_atualizacao": "2026-05-29T13:07:00.159Z",
+      "expiry_date": "2026-05-30T13:07:00.159Z",
+      "expiry_hours": 24,
+      "short_code": "b6nmbh",
+      "short_url": "https://ofertasdorafa.app.br/b6nmbh"
     }
   ],
   "categorias": [
@@ -547,6 +574,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-29T10:02:13.543683"
+    "ultima_atualizacao": "2026-05-29T10:07:47.429294"
   }
 }
