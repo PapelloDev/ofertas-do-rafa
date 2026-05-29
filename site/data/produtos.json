@@ -357,7 +357,7 @@
       "features": [],
       "hook": "Chega de vinhos sem sabor que estragam suas reuniões! O Libere di Bere Bene transforma cada taça em uma experiência inesquecível.",
       "data_atualizacao": "2026-05-28T19:35:09.084Z",
-      "expiry_date": "2026-05-29T19:35:09.085Z",
+      "expiry_date": "2026-05-30T17:38:51.630267",
       "expiry_hours": 24,
       "short_code": "1hn28s",
       "short_url": "https://ofertasdorafa.app.br/1hn28s"
@@ -466,7 +466,7 @@
       ],
       "hook": "Já cansou de caixas de som fracas e sem mobilidade? Conheça a caixa de som Bluetooth portátil que vai transformar suas festas e viagens!",
       "data_atualizacao": "2026-05-28T19:55:03.644Z",
-      "expiry_date": "2026-05-29T19:55:03.644Z",
+      "expiry_date": "2026-05-30T17:39:25.523065",
       "expiry_hours": 24,
       "short_code": "0je7du",
       "short_url": "https://ofertasdorafa.app.br/0je7du"
@@ -574,6 +574,26 @@
       "expiry_hours": 24,
       "short_code": "eeoz5g",
       "short_url": "https://ofertasdorafa.app.br/eeoz5g"
+    },
+    {
+      "asin": "MANUAL_1780087211368",
+      "titulo": "teste",
+      "descricao": "",
+      "categoria": "corrida",
+      "preco_original": 234324,
+      "preco_atual": 234234,
+      "preco_promocional": null,
+      "desconto_percent": 0,
+      "imagem_url": "234234",
+      "link_afiliado": "teste",
+      "brand": "",
+      "features": [],
+      "hook": null,
+      "data_atualizacao": "2026-05-29T20:40:11.369Z",
+      "expiry_date": "2026-05-30T20:40:11.369Z",
+      "expiry_hours": 24,
+      "short_code": "clsrkd",
+      "short_url": "https://ofertasdorafa.app.br/clsrkd"
     }
   ],
   "categorias": [
@@ -632,6 +652,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-29T14:01:37.765817"
+    "ultima_atualizacao": "2026-05-29T17:40:13.745553"
   }
 }
