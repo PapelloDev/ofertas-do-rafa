@@ -594,6 +594,32 @@
       "expiry_hours": 24,
       "short_code": "clsrkd",
       "short_url": "https://ofertasdorafa.app.br/clsrkd"
+    },
+    {
+      "asin": "MANUAL_1780087504939",
+      "titulo": "Cartão de Memória SanDisk Micro SD, 128Gb",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 212.9,
+      "preco_atual": 134.15,
+      "preco_promocional": null,
+      "desconto_percent": 37,
+      "imagem_url": "https://m.media-amazon.com/images/I/51l5HURpwpL._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/4dUFr34",
+      "brand": "Sandisk",
+      "features": [
+        "Ideal para smartphones e tablets android",
+        "Velocidades de transferência de até 100mb/s**",
+        "Classe a1 para desempenho melhor de apps3 e velocidade uhs speed u1 e classe 10 para gravação e reprodução de vídeo em full hd1",
+        "À prova de choque, temperatura, água e raios-x2",
+        "Memória: 128 GB"
+      ],
+      "hook": "Sem espaço para suas fotos e apps? O cartão de memória SanDisk de 128GB é a solução perfeita para você!",
+      "data_atualizacao": "2026-05-29T20:45:04.939Z",
+      "expiry_date": "2026-05-30T20:45:04.939Z",
+      "expiry_hours": 24,
+      "short_code": "ig39np",
+      "short_url": "https://ofertasdorafa.app.br/ig39np"
     }
   ],
   "categorias": [
@@ -652,6 +678,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-29T17:40:13.745553"
+    "ultima_atualizacao": "2026-05-29T17:45:07.344693"
   }
 }
