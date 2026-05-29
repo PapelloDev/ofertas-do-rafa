@@ -596,6 +596,14 @@
       "icone": "🐈",
       "cor": "#C17843",
       "descricao": "Itens ideiais para quem tem gato em casa, pensando sempre em custo x beneficio e praticidade"
+    },
+    {
+      "id": "cozinha",
+      "nome": "Itens para cozinha",
+      "slug": "cozinha",
+      "icone": "🍳",
+      "cor": "#E7A03D",
+      "descricao": "Itens para tornar sua cozinha mais completa e moderna sempre com o melhor custo benefício"
     }
   ],
   "config": {
@@ -604,6 +612,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-29T11:26:02.882640"
+    "ultima_atualizacao": "2026-05-29T11:31:06.829264"
   }
 }
