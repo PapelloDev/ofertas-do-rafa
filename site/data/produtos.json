@@ -576,26 +576,6 @@
       "short_url": "https://ofertasdorafa.app.br/eeoz5g"
     },
     {
-      "asin": "MANUAL_1780087211368",
-      "titulo": "teste",
-      "descricao": "",
-      "categoria": "corrida",
-      "preco_original": 234324,
-      "preco_atual": 234234,
-      "preco_promocional": null,
-      "desconto_percent": 0,
-      "imagem_url": "234234",
-      "link_afiliado": "teste",
-      "brand": "",
-      "features": [],
-      "hook": null,
-      "data_atualizacao": "2026-05-29T20:40:11.369Z",
-      "expiry_date": "2026-05-30T20:40:11.369Z",
-      "expiry_hours": 24,
-      "short_code": "clsrkd",
-      "short_url": "https://ofertasdorafa.app.br/clsrkd"
-    },
-    {
       "asin": "MANUAL_1780087504939",
       "titulo": "Cartão de Memória SanDisk Micro SD, 128Gb",
       "descricao": "",
@@ -678,6 +658,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-29T17:45:07.344693"
+    "ultima_atualizacao": "2026-05-29T17:49:42.869222"
   }
 }
