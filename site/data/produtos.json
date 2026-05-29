@@ -470,6 +470,33 @@
       "expiry_hours": 24,
       "short_code": "0je7du",
       "short_url": "https://ofertasdorafa.app.br/0je7du"
+    },
+    {
+      "asin": "MANUAL_1780059704771",
+      "titulo": "Escova Tira Pelo Giratória",
+      "descricao": "",
+      "categoria": "gato",
+      "preco_original": 20.99,
+      "preco_atual": 18,
+      "preco_promocional": null,
+      "desconto_percent": 14,
+      "imagem_url": "https://m.media-amazon.com/images/I/51eBHRt364L._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4u1k99K",
+      "brand": "Ordene",
+      "features": [
+        "Ordene - Escova Tira Pelo Giratória, Cor Preta, Linha My Closet",
+        "deal para tirar pelos, fiapos e pó dos tecidos.",
+        "De fácil manuseio.",
+        "Se adapta de acordo com o tecido",
+        "Pode ser utilizado em almofadas, tapetes e roupas de cama",
+        "Dimensões: 5 x 5,5 x 26 cm"
+      ],
+      "hook": "Cansado de lutar contra pelos e fiapos em casa? A Escova Tira Pelo Giratória é a solução prática e eficaz que você precisa!",
+      "data_atualizacao": "2026-05-29T13:01:44.771Z",
+      "expiry_date": "2026-05-30T13:01:44.772Z",
+      "expiry_hours": 24,
+      "short_code": "zfffht",
+      "short_url": "https://ofertasdorafa.app.br/zfffht"
     }
   ],
   "categorias": [
@@ -520,6 +547,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-29T10:00:10.192591"
+    "ultima_atualizacao": "2026-05-29T10:02:13.543683"
   }
 }
