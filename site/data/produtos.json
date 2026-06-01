@@ -651,6 +651,32 @@
       "expiry_hours": 24,
       "short_code": "846zk7",
       "short_url": "https://ofertasdorafa.app.br/846zk7"
+    },
+    {
+      "asin": "MANUAL_1780320459212",
+      "titulo": "Mousepad Desk Mat MPEL-DG, Feltro Premium",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 49.9,
+      "preco_atual": 31,
+      "preco_promocional": null,
+      "desconto_percent": 38,
+      "imagem_url": "https://m.media-amazon.com/images/I/81j75cr+dvL._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/4u3Prgx",
+      "brand": "ELG",
+      "features": [
+        "COMPATIBILIDADE UNIVERSAL: Solução completa 3 em 1 com conectores Lightning, USB Tipo-C e Micro USB, permitindo carregar até três dispositivos simultaneamente com suporte a diferentes potências de carregamento.",
+        "CONSTRUÇÃO PREMIUM: Revestimento em tecido trançado resistente combinado com ponteiras em alumínio anodizado nas cores modernas, garantindo durabilidade excepcional e design sofisticado.",
+        "CARREGAMENTO OTIMIZADO: Suporte para carregamento rápido com até 15W/3A para dispositivos USB Tipo-C e 12W/2.4A para conexões Lightning e Micro USB, assegurando eficiência máxima.",
+        "PRATICIDADE TOTAL: Comprimento ideal de 1.2 metros com organizador de cabos em velcro incluso, perfeito para uso diário e transporte, mantendo seus cabos sempre organizados e protegidos.",
+        "SOBRE A ELG: A ELG é uma empresa brasileira que preza pela alta qualidade. Nossa política é aplicada em toda linha de produtos e garante que os consumidores possam adquirir itens que foram amplamente testados."
+      ],
+      "hook": "Cansado de ter cabos bagunçados e dispositivos descarregando? O Mousepad Desk Mat MPEL-DG organiza tudo e ainda carrega seus gadgets com rapidez!",
+      "data_atualizacao": "2026-06-01T13:27:39.212Z",
+      "expiry_date": "2026-06-02T13:27:39.212Z",
+      "expiry_hours": 24,
+      "short_code": "6bmiu5",
+      "short_url": "https://ofertasdorafa.app.br/6bmiu5"
     }
   ],
   "categorias": [
@@ -709,6 +735,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-06-01T10:23:07.862317"
+    "ultima_atualizacao": "2026-06-01T10:27:46.105139"
   }
 }
