@@ -357,7 +357,7 @@
       "features": [],
       "hook": "Chega de vinhos sem sabor que estragam suas reuniões! O Libere di Bere Bene transforma cada taça em uma experiência inesquecível.",
       "data_atualizacao": "2026-05-28T19:35:09.084Z",
-      "expiry_date": "2026-05-30T17:38:51.630267",
+      "expiry_date": "2026-05-30T17:50:30.067130",
       "expiry_hours": 24,
       "short_code": "1hn28s",
       "short_url": "https://ofertasdorafa.app.br/1hn28s"
@@ -466,7 +466,7 @@
       ],
       "hook": "Já cansou de caixas de som fracas e sem mobilidade? Conheça a caixa de som Bluetooth portátil que vai transformar suas festas e viagens!",
       "data_atualizacao": "2026-05-28T19:55:03.644Z",
-      "expiry_date": "2026-05-30T17:39:25.523065",
+      "expiry_date": "2026-05-30T17:51:03.529117",
       "expiry_hours": 24,
       "short_code": "0je7du",
       "short_url": "https://ofertasdorafa.app.br/0je7du"
@@ -596,10 +596,35 @@
       ],
       "hook": "Sem espaço para suas fotos e apps? O cartão de memória SanDisk de 128GB é a solução perfeita para você!",
       "data_atualizacao": "2026-05-29T20:45:04.939Z",
-      "expiry_date": "2026-05-30T20:45:04.939Z",
+      "expiry_date": "2026-05-30T17:51:12.598188",
       "expiry_hours": 24,
       "short_code": "ig39np",
       "short_url": "https://ofertasdorafa.app.br/ig39np"
+    },
+    {
+      "asin": "MANUAL_1780319905333",
+      "titulo": "Garmin Relógio Forerunner 55 com Monitor Cardíaco de Pulso e GPS",
+      "descricao": "",
+      "categoria": "eletronicos",
+      "preco_original": 2199,
+      "preco_atual": 1349,
+      "preco_promocional": null,
+      "desconto_percent": 39,
+      "imagem_url": "https://m.media-amazon.com/images/I/61eTqEILa9L._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4vriKL7",
+      "brand": "Garmin",
+      "features": [
+        "Você pode fazer diversas coisas para estender a duração da bateria. Reduza o tempo limite da luz de fundo Reduzir o brilho da luz de fundo. Desligue a tecnologia sem fio Bluetooth quando não estiver utilizando recursos conectados -Desligar o monitoramento de atividade -Use uma interface de relógio que não seja atualizada a cada segundo. Limitar as notificações do smartphone exibidas pelo dispositivo",
+        "OBSERVAÇÃO: a transmissão de dados da frequência cardíaca diminui a vida útil da bateria",
+        "Após 30 minutos de inatividade, o contador de passos se desliga para preservar a bateria. Quando a bateria está fraca, uma mensagem é exibida no dispositivo. Isso significa que restam cerca de cinco horas de bateria.",
+        "OBSERVAÇÃO: note que o uso do GPS com outro sistema de satélite pode reduzir a duração da bateria mais rapidamente do que se ele fosse usado sozinho"
+      ],
+      "hook": "O relógio que quebrou o Recorde mundial da maratona abaixo de 2 horas!",
+      "data_atualizacao": "2026-06-01T13:18:25.333Z",
+      "expiry_date": "2026-06-02T13:18:25.333Z",
+      "expiry_hours": 24,
+      "short_code": "6j1bvp",
+      "short_url": "https://ofertasdorafa.app.br/6j1bvp"
     }
   ],
   "categorias": [
@@ -658,6 +683,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-05-29T17:49:42.869222"
+    "ultima_atualizacao": "2026-06-01T10:18:30.426315"
   }
 }
