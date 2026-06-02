@@ -621,7 +621,7 @@
       ],
       "hook": "O relógio que quebrou o Recorde mundial da maratona abaixo de 2 horas!",
       "data_atualizacao": "2026-06-01T13:18:25.333Z",
-      "expiry_date": "2026-06-02T13:18:25.333Z",
+      "expiry_date": "2026-06-03T15:51:46.016833",
       "expiry_hours": 24,
       "short_code": "6j1bvp",
       "short_url": "https://ofertasdorafa.app.br/6j1bvp"
@@ -677,6 +677,26 @@
       "expiry_hours": 24,
       "short_code": "6bmiu5",
       "short_url": "https://ofertasdorafa.app.br/6bmiu5"
+    },
+    {
+      "asin": "MANUAL_1780426851697",
+      "titulo": "Cerveja Guinness Draught 440ml",
+      "descricao": "",
+      "categoria": "alimentos",
+      "preco_original": 34.9,
+      "preco_atual": 26.9,
+      "preco_promocional": null,
+      "desconto_percent": 23,
+      "imagem_url": "https://m.media-amazon.com/images/I/51hZbT7wbaL._AC_SX522_.jpg",
+      "link_afiliado": "https://amzn.to/4uJCklv",
+      "brand": "Guinness",
+      "features": [],
+      "hook": null,
+      "data_atualizacao": "2026-06-02T19:00:51.697Z",
+      "expiry_date": "2026-06-03T19:00:51.698Z",
+      "expiry_hours": 24,
+      "short_code": "1xvr8i",
+      "short_url": "https://ofertasdorafa.app.br/1xvr8i"
     }
   ],
   "categorias": [
@@ -735,6 +755,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-06-01T10:27:46.105139"
+    "ultima_atualizacao": "2026-06-02T16:00:54.080638"
   }
 }
