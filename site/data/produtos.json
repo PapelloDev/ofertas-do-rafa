@@ -370,9 +370,9 @@
       "descricao": "",
       "categoria": "eletronicos",
       "preco_original": 39.9,
-      "preco_atual": 28.4,
-      "preco_promocional": null,
-      "desconto_percent": 29,
+      "preco_atual": 26.98,
+      "preco_promocional": 26.98,
+      "desconto_percent": 32,
       "imagem_url": "https://m.media-amazon.com/images/I/41brJKH5sOL._AC_SX679_.jpg",
       "link_afiliado": "https://amzn.to/3Q8IqwT",
       "brand": "",
@@ -388,7 +388,7 @@
       ],
       "hook": "Cansado de ficar no escuro enquanto procura algo? A luminária de mesa LED touch é a solução prática e moderna que você precisa!",
       "data_atualizacao": "2026-05-28T19:44:30.486Z",
-      "expiry_date": "2026-05-29T19:44:30.486Z",
+      "expiry_date": "2026-06-04T11:43:03.293713",
       "expiry_hours": 24,
       "short_code": "r02x5d",
       "short_url": "https://ofertasdorafa.app.br/r02x5d"
@@ -544,7 +544,7 @@
       "features": [],
       "hook": "Azeite de oliva está nas alturas e você não precisa gastar uma fortuna! O Azeite Extra Virgem Andorinha é a solução com o melhor preço do mercado!",
       "data_atualizacao": "2026-05-29T17:01:32.134Z",
-      "expiry_date": "2026-05-30T17:01:32.135Z",
+      "expiry_date": "2026-06-04T11:43:48.014876",
       "expiry_hours": 24,
       "short_code": "eeoz5g",
       "short_url": "https://ofertasdorafa.app.br/eeoz5g"
@@ -667,10 +667,30 @@
       "features": [],
       "hook": null,
       "data_atualizacao": "2026-06-02T19:00:51.697Z",
-      "expiry_date": "2026-06-03T19:00:51.698Z",
+      "expiry_date": "2026-06-04T11:44:22.012889",
       "expiry_hours": 24,
       "short_code": "1xvr8i",
       "short_url": "https://ofertasdorafa.app.br/1xvr8i"
+    },
+    {
+      "asin": "MANUAL_1780517700325",
+      "titulo": "Café Baggio Cappuccino Pote 200g",
+      "descricao": "",
+      "categoria": "alimentos",
+      "preco_original": 23.98,
+      "preco_atual": 19.9,
+      "preco_promocional": null,
+      "desconto_percent": 17,
+      "imagem_url": "https://m.media-amazon.com/images/I/61V3vlAlY+L._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4uaVe3F",
+      "brand": "Baggio",
+      "features": [],
+      "hook": "Precisa de um empurrãozinho para acordar de vez? O Café Baggio Cappuccino traz o sabor e a energia que você precisa!",
+      "data_atualizacao": "2026-06-03T20:15:00.325Z",
+      "expiry_date": "2026-06-04T20:15:00.328Z",
+      "expiry_hours": 24,
+      "short_code": "h13uen",
+      "short_url": "https://ofertasdorafa.app.br/h13uen"
     }
   ],
   "categorias": [
@@ -729,6 +749,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-06-03T11:41:50.160399"
+    "ultima_atualizacao": "2026-06-03T17:15:02.597411"
   }
 }
