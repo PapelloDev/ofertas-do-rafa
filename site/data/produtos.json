@@ -691,6 +691,32 @@
       "expiry_hours": 24,
       "short_code": "h13uen",
       "short_url": "https://ofertasdorafa.app.br/h13uen"
+    },
+    {
+      "asin": "MANUAL_1780517816413",
+      "titulo": "Scotch, 3M, Fixa Forte, Fita Dupla Face, Fixação Extrema, 24mm x 2m",
+      "descricao": "",
+      "categoria": "outros",
+      "preco_original": 28,
+      "preco_atual": 25.19,
+      "preco_promocional": null,
+      "desconto_percent": 10,
+      "imagem_url": "https://m.media-amazon.com/images/I/71U9oRCZ2HL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4uP7ich",
+      "brand": "Scotch",
+      "features": [
+        "FIXAÇÃO PERMANENTE. Procure fixar objetos de decoração mais pesados como espelhos, quadros, painéis, sem a ajuda de uma furadeira.",
+        "AMBIENTE EXTERNO E INTERNO. Esse produto possui excelente fixação e suporta objetos com até 5 KG.",
+        "PRÁTICO E RÁPIDO. Faça você mesmo e decore sua casa com praticidade, em poucos minutos você fixa seu objeto.",
+        "SCOTCH FIXA FORTE. Tem o portfólio mais completo da categoria, com o produto certo para cada ambiente ou necessidade.",
+        "FORTE DE VERDADE. Scotch Fixa Forte é a fita dupla face que você pode usar sem medo. Para fixações permanente, seu adesivo tem tecnologia 3M."
+      ],
+      "hook": "Cansado de ver seus quadros e espelhos caindo? A fita dupla face Scotch Fixa Forte é a solução prática e permanente que você precisa!",
+      "data_atualizacao": "2026-06-03T20:16:56.413Z",
+      "expiry_date": "2026-06-04T20:16:56.413Z",
+      "expiry_hours": 24,
+      "short_code": "wqsp0j",
+      "short_url": "https://ofertasdorafa.app.br/wqsp0j"
     }
   ],
   "categorias": [
@@ -749,6 +775,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-06-03T17:15:02.597411"
+    "ultima_atualizacao": "2026-06-03T17:16:59.604528"
   }
 }
