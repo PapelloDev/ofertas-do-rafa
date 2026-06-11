@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Itens para cozinha - Itens para tornar sua cozinha mais completa e moderna sempre com o melhor custo benefício">
+    
+    <title>Itens para cozinha - Ofertas do Rafa</title>
+    
+    <link rel="icon" type="image/png" href="../assets/images/logo/favicon.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Header e Footer serão inseridos via JavaScript -->
+    
+    <!-- Category Hero -->
+    <section class="category-hero" style="background: linear-gradient(135deg, #E7A03D 0%, #E7A03Ddd 100%);">
+        <div class="container text-center">
+            <div class="category-icon">🍳</div>
+            <h1 class="category-title">Itens para cozinha</h1>
+            <p class="category-description">Itens para tornar sua cozinha mais completa e moderna sempre com o melhor custo benefício</p>
+        </div>
+    </section>
+    
+    <!-- Products Grid -->
+    <section class="py-12">
+        <div class="container">
+            <div id="products-grid" class="products-grid">
+                <!-- Products will be loaded here -->
+            </div>
+            
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state hidden">
+                <div class="empty-state-icon">🔍</div>
+                <h3 class="empty-state-title">Nenhuma oferta encontrada</h3>
+                <p>Ainda não temos produtos nesta categoria. Volte em breve!</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Layout Components -->
+    <script src="../assets/js/site-layout.js"></script>
+    <script>
+        // Inicializar layout
+        SiteLayout.init('cozinha');
+    </script>
+    
+    <script>
+        // Load products for this category
+        async function loadProducts() {
+            try {
+                const response = await fetch('../data/produtos.json');
+                const data = await response.json();
+                
+                const produtos = data.produtos.filter(p => p.categoria === 'cozinha');
+                
+                if (produtos.length === 0) {
+                    document.getElementById('empty-state').classList.remove('hidden');
+                    return;
+                }
+                
+                const grid = document.getElementById('products-grid');
+                grid.innerHTML = produtos.map(product => `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="${product.imagem_url}" alt="${product.titulo}">
+                            <span class="badge badge-discount">${Math.round(product.desconto_percent)}% OFF</span>
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">${product.titulo}</h3>
+                            ${product.brand ? `<p class="product-brand">${product.brand}</p>` : ''}
+                            <div class="product-prices">
+                                ${product.preco_original > product.preco_atual ? 
+                                    `<span class="price-old">R$ ${product.preco_original.toFixed(2)}</span>` : ''}
+                                <span class="price-current">R$ ${product.preco_atual.toFixed(2)}</span>
+                            </div>
+                            <a href="../produto/${product.asin}.html" class="btn btn-primary">
+                                Ver Oferta
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Erro ao carregar produtos:', error);
+                document.getElementById('empty-state').classList.remove('hidden');
+            }
+        }
+        
+        loadProducts();
+    </script>
+</body>
+</html>
