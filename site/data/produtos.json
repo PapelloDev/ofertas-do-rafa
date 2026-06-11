@@ -717,6 +717,26 @@
       "expiry_hours": 24,
       "short_code": "wqsp0j",
       "short_url": "https://ofertasdorafa.app.br/wqsp0j"
+    },
+    {
+      "asin": "MANUAL_1781187816272",
+      "titulo": "Old Parr Whisky 12 Anos 1L",
+      "descricao": "",
+      "categoria": "alimentos",
+      "preco_original": 157.59,
+      "preco_atual": 119.99,
+      "preco_promocional": null,
+      "desconto_percent": 24,
+      "imagem_url": "https://m.media-amazon.com/images/I/51zz0lzNtuL._AC_SX679_.jpg",
+      "link_afiliado": "https://amzn.to/4vMS2ga",
+      "brand": "Old Parr",
+      "features": [],
+      "hook": null,
+      "data_atualizacao": "2026-06-11T14:23:36.272Z",
+      "expiry_date": "2026-06-14T14:23:36.272Z",
+      "expiry_hours": 72,
+      "short_code": "zg4xne",
+      "short_url": "https://ofertasdorafa.app.br/zg4xne"
     }
   ],
   "categorias": [
@@ -775,6 +795,6 @@
     "site_url": "https://ofertasdorafa.app.br",
     "partner_tag": "rahsinc-20",
     "whatsapp_group_url": "https://chat.whatsapp.com/EmaQ8x2ECSpARtrP57yN6P",
-    "ultima_atualizacao": "2026-06-03T17:16:59.604528"
+    "ultima_atualizacao": "2026-06-11T11:23:38.587170"
   }
 }
